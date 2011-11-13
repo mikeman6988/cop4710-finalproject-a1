@@ -1,2 +1,6 @@
 hello world!
+<<<<<<< HEAD
 Hi Jorge!
+=======
+THis is willie
+>>>>>>> d79bceb1c4dbdc35e98a0cf86b7a14edac823e1c
