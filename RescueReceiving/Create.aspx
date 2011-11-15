@@ -376,18 +376,22 @@
             <tr>
                 <td>
                     <asp:Label ID="Label35" runat="server" Text="Rescue:"></asp:Label>
+                    <br />
                     <asp:TextBox ID="TextBox27" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label36" runat="server" Text="Medication:"></asp:Label>
+                    <br />
                     <asp:TextBox ID="TextBox28" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label37" runat="server" Text="Dr. Sign:"></asp:Label>
+                    <br />
                     <asp:TextBox ID="TextBox26" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label38" runat="server" Text="DEA#:"></asp:Label>
+                    <br />
                     <asp:TextBox ID="TextBox25" runat="server"></asp:TextBox>
                 </td>
                 <td>
@@ -395,9 +399,12 @@
                 </td>
             </tr>
         </table>
-
-
      </div>
+     <br />
+     <div>
+        <asp:Button ID="Button1" runat="server" Text="Clear" />
+        <asp:Button ID="Button2" runat="server" Text="Submit" />
+    </div>
     </form>
 </body>
 </html>
