@@ -140,6 +140,12 @@
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RRDataLayer\RRDataLayer.csproj">
+      <Project>{8346E8C9-5B23-4541-A6F7-CD6AEC843140}</Project>
+      <Name>RRDataLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
