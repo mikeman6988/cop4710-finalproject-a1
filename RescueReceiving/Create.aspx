@@ -18,23 +18,19 @@
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label12" runat="server" Text="Date:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbDate" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label14" runat="server" Text="Time:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbTime" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label19" runat="server" Text="County:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlCounty" runat="server">
                     </asp:DropDownList>
                 </td>
                 <td>
                     <asp:Label ID="Label43" runat="server" Text="Unit:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlUnit" runat="server">
                     </asp:DropDownList>
                 </td>
@@ -53,20 +49,24 @@
                 <td width="40%">
                     <table width="100%">
                         <tr valign="top">
-                            <td>
+                            <td colspan="2">
                                 <asp:Label ID="Label1" runat="server" Text="Age:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbAge" Columns="5" runat="server"></asp:TextBox>
+                                &nbsp;&nbsp;&nbsp;
+                                <asp:RadioButton ID="rbYears" GroupName="age" runat="server" Checked="true" Text="Years" />
+                                <asp:RadioButton ID="rbMonths" GroupName="age" runat="server" Text="Months" />
+                                <asp:RadioButton ID="rbWeeks" GroupName="age" runat="server" Text="Weeks" />
                             </td>
+                        </tr>
+                        <tr valign="top">
                             <td>
                                 <asp:Label ID="Label7" runat="server" Text="Sex:"></asp:Label>
-                                <br />
-                                <asp:RadioButton ID="rbMale" GroupName="sex" runat="server" Text="M" />
-                                <asp:RadioButton ID="rbFemale" GroupName="sex" runat="server" Text="F" />
+                                &nbsp;&nbsp;&nbsp;
+                                <asp:RadioButton ID="rbMale" GroupName="sex" runat="server" Text="Male" />
+                                <asp:RadioButton ID="rbFemale" GroupName="sex" runat="server" Text="Female" />
                             </td>
                             <td>
                                 <asp:Label ID="Label8" runat="server" Text="A&O X"></asp:Label>
-                                <br />
                                 <asp:DropDownList ID="ddlAlertOriented" runat="server">
                                     <asp:ListItem>4</asp:ListItem>
                                     <asp:ListItem>3</asp:ListItem>
@@ -76,11 +76,9 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <tr valign="top">
-                            <td colspan="3">
-                                <asp:Label ID="Label6" runat="server" Text="Chief complaint:"></asp:Label>
-                                <br />
-                                <asp:TextBox TextMode="MultiLine" Rows="4" Width="100%" ID="tbChiefComplaint" runat="server"></asp:TextBox>
+                        <tr>
+                            <td colspan="2">
+                                <asp:CheckBox ID="cbMultiplePatient" runat="server" Text="Multiple Patient Screening" />
                             </td>
                         </tr>
                     </table>
@@ -90,63 +88,54 @@
                         <tr valign="top">
                             <td>
                                 <asp:Label ID="Label9" runat="server" Text="B/P:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbBPS1" Columns="5" runat="server"></asp:TextBox> / 
                                 <asp:TextBox ID="tbBPD1" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label11" runat="server" Text="Pulse:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbPulse1" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label13" runat="server" Text="Resp:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbResp1" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label18" runat="server" Text="O2 Sat:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbO2SAT1" Columns="5" runat="server"></asp:TextBox>
                             </td>
                         </tr>
                         <tr valign="top">
                             <td>
                                 <asp:Label ID="Label39" runat="server" Text="B/P:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbBPS2" Columns="5" runat="server"></asp:TextBox> / 
                                 <asp:TextBox ID="tbBPD2" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label40" runat="server" Text="Pulse:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbPulse2" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label41" runat="server" Text="Resp:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbResp2" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label42" runat="server" Text="O2 Sat:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbO2SAT2" Columns="5" runat="server"></asp:TextBox>
                             </td>
                         </tr>
                         <tr valign="top">
                             <td>
                                 <asp:Label ID="Label24" runat="server" Text="LOC:"></asp:Label>
-                                <br />
                                 <asp:DropDownList ID="ddlLOC" runat="server">
+                                    <asp:ListItem>Unknown</asp:ListItem>
                                     <asp:ListItem>Yes</asp:ListItem>
                                     <asp:ListItem>No</asp:ListItem>
-                                    <asp:ListItem>Unknown</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td>
                                 <asp:Label ID="Label15" runat="server" Text="GCS:"></asp:Label>
-                                <br />
                                 <asp:DropDownList ID="ddlGCS" runat="server">
+                                    <asp:ListItem> </asp:ListItem>
                                     <asp:ListItem>15</asp:ListItem>
                                     <asp:ListItem>14</asp:ListItem>
                                     <asp:ListItem>13</asp:ListItem>
@@ -164,16 +153,28 @@
                             </td>
                             <td>
                                 <asp:Label ID="Label16" runat="server" Text="BGL#1:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbBGL1" Columns="5" runat="server"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:Label ID="Label17" runat="server" Text="BGL#2:"></asp:Label>
-                                <br />
                                 <asp:TextBox ID="tbBGL2" Columns="5" runat="server"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr valign="top">
+                <td>
+                    <asp:Label ID="Label44" runat="server" Text="Category:"></asp:Label>
+                    <br />
+                    <asp:DropDownList ID="ddlCategory" Width="100%" runat="server">
+                    </asp:DropDownList>
+                    <br />
+                    <asp:Label ID="Label6" runat="server" Text="Chief complaint:"></asp:Label>
+                    <br />
+                    <asp:TextBox TextMode="MultiLine" Rows="4" Width="100%" ID="tbChiefComplaint" runat="server"></asp:TextBox>
                 </td>
             </tr>
         </table>
@@ -189,7 +190,6 @@
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label20" runat="server" Text="Vehicular Accident:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlVehicularAccident" runat="server">
                         <asp:ListItem>MVC</asp:ListItem>
                         <asp:ListItem>MCC</asp:ListItem>
@@ -201,12 +201,10 @@
                 </td>
                 <td>
                     <asp:Label ID="Label23" runat="server" Text="Speed:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbSpeed" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label21" runat="server" Text="Driver:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlDriver" runat="server">
                         <asp:ListItem>Unrestrained</asp:ListItem>
                         <asp:ListItem>Restrained</asp:ListItem>
@@ -214,7 +212,6 @@
                 </td>
                 <td>
                     <asp:Label ID="Label22" runat="server" Text="Passenger:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlPassenger" runat="server">
                         <asp:ListItem>Front Unrestrained</asp:ListItem>
                         <asp:ListItem>Front Restrained</asp:ListItem>
@@ -263,7 +260,6 @@
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label33" runat="server" Text="Level:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlLevel" runat="server">
                         <asp:ListItem>1</asp:ListItem>
                         <asp:ListItem>2</asp:ListItem>
@@ -273,7 +269,6 @@
                 </td>
                 <td>
                     <asp:Label ID="Label34" runat="server" Text="TC-ER-PEDS:"></asp:Label>
-                    <br />
                     <asp:DropDownList ID="ddlDestination" runat="server">
                         <asp:ListItem>ER</asp:ListItem>
                         <asp:ListItem>TC</asp:ListItem>
@@ -303,7 +298,6 @@
                 </td>
                 <td>
                     <asp:Label ID="Label25" runat="server" Text="Onset:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbOnset" runat="server"></asp:TextBox>
                 </td>
             </tr>
@@ -313,7 +307,6 @@
                 </td>
                 <td>
                     <asp:Label ID="Label26" runat="server" Text="Time Issued by Rescue:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbTimeIssued" runat="server"></asp:TextBox>
                 </td>
             </tr>
@@ -348,17 +341,14 @@
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label29" runat="server" Text="Dispatcher:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbDispatcher" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label30" runat="server" Text="Notified:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbNotified" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label31" runat="server" Text="ETA:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="tbETA" runat="server"></asp:TextBox>
                 </td>
             </tr>
@@ -376,22 +366,18 @@
             <tr>
                 <td>
                     <asp:Label ID="Label35" runat="server" Text="Rescue:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="TextBox27" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label36" runat="server" Text="Medication:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="TextBox28" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label37" runat="server" Text="Dr. Sign:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="TextBox26" runat="server"></asp:TextBox>
                 </td>
                 <td>
                     <asp:Label ID="Label38" runat="server" Text="DEA#:"></asp:Label>
-                    <br />
                     <asp:TextBox ID="TextBox25" runat="server"></asp:TextBox>
                 </td>
                 <td>
