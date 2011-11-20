@@ -10,7 +10,7 @@ namespace RRDataLayer
 {
 
 
-    public class DA
+    public class RRDataManager
     {
         private static String connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=C:\\Users\\Willie\\" +
         "cop4710-finalproject-a1\\RescueReceiving\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
@@ -67,7 +67,7 @@ namespace RRDataLayer
         }
 
 
-        public void createHistory(EmergencyCall ec)
+        public void createHistory(RRDataObject ec)
         {
             String sqlString = "INSERT INTO hxjunction ";
             sqlString += createColValueString(ec);
@@ -88,7 +88,7 @@ namespace RRDataLayer
         }
 
 
-        public void createTreatment(EmergencyCall ec)
+        public void createTreatment(RRDataObject ec)
         {
             String sqlString = "INSERT INTO txjunction ";
             
@@ -110,12 +110,12 @@ namespace RRDataLayer
 
         }
 
-        public void createHistoryItem(EmergencyCall ec)
+        public void createHistoryItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO history\n";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -131,12 +131,12 @@ namespace RRDataLayer
             }
         }
 
-        public void createTreatementItem(EmergencyCall ec)
+        public void createTreatementItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO treatment ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -153,12 +153,12 @@ namespace RRDataLayer
         }
 
 
-        public void createCountyItem(EmergencyCall ec)
+        public void createCountyItem(RRCounty rc)
         {
             String sqlString = "INSERT INTO county ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(rc);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -176,12 +176,12 @@ namespace RRDataLayer
 
 
 
-        public void createDepartmentItem(EmergencyCall ec)
+        public void createDepartmentItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO department ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -198,12 +198,12 @@ namespace RRDataLayer
         }
 
 
-        public void createUnitItem(EmergencyCall ec)
+        public void createUnitItem(RRUnit ru)
         {
             String sqlString = "INSERT INTO unit ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(ru);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -219,12 +219,12 @@ namespace RRDataLayer
             }
         }
 
-        public void createCategoryItem(EmergencyCall ec)
+        public void createCategoryItem(RRCategory rc)
         {
             String sqlString = "INSERT INTO category ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(rc);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -240,12 +240,12 @@ namespace RRDataLayer
             }
         }
 
-        public void createCCListItem(EmergencyCall ec)
+        public void createCCListItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO cclist ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -261,12 +261,12 @@ namespace RRDataLayer
             }
         }
 
-        public void createDoctorItem(EmergencyCall ec)
+        public void createDoctorItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO doctor ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -282,12 +282,12 @@ namespace RRDataLayer
             }
         }
 
-        public void createMedicationItem(EmergencyCall ec)
+        public void createMedicationItem(RRDataObject daOb)
         {
             String sqlString = "INSERT INTO medication ";
 
 
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -303,7 +303,7 @@ namespace RRDataLayer
             }
         }
 
-        private String createColValueString(EmergencyCall ec)
+        private String createColValueString(RRDataObject ec)
         {
             String str = "";
             String fields = "(\n";
@@ -323,27 +323,27 @@ namespace RRDataLayer
             return str;
         }
 
-        private List<EmergencyCall> getEmergenyCalls(SqlCommand cmd)
+        private List<RRDataObject> getDataObjects(SqlCommand cmd)
         {
             cmd.CommandType = CommandType.Text;
-            EmergencyCall ec = null;
-            List<EmergencyCall> ecs = new List<EmergencyCall>();
+            RRDataObject daOb = null;
+            List<RRDataObject> daObs = new List<RRDataObject>();
             try
             {
                 //execute the query
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    ec = new EmergencyCall();
+                    daOb = new EmergencyCall();
                     fieldnames.Clear();
                     for (int i = 0; i < rdr.FieldCount; i++)
                     {
                         this.fieldnames.Add(rdr.GetName(i).ToString());
-                        ec.Add(fieldnames[i],rdr[fieldnames[i]]);
+                        daOb.Add(fieldnames[i],rdr[fieldnames[i]]);
                                              
                     }
 
-                    ecs.Add(ec);
+                    daObs.Add(daOb);
                     
                     
                 }
@@ -365,97 +365,134 @@ namespace RRDataLayer
 
 
 
-            return ecs;
+            return daObs;
         
         }
 
-        public List<EmergencyCall> getAllEmergencyCall()
+        public List<RRDataObject> getAllEmergencyCall()
         {
             
             SqlCommand cmd = new SqlCommand("Select * from EmergencyCall", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
          
         }
 
-        public List<EmergencyCall> getAllCountyItems()
+
+        public List<RRDataObject> getEmergencyCallByPrimaryKey(DateTime key)
+        {
+            String sqlString = "Select * from EmergencyCall where created_date_time=" + key;
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            List<RRDataObject> ecs = getDataObjects(cmd);
+            return ecs;
+
+        }
+
+        public List<RRDataObject> getHistoryByPrimaryKey(DateTime key)
+        {
+            String sqlString = "Select * from hxjunction where created_date_time=" + key;
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            List<RRDataObject> ecs = getDataObjects(cmd);
+            return ecs;
+
+        }
+
+        public List<RRDataObject> getTreatmentByPrimaryKey(DateTime key)
+        {
+            String sqlString = "Select * from txjunction where created_date_time=" + key;
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            List<RRDataObject> ecs = getDataObjects(cmd);
+            return ecs;
+
+        }
+
+        public List<RRDataObject> getAllEmergencyCall(DateTime key)
+        {
+            String sqlString = "Select * from EmergencyCall where created_date_time=" + key;
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            List<RRDataObject> ecs = getDataObjects(cmd);
+            return ecs;
+
+        }
+
+        public List<RRDataObject> getAllCountyItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from county", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
 
-        public List<EmergencyCall> getAllHistoryItems()
+        public List<RRDataObject> getAllHistoryItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from history", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllTreatmentItems()
+        public List<RRDataObject> getAllTreatmentItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from treatment", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllDepartmentItems()
+        public List<RRDataObject> getAllDepartmentItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from department", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllUnitItems()
+        public List<RRDataObject> getAllUnitItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from unit", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllCategoryItems()
+        public List<RRDataObject> getAllCategoryItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from category", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getCCListItems()
+        public List<RRDataObject> getCCListItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from cclist", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllDoctorItems()
+        public List<RRDataObject> getAllDoctorItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from doctor", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }
 
-        public List<EmergencyCall> getAllMedicationItems()
+        public List<RRDataObject> getAllMedicationItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from medication", getDataConnection(false));
-            List<EmergencyCall> ecs = getEmergenyCalls(cmd);
+            List<RRDataObject> ecs = getDataObjects(cmd);
             return ecs;
 
         }

@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DA.cs" />
+    <Compile Include="RRDataManager.cs" />
     <Compile Include="EmergencyCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RRCategory.cs" />
