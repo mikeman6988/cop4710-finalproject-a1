@@ -174,6 +174,9 @@
                     <br />
                     <asp:Label ID="Label6" runat="server" Text="Chief complaint:"></asp:Label>
                     <br />
+                    <asp:DropDownList ID="ddlCCList" Width="100%" runat="server">
+                    </asp:DropDownList>
+                    <br />
                     <asp:TextBox TextMode="MultiLine" Rows="2" Width="100%" ID="tbChiefComplaint" runat="server"></asp:TextBox>
                 </td>
             </tr>

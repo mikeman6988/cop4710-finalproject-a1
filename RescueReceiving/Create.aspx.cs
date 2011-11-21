@@ -76,6 +76,16 @@ namespace RescueReceiving
                 ddlCategory.Items.Add(item);
             }
 
+            // Get the ChiefComplaint list
+            //
+            List<RRChiefComplaint> chiefComplaints = mgr.getCCListItems();
+            foreach (var complaint in chiefComplaints)
+            {
+                var item = new ListItem(complaint.Name,
+                                        complaint.Id.ToString());
+                ddlCCList.Items.Add(item);
+            }
+
             // Get the destination department
             //
             List<RRDepartment> departments = mgr.getAllDepartmentItems();
