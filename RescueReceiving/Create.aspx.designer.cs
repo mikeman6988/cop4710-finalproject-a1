@@ -670,6 +670,15 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.DropDownList ddlDestination;
         
         /// <summary>
+        /// cbCardiacRed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbCardiacRed;
+        
+        /// <summary>
         /// Label4 control.
         /// </summary>
         /// <remarks>
@@ -677,15 +686,6 @@ namespace RescueReceiving {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
-        
-        /// <summary>
-        /// rbTraumaAlert control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbTraumaAlert;
         
         /// <summary>
         /// rbStrokeAlert control.
@@ -697,24 +697,6 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.CheckBox rbStrokeAlert;
         
         /// <summary>
-        /// Label25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label25;
-        
-        /// <summary>
-        /// tbOnset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOnset;
-        
-        /// <summary>
         /// rbStemi control.
         /// </summary>
         /// <remarks>
@@ -722,6 +704,24 @@ namespace RescueReceiving {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox rbStemi;
+        
+        /// <summary>
+        /// rbTraumaAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox rbTraumaAlert;
+        
+        /// <summary>
+        /// cbResusitation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbResusitation;
         
         /// <summary>
         /// Label26 control.
@@ -740,6 +740,24 @@ namespace RescueReceiving {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbTimeIssued;
+        
+        /// <summary>
+        /// Label25 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label25;
+        
+        /// <summary>
+        /// tbOnset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbOnset;
         
         /// <summary>
         /// Label27 control.
@@ -796,22 +814,13 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.TextBox tbDispatcher;
         
         /// <summary>
-        /// Label30 control.
+        /// cbNotified control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label30;
-        
-        /// <summary>
-        /// tbNotified control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbNotified;
+        protected global::System.Web.UI.WebControls.CheckBox cbNotified;
         
         /// <summary>
         /// Label31 control.
@@ -868,13 +877,13 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label36;
         
         /// <summary>
-        /// TextBox28 control.
+        /// ddlMedication control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox28;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMedication;
         
         /// <summary>
         /// Label37 control.
@@ -886,13 +895,13 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label37;
         
         /// <summary>
-        /// TextBox26 control.
+        /// ddlDoctor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox26;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDoctor;
         
         /// <summary>
         /// Label38 control.

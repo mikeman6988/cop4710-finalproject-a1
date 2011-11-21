@@ -25,6 +25,10 @@ namespace RescueReceiving
         //
         private void initNew()
         {
+            // Get the data manager from the application
+            //
+            RRDataManager mgr = (RRDataManager) Application["RRDataManager"];
+
             // Set the date and time
             //
             tbDate.Text = DateTime.Now.Date.ToShortDateString();
@@ -32,7 +36,7 @@ namespace RescueReceiving
 
             // Get the county list
             //
-            List<RRCounty> counties = GetCounties();
+            List<RRCounty> counties = mgr.getAllCountyItems();
             foreach (var county in counties)
             {
                 var item = new ListItem(county.Name, 
@@ -42,7 +46,7 @@ namespace RescueReceiving
 
             // Get the unit list
             //
-            List <RRUnit> units = GetUnits();
+            List <RRUnit> units = mgr.getAllUnitItems();
             foreach (var unit in units)
             {
                 var item = new ListItem(unit.Name,
@@ -52,7 +56,7 @@ namespace RescueReceiving
 
             // Get the category list
             //
-            List<RRCategory> categories = GetCategories();
+            List<RRCategory> categories = mgr.getAllCategoryItems();
             foreach (var category in categories)
             {
                 var item = new ListItem(category.Name,
@@ -60,74 +64,55 @@ namespace RescueReceiving
                 ddlCategory.Items.Add(item);
             }
 
-
-        }
-
-        //
-        // Helpers
-        //
-
-        private List<RRCounty> GetCounties()
-        {
-            var counties = new List<RRCounty>();
-
-            // TODO: replace with database query
+            // Get the destination department
             //
-            var county = new RRCounty();
-            county["countyid"] = 1;
-            county["countyName"] = "Duval";
+            List<RRDepartment> departments = mgr.getAllDepartmentItems();
+            foreach (var department in departments)
+            {
+                var item = new ListItem(department.Name,
+                                        department.Id.ToString());
+                ddlDestination.Items.Add(item);
+            }
 
-            counties.Add(county);
-
-            county = new RRCounty();
-            county["countyid"] = 2;
-            county["countyName"] = "St. Johns";
-
-            counties.Add(county);
-
-            return counties;
-        }
-
-        private List<RRUnit> GetUnits()
-        {
-            var units = new List<RRUnit>();
-
-            // TODO: replace with database query
+            // Get the history list
             //
-            var unit = new RRUnit();
-            unit["unitid"] = 1;
-            unit["unitname"] = "A1";
+            List<RRHistory> histories = mgr.getAllHistoryItems();
+            foreach (var history in histories)
+            {
+                var item = new ListItem(history.Name,
+                                        history.Id.ToString());
+                cblHistory.Items.Add(item);
+            }
 
-            units.Add(unit);
-
-            unit = new RRUnit();
-            unit["unitid"] = 2;
-            unit["unitname"] = "A2";
-
-            units.Add(unit);
-
-            return units;
-        }
-
-        private List<RRCategory> GetCategories()
-        {
-            var categories = new List<RRCategory>();
-
-            // TODO: replace with database query
+            // Get the treatment list
             //
-            var category = new RRCategory();
-            category["catid"] = 1;
-            category["categoryname"] = "FALL";
+            List<RRTreatment> treatments = mgr.getAllTreatmentItems();
+            foreach (var treatment in treatments)
+            {
+                var item = new ListItem(treatment.Name,
+                                        treatment.Id.ToString());
+                cblTreatment.Items.Add(item);
+            }
 
-            categories.Add(category);
+            // Get the medication list
+            //
+            List<RRMedication> medications = mgr.getAllMedicationItems();
+            foreach (var medication in medications)
+            {
+                var item = new ListItem(medication.Name,
+                                        medication.Id.ToString());
+                ddlMedication.Items.Add(item);
+            }
 
-            category = new RRCategory();
-            category["catid"] = 2;
-            category["categoryname"] = "MEDICAL";
-
-            categories.Add(category);
-
-            return categories;
+            // Get the doctor list
+            //
+            List<RRDoctor> doctors = mgr.getAllDoctorItems();
+            foreach (var doctor in doctors)
+            {
+                var item = new ListItem(doctor.Name,
+                                        doctor.Id.ToString());
+                ddlDoctor.Items.Add(item);
+            }
         }
     }
 }
