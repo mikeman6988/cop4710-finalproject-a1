@@ -127,9 +127,9 @@
                             <td>
                                 <asp:Label ID="Label24" runat="server" Text="LOC:"></asp:Label>
                                 <asp:DropDownList ID="ddlLOC" runat="server">
-                                    <asp:ListItem>Unknown</asp:ListItem>
-                                    <asp:ListItem>Yes</asp:ListItem>
-                                    <asp:ListItem>No</asp:ListItem>
+                                    <asp:ListItem Value="U">Unknown</asp:ListItem>
+                                    <asp:ListItem Value="Y">Yes</asp:ListItem>
+                                    <asp:ListItem Value="N">No</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -174,6 +174,9 @@
                     <br />
                     <asp:Label ID="Label6" runat="server" Text="Chief complaint:"></asp:Label>
                     <br />
+                    <asp:DropDownList ID="ddlChiefComplaint" Width="100%" runat="server">
+                    </asp:DropDownList>
+                    <br />
                     <asp:TextBox TextMode="MultiLine" Rows="2" Width="100%" ID="tbChiefComplaint" runat="server"></asp:TextBox>
                 </td>
             </tr>
@@ -188,17 +191,6 @@
                 </th>
             </tr>
             <tr valign="top">
-                <td>
-                    <asp:Label ID="Label20" runat="server" Text="Vehicular Accident:"></asp:Label>
-                    <asp:DropDownList ID="ddlVehicularAccident" runat="server">
-                        <asp:ListItem>MVC</asp:ListItem>
-                        <asp:ListItem>MCC</asp:ListItem>
-                        <asp:ListItem>ATV</asp:ListItem>
-                        <asp:ListItem>Bicycle</asp:ListItem>
-                        <asp:ListItem>Pedestrian</asp:ListItem>
-                        <asp:ListItem>Boat / JetSki</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
                 <td>
                     <asp:Label ID="Label23" runat="server" Text="Speed:"></asp:Label>
                     <asp:TextBox ID="tbSpeed" runat="server"></asp:TextBox>
@@ -230,9 +222,6 @@
                 <td>
                     <asp:CheckBox ID="rbRollover" runat="server" Text="Rollover" />
                 </td>
-                <td>
-                    <asp:CheckBox ID="rbHelmet" runat="server" Text="Helmet" />
-                </td>
             </tr>
             <tr valign="top">
                 <td>
@@ -240,6 +229,9 @@
                 </td>
                 <td>
                     <asp:CheckBox ID="rbPackaged" runat="server" Text="Packaged" />
+                </td>
+                <td>
+                    <asp:CheckBox ID="rbHelmet" runat="server" Text="Helmet" />
                 </td>
             </tr>
         </table>

@@ -76,6 +76,16 @@ namespace RescueReceiving
                 ddlCategory.Items.Add(item);
             }
 
+            // Get chief complaints
+            //
+            List<RRChiefComplaint> complaints = mgr.getCCListItems();
+            foreach (var complaint in complaints)
+            {
+                var item = new ListItem(complaint.Name,
+                                        complaint.Id.ToString());
+                ddlChiefComplaint.Items.Add(item);
+            }
+
             // Get the destination department
             //
             List<RRDepartment> departments = mgr.getAllDepartmentItems();
@@ -149,6 +159,13 @@ namespace RescueReceiving
             ec.Respiration2 = SafeToInt(tbResp2.Text);
             ec.OxygenSaturation1 = SafeToInt(tbO2SAT1.Text);
             ec.OxygenSaturation2 = SafeToInt(tbO2SAT2.Text);
+            ec.LossOfConsciousness = ddlLOC.SelectedValue;
+            ec.GlasgowComaScale = SafeToInt(ddlGCS.SelectedItem.Text);
+            ec.BloodGlucoseLevel1 = SafeToInt(tbBGL1.Text);
+            ec.BloodGlucoseLevel2 = SafeToInt(tbBGL2.Text);
+            ec.CategoryId = SafeToInt(ddlCategory.SelectedValue);
+            ec.ChiefComplaintId = SafeToInt(ddlChiefComplaint.SelectedValue);
+            ec.ChiefComplaint = tbChiefComplaint.Text;
 
             // Get the data manager from the application
             //

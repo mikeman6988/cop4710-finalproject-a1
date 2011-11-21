@@ -222,5 +222,90 @@ namespace RRDataLayer
                 this["o2_sat2"] = value;
             }
         }
+
+        public string LossOfConsciousness
+        {
+            get
+            {
+                return (string)this["loc"];
+            }
+            set
+            {
+                this["loc"] = value;
+            }
+        }
+
+        public int GlasgowComaScale
+        {
+            get
+            {
+                return (int)this["gcs"];
+            }
+            set
+            {
+                this["gcs"] = value;
+            }
+        }
+
+        public int BloodGlucoseLevel1
+        {
+            get
+            {
+                return (int) this["init_bgl"];
+            }
+            set
+            {
+                this["init_bgl"] = value;
+            }
+        }
+
+        public int BloodGlucoseLevel2
+        {
+            get
+            {
+                return (int)this["sec_bgl"];
+            }
+            set
+            {
+                this["sec_bgl"] = value;
+            }
+        }
+
+        public int CategoryId
+        {
+            get
+            {
+                return (int)this["category"];
+            }
+            set
+            {
+                this["category"] = value;
+            }
+        }
+
+        public int ChiefComplaintId
+        {
+            get
+            {
+                return (int)this["ccid"];
+            }
+            set
+            {
+                this["ccid"] = value;
+            }
+        }
+
+        public string ChiefComplaint
+        {
+            get
+            {
+                return (string)this["cc"];
+            }
+            set
+            {
+                this["cc"] = value;
+            }
+        }
+    
     }
 }
