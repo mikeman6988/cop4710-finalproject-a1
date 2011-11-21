@@ -33,6 +33,18 @@ namespace RRDataLayer
             {
                 this["unitid"] = value;
             }
-        }    
+        }
+
+        public int CountyId
+        {
+            get
+            {
+                return (int)this["countyid"];
+            }
+            set
+            {
+                this["countyid"] = value;
+            }
+        }
     }
 }

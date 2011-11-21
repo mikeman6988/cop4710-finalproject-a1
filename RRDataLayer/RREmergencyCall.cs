@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RRDataLayer
 {
-    public class EmergencyCall : RRDataObject
+    public class RREmergencyCall : RRDataObject
     {
     }
 }

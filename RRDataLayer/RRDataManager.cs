@@ -12,26 +12,40 @@ namespace RRDataLayer
 
     public class RRDataManager
     {
-        private static String connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=C:\\Users\\Willie\\" +
-        "cop4710-finalproject-a1\\RescueReceiving\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
-        "Connect Timeout=30;User Instance=True";
-
+        private string appPath;
         private SqlConnection conn;
         private SqlDataReader rdr;
         private SqlTransaction tran;
         private List<string> fieldnames = new List<string>();
+
+        public RRDataManager()
+        {
+            appPath = "C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving";
+        }
+
+        public RRDataManager(string path)
+        {
+            appPath = path;
+        }
 
         public List<string> getFieldNames()
         {
             return this.fieldnames;
         }
 
+        private string getConnectionString()
+        {
+            string connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=" + appPath +
+                "\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
+                "Connect Timeout=30;User Instance=True";
+            return connectionString;
+        }
+
         public SqlConnection getDataConnection(bool isTransaction)
         {
             try
             {
-                
-                conn = new SqlConnection(connectionString);
+                conn = new SqlConnection(getConnectionString());
                 conn.Open();
                 if (isTransaction)
                 {
@@ -40,13 +54,12 @@ namespace RRDataLayer
             }
             catch (Exception ex)
             {
-                throw new System.ArgumentException("Cannot open the connection: ", connectionString, ex);
-
+                throw new System.ArgumentException("Cannot open the connection: ", getConnectionString(), ex);
             }
             return conn;
         }
 
-        public void createEmergencyCall(EmergencyCall ec)
+        public void createEmergencyCall(RREmergencyCall ec)
         {
             String sqlString = "INSERT INTO EmergencyCall ";
             sqlString += createColValueString(ec);
@@ -63,11 +76,9 @@ namespace RRDataLayer
                 tran.Rollback();
                 throw ex;
             }
-            
         }
 
-
-        public void createHistory(RRDataObject ec)
+        public void createHistory(RRHistoryJunction ec)
         {
             String sqlString = "INSERT INTO hxjunction ";
             sqlString += createColValueString(ec);
@@ -84,15 +95,12 @@ namespace RRDataLayer
                 tran.Rollback();
                 throw ex;
             }
-
         }
 
-
-        public void createTreatment(RRDataObject ec)
+        public void createTreatment(RRTreatmentJunction ec)
         {
             String sqlString = "INSERT INTO txjunction ";
             
-
             sqlString += createColValueString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -107,14 +115,12 @@ namespace RRDataLayer
                 tran.Rollback();
                 throw ex;
             }
-
         }
 
-        public void createHistoryItem(RRDataObject daOb)
+        public void createHistoryItem(RRHistory daOb)
         {
             String sqlString = "INSERT INTO history\n";
 
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -131,11 +137,10 @@ namespace RRDataLayer
             }
         }
 
-        public void createTreatementItem(RRDataObject daOb)
+        public void createTreatmentItem(RRTreatment daOb)
         {
             String sqlString = "INSERT INTO treatment ";
 
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -151,13 +156,10 @@ namespace RRDataLayer
                 throw ex;
             }
         }
-
 
         public void createCountyItem(RRCounty rc)
         {
             String sqlString = "INSERT INTO county ";
-
-
             sqlString += createColValueString(rc);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -174,13 +176,9 @@ namespace RRDataLayer
             }
         }
 
-
-
-        public void createDepartmentItem(RRDataObject daOb)
+        public void createDepartmentItem(RRDepartment daOb)
         {
             String sqlString = "INSERT INTO department ";
-
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -196,7 +194,6 @@ namespace RRDataLayer
                 throw ex;
             }
         }
-
 
         public void createUnitItem(RRUnit ru)
         {
@@ -222,8 +219,6 @@ namespace RRDataLayer
         public void createCategoryItem(RRCategory rc)
         {
             String sqlString = "INSERT INTO category ";
-
-
             sqlString += createColValueString(rc);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -240,11 +235,9 @@ namespace RRDataLayer
             }
         }
 
-        public void createCCListItem(RRDataObject daOb)
+        public void createCCListItem(RRChiefComplaint daOb)
         {
             String sqlString = "INSERT INTO cclist ";
-
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -261,11 +254,9 @@ namespace RRDataLayer
             }
         }
 
-        public void createDoctorItem(RRDataObject daOb)
+        public void createDoctorItem(RRDoctor daOb)
         {
             String sqlString = "INSERT INTO doctor ";
-
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -282,11 +273,9 @@ namespace RRDataLayer
             }
         }
 
-        public void createMedicationItem(RRDataObject daOb)
+        public void createMedicationItem(RRMedication daOb)
         {
             String sqlString = "INSERT INTO medication ";
-
-
             sqlString += createColValueString(daOb);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -323,18 +312,17 @@ namespace RRDataLayer
             return str;
         }
 
-        private List<RRDataObject> getDataObjects(SqlCommand cmd)
+        private List<RRType> getDataObjects<RRType>(SqlCommand cmd) where RRType : RRDataObject, new()
         {
             cmd.CommandType = CommandType.Text;
-            RRDataObject daOb = null;
-            List<RRDataObject> daObs = new List<RRDataObject>();
+            List<RRType> daObs = new List<RRType>();
             try
             {
                 //execute the query
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    daOb = new EmergencyCall();
+                    RRType daOb = new RRType();
                     fieldnames.Clear();
                     for (int i = 0; i < rdr.FieldCount; i++)
                     {
@@ -344,11 +332,7 @@ namespace RRDataLayer
                     }
 
                     daObs.Add(daOb);
-                    
-                    
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -363,142 +347,92 @@ namespace RRDataLayer
                 }
             }
 
-
-
             return daObs;
-        
         }
 
-        public List<RRDataObject> getAllEmergencyCall()
+        public List<RREmergencyCall> getAllEmergencyCall()
         {
             
             SqlCommand cmd = new SqlCommand("Select * from EmergencyCall", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-         
+            return getDataObjects<RREmergencyCall>(cmd);
         }
 
-
-        public List<RRDataObject> getEmergencyCallByPrimaryKey(DateTime key)
+        public List<RREmergencyCall> getEmergencyCallByPrimaryKey(DateTime key)
         {
             String sqlString = "Select * from EmergencyCall where created_date_time=" + key;
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RREmergencyCall>(cmd);
         }
 
-        public List<RRDataObject> getHistoryByPrimaryKey(DateTime key)
+        public List<RRHistoryJunction> getHistoryByPrimaryKey(DateTime key)
         {
             String sqlString = "Select * from hxjunction where created_date_time=" + key;
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRHistoryJunction>(cmd);
         }
 
-        public List<RRDataObject> getTreatmentByPrimaryKey(DateTime key)
+        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(DateTime key)
         {
             String sqlString = "Select * from txjunction where created_date_time=" + key;
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRTreatmentJunction>(cmd);
         }
 
-        public List<RRDataObject> getAllEmergencyCall(DateTime key)
+        public List<RRCounty> getAllCountyItems()
         {
-            String sqlString = "Select * from EmergencyCall where created_date_time=" + key;
-            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
-        }
-
-        public List<RRDataObject> getAllCountyItems()
-        {
-
             SqlCommand cmd = new SqlCommand("Select * from county", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRCounty>(cmd);
         }
 
-
-        public List<RRDataObject> getAllHistoryItems()
+        public List<RRHistory> getAllHistoryItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from history", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRHistory>(cmd);
         }
 
-        public List<RRDataObject> getAllTreatmentItems()
+        public List<RRTreatment> getAllTreatmentItems()
         {
-
             SqlCommand cmd = new SqlCommand("Select * from treatment", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRTreatment>(cmd);
         }
 
-        public List<RRDataObject> getAllDepartmentItems()
+        public List<RRDepartment> getAllDepartmentItems()
         {
-
             SqlCommand cmd = new SqlCommand("Select * from department", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRDepartment>(cmd);
         }
 
-        public List<RRDataObject> getAllUnitItems()
+        public List<RRUnit> getAllUnitItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from unit", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRUnit>(cmd);
         }
 
-        public List<RRDataObject> getAllCategoryItems()
+        public List<RRCategory> getAllCategoryItems()
         {
-
             SqlCommand cmd = new SqlCommand("Select * from category", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRCategory>(cmd);
         }
 
-        public List<RRDataObject> getCCListItems()
+        public List<RRChiefComplaint> getCCListItems()
         {
 
             SqlCommand cmd = new SqlCommand("Select * from cclist", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRChiefComplaint>(cmd);
         }
 
-        public List<RRDataObject> getAllDoctorItems()
+        public List<RRDoctor> getAllDoctorItems()
         {
-
             SqlCommand cmd = new SqlCommand("Select * from doctor", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRDoctor>(cmd);
         }
 
-        public List<RRDataObject> getAllMedicationItems()
+        public List<RRMedication> getAllMedicationItems()
         {
-
             SqlCommand cmd = new SqlCommand("Select * from medication", getDataConnection(false));
-            List<RRDataObject> ecs = getDataObjects(cmd);
-            return ecs;
-
+            return getDataObjects<RRMedication>(cmd);
         }
     }
-
-
-    
-    
 }

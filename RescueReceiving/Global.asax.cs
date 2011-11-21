@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using RRDataLayer;
 
 namespace RescueReceiving
 {
@@ -13,7 +14,8 @@ namespace RescueReceiving
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
-
+            //
+            Application["RRDataManager"] = new RRDataManager("C:\\DataModeling\\cop4710-finalproject-a1\\RescueReceiving");
         }
 
         void Application_End(object sender, EventArgs e)

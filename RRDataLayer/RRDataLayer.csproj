@@ -58,16 +58,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RRChiefComplaint.cs" />
     <Compile Include="RRDataManager.cs" />
-    <Compile Include="EmergencyCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RRCategory.cs" />
     <Compile Include="RRCounty.cs" />
     <Compile Include="RRDataObject.cs" />
+    <Compile Include="RRDepartment.cs" />
+    <Compile Include="RRDoctor.cs" />
+    <Compile Include="RREmergencyCall.cs" />
+    <Compile Include="RRHistory.cs" />
+    <Compile Include="RRHistoryJunction.cs" />
+    <Compile Include="RRMedication.cs" />
+    <Compile Include="RRTreatment.cs" />
+    <Compile Include="RRTreatmentJunction.cs" />
     <Compile Include="RRUnit.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Properties\DataSources\emergency_call_databaseEntities1.datasource" />
   </ItemGroup>
   <ItemGroup>
