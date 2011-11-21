@@ -198,40 +198,40 @@
                 <td>
                     <asp:Label ID="Label21" runat="server" Text="Driver:"></asp:Label>
                     <asp:DropDownList ID="ddlDriver" runat="server">
-                        <asp:ListItem>Unrestrained</asp:ListItem>
-                        <asp:ListItem>Restrained</asp:ListItem>
+                        <asp:ListItem Value="0">Unrestrained</asp:ListItem>
+                        <asp:ListItem Value="1">Restrained</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>
                     <asp:Label ID="Label22" runat="server" Text="Passenger:"></asp:Label>
                     <asp:DropDownList ID="ddlPassenger" runat="server">
-                        <asp:ListItem>Front Unrestrained</asp:ListItem>
-                        <asp:ListItem>Front Restrained</asp:ListItem>
-                        <asp:ListItem>Rear Unrestrained</asp:ListItem>
-                        <asp:ListItem>Rear Restrained</asp:ListItem>
+                        <asp:ListItem Value="0">Front Unrestrained</asp:ListItem>
+                        <asp:ListItem Value="1">Front Restrained</asp:ListItem>
+                        <asp:ListItem Value="2">Rear Unrestrained</asp:ListItem>
+                        <asp:ListItem Value="3">Rear Restrained</asp:ListItem>
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr valign="top">
                 <td>
-                    <asp:CheckBox ID="rbEjected" runat="server" Text="Ejected" />
+                    <asp:CheckBox ID="cbEjected" runat="server" Text="Ejected" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbEntrapped" runat="server" Text="Entrapped" />
+                    <asp:CheckBox ID="cbEntrapped" runat="server" Text="Entrapped" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbRollover" runat="server" Text="Rollover" />
+                    <asp:CheckBox ID="cbRollover" runat="server" Text="Rollover" />
                 </td>
             </tr>
             <tr valign="top">
                 <td>
-                    <asp:CheckBox ID="rbAirbag" runat="server" Text="Airbag" />
+                    <asp:CheckBox ID="cbAirbag" runat="server" Text="Airbag" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbPackaged" runat="server" Text="Packaged" />
+                    <asp:CheckBox ID="cbPackaged" runat="server" Text="Packaged" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbHelmet" runat="server" Text="Helmet" />
+                    <asp:CheckBox ID="cbHelmet" runat="server" Text="Helmet" />
                 </td>
             </tr>
         </table>
@@ -280,13 +280,13 @@
             </tr>
             <tr valign="top">
                 <td>
-                    <asp:CheckBox ID="rbStrokeAlert" runat="server" Text="Stroke Alert" />
+                    <asp:CheckBox ID="cbStrokeAlert" runat="server" Text="Stroke Alert" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbStemi" runat="server" Text="STEMI" />
+                    <asp:CheckBox ID="cbStemi" runat="server" Text="STEMI" />
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbTraumaAlert" runat="server" Text="Trauma Alert" />
+                    <asp:CheckBox ID="cbTraumaAlert" runat="server" Text="Trauma Alert" />
                 </td>
             </tr>
             <tr valign="top">
@@ -331,7 +331,8 @@
                     <br />
                     <br />
                     <asp:Label ID="Label31" runat="server" Text="ETA:"></asp:Label>
-                    <asp:TextBox ID="tbETA" runat="server"></asp:TextBox>
+                    <asp:DropDownList ID="ddlETA" runat="server">
+                    </asp:DropDownList>
                 </td>
             </tr>
         </table>
@@ -361,10 +362,10 @@
                 </td>
                 <td>
                     <asp:Label ID="Label38" runat="server" Text="DEA#:"></asp:Label>
-                    <asp:TextBox ID="TextBox25" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbDEA" runat="server"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:CheckBox ID="rbNarc" runat="server" Text="NARC" />
+                    <asp:CheckBox ID="cbNarc" runat="server" Text="NARC" />
                 </td>
             </tr>
         </table>
