@@ -379,8 +379,8 @@
      </div>
      <br />
      <div>
-        <asp:Button ID="Button1" runat="server" Text="Clear" />
-        <asp:Button ID="Button2" runat="server" Text="Submit" />
+        <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+             onclick="btnSubmit_Click" />
     </div>
     </form>
 </body>

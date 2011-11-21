@@ -10,9 +10,20 @@ namespace RescueReceiving
 {
     public partial class Create : System.Web.UI.Page
     {
+        private DateTime m_now;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            initNew();
+            if (!IsPostBack)
+            {
+                initNew();
+            }
+            else
+            {
+                // Re-establish "now" from text boxes
+                //
+                m_now = DateTime.Parse(tbDate.Text + " " + tbTime.Text);
+            }
 
             // If we have an emergency call then use it to fill
             // the form with its data.
@@ -31,8 +42,9 @@ namespace RescueReceiving
 
             // Set the date and time
             //
-            tbDate.Text = DateTime.Now.Date.ToShortDateString();
-            tbTime.Text = DateTime.Now.Date.ToShortTimeString();
+            m_now = DateTime.Now;
+            tbDate.Text = m_now.ToShortDateString();
+            tbTime.Text = m_now.ToLongTimeString();
 
             // Get the county list
             //
@@ -113,6 +125,94 @@ namespace RescueReceiving
                                         doctor.Id.ToString());
                 ddlDoctor.Items.Add(item);
             }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            var ec = new RREmergencyCall();
+
+            ec.CreatedDateTime = m_now;
+            ec.CountyId = SafeToInt(ddlCounty.SelectedValue);
+            ec.UnitId = SafeToInt(ddlUnit.SelectedValue);
+            ec.Age = SafeToInt(tbAge.Text);
+            ec.AgeType = GetAgeType();
+            ec.Sex = GetSex();
+            ec.AlertAndOriented = SafeToInt(ddlAlertOriented.SelectedItem.Text);
+            ec.MultiplePatient = cbMultiplePatient.Checked;
+            ec.Systolic1 = SafeToInt(tbBPS1.Text);
+            ec.Diastolic1 = SafeToInt(tbBPD1.Text);
+            ec.Systolic2 = SafeToInt(tbBPS2.Text);
+            ec.Diastolic2 = SafeToInt(tbBPD2.Text);
+            ec.Pulse1 = SafeToInt(tbPulse1.Text);
+            ec.Pulse2 = SafeToInt(tbPulse2.Text);
+            ec.Respiration1 = SafeToInt(tbResp1.Text);
+            ec.Respiration2 = SafeToInt(tbResp2.Text);
+            ec.OxygenSaturation1 = SafeToInt(tbO2SAT1.Text);
+            ec.OxygenSaturation2 = SafeToInt(tbO2SAT2.Text);
+
+            // Get the data manager from the application
+            //
+            RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
+            mgr.createEmergencyCall(ec);
+        }
+
+        // Utility to determine the active age type
+        //
+        private string GetAgeType()
+        {
+            string ageType = string.Empty;
+            if (rbYears.Checked)
+            {
+                ageType = "Y";
+            }
+            else if (rbMonths.Checked)
+            {
+                ageType = "M";
+            }
+            else if (rbWeeks.Checked)
+            {
+                ageType = "W";
+            }
+            else
+            {
+                // this should never happen
+            }
+            return ageType;
+        }
+
+        // Utility to determine the active sex type
+        //
+        private string GetSex()
+        {
+            string sexType = string.Empty;
+            if (rbMale.Checked)
+            {
+                sexType = "M";
+            }
+            else if (rbFemale.Checked)
+            {
+                sexType = "F";
+            }
+            else
+            {
+                // this should never happen
+            }
+            return sexType;
+        }
+        
+        // Utility for converting a string to Int32
+        //
+        private int SafeToInt(string value)
+        {
+            int n = -1;     // failure
+            try
+            {
+                n = Convert.ToInt32(value);
+            }
+            catch
+            {
+            }
+            return n;
         }
     }
 }
