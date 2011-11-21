@@ -99,7 +99,7 @@ namespace RRDataLayer
             }
             set
             {
-                this["multi_pat"] = value;
+                this["mult_pat"] = value;
             }
         }
 
@@ -179,11 +179,11 @@ namespace RRDataLayer
         {
             get
             {
-                return (int)this["1resp"];
+                return (int)this["resp1"];
             }
             set
             {
-                this["1resp"] = value;
+                this["resp1"] = value;
             }
         }
 

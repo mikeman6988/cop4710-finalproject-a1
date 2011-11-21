@@ -295,13 +295,13 @@ namespace RRDataLayer
         private String createColValueString(RRDataObject ec)
         {
             String str = "";
-            String fields = "(\n";
-            String values = "values(\n";
+            String fields = "(";
+            String values = "values(";
             //SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             foreach (String x in ec.Keys)
             {
 
-                fields += x + ",\n";
+                fields += x + ",";
                 values += "'" + ec[x] + "',";
                 //values += ec[x] + ",\n";
             }
