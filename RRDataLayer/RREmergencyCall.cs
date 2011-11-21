@@ -222,5 +222,389 @@ namespace RRDataLayer
                 this["o2_sat2"] = value;
             }
         }
+
+        public string LossOfConsciousness
+        {
+            get
+            {
+                return (string)this["loc"];
+            }
+            set
+            {
+                this["loc"] = value;
+            }
+        }
+
+        public int GlasgowComaScale
+        {
+            get
+            {
+                return (int)this["gcs"];
+            }
+            set
+            {
+                this["gcs"] = value;
+            }
+        }
+
+        public int BloodGlucoseLevel1
+        {
+            get
+            {
+                return (int) this["init_bgl"];
+            }
+            set
+            {
+                this["init_bgl"] = value;
+            }
+        }
+
+        public int BloodGlucoseLevel2
+        {
+            get
+            {
+                return (int)this["sec_bgl"];
+            }
+            set
+            {
+                this["sec_bgl"] = value;
+            }
+        }
+
+        public int CategoryId
+        {
+            get
+            {
+                return (int)this["category"];
+            }
+            set
+            {
+                this["category"] = value;
+            }
+        }
+
+        public int ChiefComplaintId
+        {
+            get
+            {
+                return (int)this["ccid"];
+            }
+            set
+            {
+                this["ccid"] = value;
+            }
+        }
+
+        public string ChiefComplaint
+        {
+            get
+            {
+                return (string)this["cc"];
+            }
+            set
+            {
+                this["cc"] = value;
+            }
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return (int)this["speed"];
+            }
+            set
+            {
+                this["speed"] = value;
+            }
+        }
+
+        public bool DriverRestrained
+        {
+            get
+            {
+                return (bool)this["driver_res"];
+            }
+            set
+            {
+                this["driver_res"] = value;
+            }
+        }
+
+        public int PassengerRestrain
+        {
+            get
+            {
+                return (int)this["pass_res"];
+            }
+            set
+            {
+                this["pass_res"] = value;
+            }
+        }
+
+        public bool Ejected
+        {
+            get
+            {
+                return (bool)this["eject"];
+            }
+            set
+            {
+                this["eject"] = value;
+            }
+        }
+
+        public bool Entrapped
+        {
+            get
+            {
+                return (bool)this["entrap"];
+            }
+            set
+            {
+                this["entrap"] = value;
+            }
+        }
+
+        public bool Rollover
+        {
+            get
+            {
+                return (bool)this["rollover"];
+            }
+            set
+            {
+                this["rollover"] = value;
+            }
+        }
+
+        public bool Airbag
+        {
+            get
+            {
+                return (bool)this["airbag"];
+            }
+            set
+            {
+                this["airbag"] = value;
+            }
+        }
+
+        public bool Packaged
+        {
+            get
+            {
+                return (bool)this["pkg"];
+            }
+            set
+            {
+                this["pkg"] = value;
+            }
+        }
+
+        public bool Helmet
+        {
+            get
+            {
+                return (bool)this["helmet"];
+            }
+            set
+            {
+                this["helmet"] = value;
+            }
+        }
+
+        public string MedicalDetail
+        {
+            get
+            {
+                return (string)this["medical_detail"];
+            }
+            set
+            {
+                this["medical_detail"] = value;
+            }
+        }
+
+        public string Level
+        {
+            get
+            {
+                return (string)this["level"];
+            }
+            set
+            {
+                this["level"] = value;
+            }
+        }
+
+        public int ReceivingDepartment
+        {
+            get
+            {
+                return (int)this["receiving_dept"];
+            }
+            set
+            {
+                this["receiving_dept"] = value;
+            }
+        }
+
+        public bool CardiacRed
+        {
+            get
+            {
+                return (bool)this["cardiacRed"];
+            }
+            set
+            {
+                this["cardiacRed"] = value;
+            }
+        }
+
+        public bool StrokeAlert
+        {
+            get
+            {
+                return (bool)this["s_a"];
+            }
+            set
+            {
+                this["s_a"] = value;
+            }
+        }
+        
+        public bool STEMI
+        {
+            get
+            {
+                return (bool)this["stemi"];
+            }
+            set
+            {
+                this["stemi"] = value;
+            }
+        }
+        
+        public bool TraumaAlert
+        {
+            get
+            {
+                return (bool)this["t_a"];
+            }
+            set
+            {
+                this["t_a"] = value;
+            }
+        }
+
+        public bool Resusitation
+        {
+            get
+            {
+                return (bool)this["resus"];
+            }
+            set
+            {
+                this["resus"] = value;
+            }
+        }
+
+        public TimeSpan Onset
+        {
+            get
+            {
+                return (TimeSpan)this["onset"];
+            }
+            set
+            {
+                this["onset"] = value;
+            }
+        }
+
+        public TimeSpan RescueTime
+        {
+            get
+            {
+                return (TimeSpan)this["rescue_time"];
+            }
+            set
+            {
+                this["rescue_time"] = value;
+            }
+        }
+
+        public bool Notified
+        {
+            get
+            {
+                return (bool)this["notified"];
+            }
+            set
+            {
+                this["notified"] = value;
+            }
+        }
+
+        public int ETA
+        {
+            get
+            {
+                return (int)this["eta"];
+            }
+            set
+            {
+                this["eta"] = value;
+            }
+        }
+
+        public int Medication
+        {
+            get
+            {
+                return (int)this["meds"];
+            }
+            set
+            {
+                this["meds"] = value;
+            }
+        }
+
+        public int Doctor
+        {
+            get
+            {
+                return (int)this["doc_sign"];
+            }
+            set
+            {
+                this["doc_sign"] = value;
+            }
+        }
+
+        public string DEA_No
+        {
+            get
+            {
+                return (string)this["dea_num"];
+            }
+            set
+            {
+                this["dea_num"] = value;
+            }
+        }
+
+        public bool Narc
+        {
+            get
+            {
+                return (bool)this["narc"];
+            }
+            set
+            {
+                this["narc"] = value;
+            }
+        }
     }
 }

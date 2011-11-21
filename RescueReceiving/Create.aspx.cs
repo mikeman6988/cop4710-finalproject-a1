@@ -76,14 +76,14 @@ namespace RescueReceiving
                 ddlCategory.Items.Add(item);
             }
 
-            // Get the ChiefComplaint list
+            // Get chief complaints
             //
-            List<RRChiefComplaint> chiefComplaints = mgr.getCCListItems();
-            foreach (var complaint in chiefComplaints)
+            List<RRChiefComplaint> complaints = mgr.getCCListItems();
+            foreach (var complaint in complaints)
             {
                 var item = new ListItem(complaint.Name,
                                         complaint.Id.ToString());
-                ddlCCList.Items.Add(item);
+                ddlChiefComplaint.Items.Add(item);
             }
 
             // Get the destination department
@@ -135,6 +135,14 @@ namespace RescueReceiving
                                         doctor.Id.ToString());
                 ddlDoctor.Items.Add(item);
             }
+
+            // Set the ETA drop down
+            //
+            for (int i = 0; i <= 60; ++i)
+            {
+                var item = new ListItem(i.ToString(), i.ToString());
+                ddlETA.Items.Add(item);
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -159,11 +167,84 @@ namespace RescueReceiving
             ec.Respiration2 = SafeToInt(tbResp2.Text);
             ec.OxygenSaturation1 = SafeToInt(tbO2SAT1.Text);
             ec.OxygenSaturation2 = SafeToInt(tbO2SAT2.Text);
+            ec.LossOfConsciousness = ddlLOC.SelectedValue;
+            ec.GlasgowComaScale = SafeToInt(ddlGCS.SelectedItem.Text);
+            ec.BloodGlucoseLevel1 = SafeToInt(tbBGL1.Text);
+            ec.BloodGlucoseLevel2 = SafeToInt(tbBGL2.Text);
+            ec.CategoryId = SafeToInt(ddlCategory.SelectedValue);
+            ec.ChiefComplaintId = SafeToInt(ddlChiefComplaint.SelectedValue);
+            ec.ChiefComplaint = tbChiefComplaint.Text;
+            ec.Speed = SafeToInt(tbSpeed.Text);
+            ec.DriverRestrained = GetDriverRestrained();
+            ec.PassengerRestrain = SafeToInt(ddlPassenger.SelectedValue);
+            ec.Ejected = cbEjected.Checked;
+            ec.Entrapped = cbEntrapped.Checked;
+            ec.Rollover = cbRollover.Checked;
+            ec.Airbag = cbAirbag.Checked;
+            ec.Packaged = cbPackaged.Checked;
+            ec.Helmet = cbHelmet.Checked;
+            ec.MedicalDetail = tbMedicalDetail.Text;
+            ec.Level = ddlLevel.SelectedItem.Text;
+            ec.ReceivingDepartment = SafeToInt(ddlDestination.SelectedValue);
+            ec.CardiacRed = cbCardiacRed.Checked;
+            ec.StrokeAlert = cbStrokeAlert.Checked;
+            ec.STEMI = cbStemi.Checked;
+            ec.TraumaAlert = cbTraumaAlert.Checked;
+            ec.Resusitation = cbResusitation.Checked;
+            ec.Onset = SafeToTimeSpan(tbOnset.Text);
+            //ec.RescueTime = SafeToTimeSpan(tbTimeIssued.Text);
+            ec.Notified = cbNotified.Checked;
+            ec.ETA = SafeToInt(ddlETA.SelectedValue);
+            ec.Medication = SafeToInt(ddlMedication.SelectedValue);
+            ec.Doctor = SafeToInt(ddlDoctor.SelectedValue);
+            ec.DEA_No = tbDEA.Text;
+            ec.Narc = cbNarc.Checked;
 
             // Get the data manager from the application
             //
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             mgr.createEmergencyCall(ec);
+
+            // History junction
+            //
+            foreach (ListItem item in cblHistory.Items)
+            {
+                if (item.Selected)
+                {
+                    var history = new RRHistoryJunction();
+                    history.EmergencyCallId = ec.CreatedDateTime;
+                    history.HistoryId = SafeToInt(item.Value);
+
+                    mgr.createHistory(history);
+                }
+            }
+
+            // Treatment junction
+            //
+            foreach (ListItem item in cblTreatment.Items)
+            {
+                if (item.Selected)
+                {
+                    var treatment = new RRTreatmentJunction();
+                    treatment.EmergencyCallId = ec.CreatedDateTime;
+                    treatment.TreatmentId = SafeToInt(item.Value);
+
+                    mgr.createTreatment(treatment);
+                }
+            }
+        }
+
+        // Utility to determine if driver is restrained or not
+        //
+        private bool GetDriverRestrained()
+        {
+            bool bRestrained = false;
+            string val = ddlDriver.SelectedValue;
+            if (string.Compare(val, "1") == 0)
+            {
+                bRestrained = true;
+            }
+            return bRestrained;
         }
 
         // Utility to determine the active age type
@@ -223,6 +304,21 @@ namespace RescueReceiving
             {
             }
             return n;
+        }
+
+        // Utility for converting a string to TimeSpan
+        //
+        private TimeSpan SafeToTimeSpan(string value)
+        {
+            TimeSpan span = DateTime.Now.TimeOfDay;
+            try
+            {
+                span = TimeSpan.Parse(value);
+            }
+            catch
+            {
+            }
+            return span;
         }
     }
 }

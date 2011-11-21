@@ -472,13 +472,13 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
-        /// ddlCCList control.
+        /// ddlChiefComplaint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCCList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlChiefComplaint;
         
         /// <summary>
         /// tbChiefComplaint control.
@@ -497,24 +497,6 @@ namespace RescueReceiving {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label10;
-        
-        /// <summary>
-        /// Label20 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label20;
-        
-        /// <summary>
-        /// ddlVehicularAccident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlVehicularAccident;
         
         /// <summary>
         /// Label23 control.
@@ -571,58 +553,58 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.DropDownList ddlPassenger;
         
         /// <summary>
-        /// rbEjected control.
+        /// cbEjected control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbEjected;
+        protected global::System.Web.UI.WebControls.CheckBox cbEjected;
         
         /// <summary>
-        /// rbEntrapped control.
+        /// cbEntrapped control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbEntrapped;
+        protected global::System.Web.UI.WebControls.CheckBox cbEntrapped;
         
         /// <summary>
-        /// rbRollover control.
+        /// cbRollover control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbRollover;
+        protected global::System.Web.UI.WebControls.CheckBox cbRollover;
         
         /// <summary>
-        /// rbHelmet control.
+        /// cbAirbag control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbHelmet;
+        protected global::System.Web.UI.WebControls.CheckBox cbAirbag;
         
         /// <summary>
-        /// rbAirbag control.
+        /// cbPackaged control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbAirbag;
+        protected global::System.Web.UI.WebControls.CheckBox cbPackaged;
         
         /// <summary>
-        /// rbPackaged control.
+        /// cbHelmet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbPackaged;
+        protected global::System.Web.UI.WebControls.CheckBox cbHelmet;
         
         /// <summary>
         /// Label32 control.
@@ -697,31 +679,31 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// rbStrokeAlert control.
+        /// cbStrokeAlert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbStrokeAlert;
+        protected global::System.Web.UI.WebControls.CheckBox cbStrokeAlert;
         
         /// <summary>
-        /// rbStemi control.
+        /// cbStemi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbStemi;
+        protected global::System.Web.UI.WebControls.CheckBox cbStemi;
         
         /// <summary>
-        /// rbTraumaAlert control.
+        /// cbTraumaAlert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbTraumaAlert;
+        protected global::System.Web.UI.WebControls.CheckBox cbTraumaAlert;
         
         /// <summary>
         /// cbResusitation control.
@@ -841,13 +823,13 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label31;
         
         /// <summary>
-        /// tbETA control.
+        /// ddlETA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbETA;
+        protected global::System.Web.UI.WebControls.DropDownList ddlETA;
         
         /// <summary>
         /// Label5 control.
@@ -922,22 +904,22 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.Label Label38;
         
         /// <summary>
-        /// TextBox25 control.
+        /// tbDEA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox25;
+        protected global::System.Web.UI.WebControls.TextBox tbDEA;
         
         /// <summary>
-        /// rbNarc control.
+        /// cbNarc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox rbNarc;
+        protected global::System.Web.UI.WebControls.CheckBox cbNarc;
         
         /// <summary>
         /// btnSubmit control.
