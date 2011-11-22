@@ -39,7 +39,7 @@ namespace RRDataLayer
             //    "\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
             //    "Connect Timeout=30;User Instance=True";
             string connectionString = "Data Source=lyra.ccec.unf.edu;Initial " +
-                "Catalog=cop4710fall2011dma1;Persist Security Info=True;User ID=cop4710fall2011dma1;Password=***********";
+                "Catalog=cop4710fall2011dma1;Persist Security Info=True;User ID=cop4710fall2011dma1;Password=xkqED0cl7e";
             return connectionString;
         }
 
@@ -97,6 +97,64 @@ namespace RRDataLayer
                 tran.Rollback();
                 throw ex;
             }
+        }
+
+        public void deleteHistory(RRHistoryJunction ec)
+        {
+            String sqlString = "DELETE FROM hxjunction WHERE ";
+            sqlString += createWhereString(ec);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
+            cmd.CommandType = CommandType.Text;
+            cmd.Transaction = tran;
+            try
+            {
+                int z = cmd.ExecuteNonQuery();
+                tran.Commit();
+            }
+            catch (SqlException ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+        }
+
+        public void deleteTreatment(RRTreatmentJunction ec)
+        {
+            String sqlString = "DELETE FROM txjunction WHERE ";
+            sqlString += createWhereString(ec);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
+            cmd.CommandType = CommandType.Text;
+            cmd.Transaction = tran;
+            try
+            {
+                int z = cmd.ExecuteNonQuery();
+                tran.Commit();
+            }
+            catch (SqlException ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+        }
+
+        private String createWhereString(RRDataObject daOb)
+        {
+            String where = null;
+            foreach (var key in daOb.Keys)
+            {
+                if (daOb[key] is int)
+                {
+                    where += key + "=" + daOb[key].ToString() + " and ";
+                }
+                else
+                {
+                    where += key + "='" + daOb[key].ToString() + "' and ";
+                }
+                
+            }
+            
+            where = where.Substring(0, where.Length - 4);
+            return where;
         }
 
         public void createTreatment(RRTreatmentJunction ec)
@@ -366,16 +424,18 @@ namespace RRDataLayer
             return getDataObjects<RREmergencyCall>(cmd);
         }
 
-        public List<RRHistoryJunction> getHistoryByPrimaryKey(DateTime key)
+        public List<RRHistoryJunction> getHistoryByPrimaryKey(RRHistoryJunction key)
         {
-            String sqlString = "Select * from hxjunction where created_date_time=" + key;
+            String sqlString = "Select * from hxjunction where ";
+            sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRHistoryJunction>(cmd);
         }
 
-        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(DateTime key)
+        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(RRTreatmentJunction key)
         {
-            String sqlString = "Select * from txjunction where created_date_time=" + key;
+            String sqlString = "Select * from txjunction where ";
+            sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRTreatmentJunction>(cmd);
         }
