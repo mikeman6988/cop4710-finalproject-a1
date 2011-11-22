@@ -419,7 +419,7 @@ namespace RRDataLayer
 
         public List<RREmergencyCall> getEmergencyCallByPrimaryKey(DateTime key)
         {
-            String sqlString = "Select * from EmergencyCall where created_date_time=" + key;
+            String sqlString = "Select * from EmergencyCall where created_date_time='" + key + "'";
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RREmergencyCall>(cmd);
         }
