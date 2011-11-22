@@ -17,6 +17,14 @@ namespace RescueReceiving
             if (!IsPostBack)
             {
                 initNew();
+                string callid = Request.QueryString["callid"];
+                if (callid != null)
+                {
+                    // If we have an emergency call then use it to fill
+                    // the form with its data.
+                    //
+                    initUsing(callid);
+                }
             }
             else
             {
@@ -24,11 +32,6 @@ namespace RescueReceiving
                 //
                 m_now = DateTime.Parse(tbDate.Text + " " + tbTime.Text);
             }
-
-            // If we have an emergency call then use it to fill
-            // the form with its data.
-            //
-            //initWithData();
         }
 
         // Used to fill form with drop down lists and other data
@@ -45,6 +48,9 @@ namespace RescueReceiving
             m_now = DateTime.Now;
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
+
+            // TODO: remove
+            Response.Write("?callid=" + Server.UrlEncode(m_now.ToString()));
 
             // Get the county list
             //
@@ -145,6 +151,73 @@ namespace RescueReceiving
             }
         }
 
+        private void initUsing(string callid)
+        {
+            // Get the data manager from the application
+            //
+            RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
+            
+            m_now = DateTime.Parse(callid);
+
+            var calls = mgr.getEmergencyCallByPrimaryKey(m_now);
+            var ec = calls[0];    // TODO: ok check
+
+            // Set form fields
+            //
+            tbDate.Text = m_now.ToShortDateString();
+            tbTime.Text = m_now.ToLongTimeString();
+
+            ddlCounty.SelectedValue = ec.CountyId.ToString();
+            ddlUnit.SelectedValue = ec.UnitId.ToString();
+            tbAge.Text = ec.Age.ToString();
+            SetAgeType(ec.AgeType);
+            SetSex(ec.Sex);
+            ddlAlertOriented.SelectedValue = ec.AlertAndOriented.ToString();
+            cbMultiplePatient.Checked = ec.MultiplePatient;
+            tbBPS1.Text = ec.Systolic1.ToString();
+            tbBPD1.Text = ec.Diastolic1.ToString();
+            tbBPS2.Text = ec.Systolic2.ToString();
+            tbBPD2.Text = ec.Diastolic2.ToString();
+            tbPulse1.Text = ec.Pulse1.ToString();
+            tbPulse2.Text = ec.Pulse2.ToString();
+            tbResp1.Text = ec.Respiration1.ToString();
+            tbResp2.Text = ec.Respiration2.ToString();
+            tbO2SAT1.Text = ec.OxygenSaturation1.ToString();
+            tbO2SAT2.Text = ec.OxygenSaturation2.ToString();
+            ddlLOC.SelectedValue = ec.LossOfConsciousness.ToString();
+            ddlGCS.SelectedValue = ec.GlasgowComaScale.ToString();
+            tbBGL1.Text = ec.BloodGlucoseLevel1.ToString();
+            tbBGL2.Text = ec.BloodGlucoseLevel2.ToString();
+            ddlCategory.SelectedValue = ec.CategoryId.ToString();
+            ddlChiefComplaint.SelectedValue = ec.ChiefComplaintId.ToString();
+            tbChiefComplaint.Text = ec.ChiefComplaint;
+            tbSpeed.Text = ec.Speed.ToString();
+            SetDriverRestrained(ec.DriverRestrained);
+            ddlPassenger.SelectedValue = ec.PassengerRestrain.ToString();
+            cbEjected.Checked = ec.Ejected;
+            cbEntrapped.Checked = ec.Entrapped;
+            cbRollover.Checked = ec.Rollover;
+            cbAirbag.Checked = ec.Airbag;
+            cbPackaged.Checked = ec.Packaged;
+            cbHelmet.Checked = ec.Helmet;
+            tbMedicalDetail.Text = ec.MedicalDetail;
+            ddlLevel.SelectedValue = ec.Level;
+            ddlDestination.SelectedValue = ec.ReceivingDepartment.ToString();
+            cbCardiacRed.Checked = ec.CardiacRed;
+            cbStrokeAlert.Checked = ec.StrokeAlert;
+            cbStemi.Checked = ec.STEMI;
+            cbTraumaAlert.Checked = ec.TraumaAlert;
+            cbResusitation.Checked = ec.Resusitation;
+            tbOnset.Text = ec.Onset.ToString();
+            tbTimeIssued.Text = ec.RescueTime.ToString();
+            cbNotified.Checked = ec.Notified;
+            ddlETA.SelectedValue = ec.ETA.ToString();
+            ddlMedication.SelectedValue = ec.Medication.ToString();
+            ddlDoctor.SelectedValue = ec.Doctor.ToString();
+            tbDEA.Text = ec.DEA_No;
+            cbNarc.Checked = ec.Narc;
+        }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             var ec = new RREmergencyCall();
@@ -155,7 +228,7 @@ namespace RescueReceiving
             ec.Age = SafeToInt(tbAge.Text);
             ec.AgeType = GetAgeType();
             ec.Sex = GetSex();
-            ec.AlertAndOriented = SafeToInt(ddlAlertOriented.SelectedItem.Text);
+            ec.AlertAndOriented = SafeToInt(ddlAlertOriented.SelectedValue);
             ec.MultiplePatient = cbMultiplePatient.Checked;
             ec.Systolic1 = SafeToInt(tbBPS1.Text);
             ec.Diastolic1 = SafeToInt(tbBPD1.Text);
@@ -168,7 +241,7 @@ namespace RescueReceiving
             ec.OxygenSaturation1 = SafeToInt(tbO2SAT1.Text);
             ec.OxygenSaturation2 = SafeToInt(tbO2SAT2.Text);
             ec.LossOfConsciousness = ddlLOC.SelectedValue;
-            ec.GlasgowComaScale = SafeToInt(ddlGCS.SelectedItem.Text);
+            ec.GlasgowComaScale = SafeToInt(ddlGCS.SelectedValue);
             ec.BloodGlucoseLevel1 = SafeToInt(tbBGL1.Text);
             ec.BloodGlucoseLevel2 = SafeToInt(tbBGL2.Text);
             ec.CategoryId = SafeToInt(ddlCategory.SelectedValue);
@@ -184,7 +257,7 @@ namespace RescueReceiving
             ec.Packaged = cbPackaged.Checked;
             ec.Helmet = cbHelmet.Checked;
             ec.MedicalDetail = tbMedicalDetail.Text;
-            ec.Level = ddlLevel.SelectedItem.Text;
+            ec.Level = ddlLevel.SelectedValue;
             ec.ReceivingDepartment = SafeToInt(ddlDestination.SelectedValue);
             ec.CardiacRed = cbCardiacRed.Checked;
             ec.StrokeAlert = cbStrokeAlert.Checked;
@@ -192,7 +265,7 @@ namespace RescueReceiving
             ec.TraumaAlert = cbTraumaAlert.Checked;
             ec.Resusitation = cbResusitation.Checked;
             ec.Onset = SafeToTimeSpan(tbOnset.Text);
-            //ec.RescueTime = SafeToTimeSpan(tbTimeIssued.Text);
+            ec.RescueTime = SafeToTimeSpan(tbTimeIssued.Text);
             ec.Notified = cbNotified.Checked;
             ec.ETA = SafeToInt(ddlETA.SelectedValue);
             ec.Medication = SafeToInt(ddlMedication.SelectedValue);
@@ -247,6 +320,20 @@ namespace RescueReceiving
             return bRestrained;
         }
 
+        // Utility to set driver restrained
+        //
+        private void SetDriverRestrained(bool bRestrained)
+        {
+            if (bRestrained)
+            {
+                ddlDriver.SelectedValue = "1";
+            }
+            else
+            {
+                ddlDriver.SelectedValue = "0";
+            }
+        }
+
         // Utility to determine the active age type
         //
         private string GetAgeType()
@@ -271,6 +358,28 @@ namespace RescueReceiving
             return ageType;
         }
 
+        // Utility to set the active age type
+        //
+        private void SetAgeType(string ageType)
+        {
+            if (string.Compare(ageType, "Y", true) == 0)
+            {
+                rbYears.Checked = true;
+            }
+            else if (string.Compare(ageType, "M", true) == 0)
+            {
+                rbMonths.Checked = true;
+            }
+            else if (string.Compare(ageType, "W", true) == 0)
+            {
+                rbWeeks.Checked = true;
+            }
+            else
+            {
+                // this should never happen
+            }
+        }
+
         // Utility to determine the active sex type
         //
         private string GetSex()
@@ -290,7 +399,25 @@ namespace RescueReceiving
             }
             return sexType;
         }
-        
+
+        // Utility to set the active age type
+        //
+        private void SetSex(string sex)
+        {
+            if (string.Compare(sex, "M", true) == 0)
+            {
+                rbMale.Checked = true;
+            }
+            else if (string.Compare(sex, "F", true) == 0)
+            {
+                rbFemale.Checked = true;
+            }
+            else
+            {
+                // this should never happen
+            }
+        }
+
         // Utility for converting a string to Int32
         //
         private int SafeToInt(string value)

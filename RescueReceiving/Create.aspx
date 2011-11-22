@@ -1,13 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Create.aspx.cs" Inherits="RescueReceiving.Create" %>
+﻿<%@ Page Title="Emergency Call" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" 
+    CodeBehind="Create.aspx.cs" Inherits="RescueReceiving.Create" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
     <div>
         <table width="100%">
             <tr valign="top">
@@ -37,8 +34,6 @@
             </tr>
         </table>
         
-        <br />
-
         <table width="100%">
             <tr valign="top">
                 <th colspan="2">
@@ -68,11 +63,11 @@
                             <td>
                                 <asp:Label ID="Label8" runat="server" Text="A&O X"></asp:Label>
                                 <asp:DropDownList ID="ddlAlertOriented" runat="server">
-                                    <asp:ListItem>4</asp:ListItem>
-                                    <asp:ListItem>3</asp:ListItem>
-                                    <asp:ListItem>2</asp:ListItem>
-                                    <asp:ListItem>1</asp:ListItem>
-                                    <asp:ListItem>0</asp:ListItem>
+                                    <asp:ListItem Value="4">4</asp:ListItem>
+                                    <asp:ListItem Value="3">3</asp:ListItem>
+                                    <asp:ListItem Value="2">2</asp:ListItem>
+                                    <asp:ListItem Value="1">1</asp:ListItem>
+                                    <asp:ListItem Value="0">0</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -135,20 +130,20 @@
                             <td>
                                 <asp:Label ID="Label15" runat="server" Text="GCS:"></asp:Label>
                                 <asp:DropDownList ID="ddlGCS" runat="server">
-                                    <asp:ListItem> </asp:ListItem>
-                                    <asp:ListItem>15</asp:ListItem>
-                                    <asp:ListItem>14</asp:ListItem>
-                                    <asp:ListItem>13</asp:ListItem>
-                                    <asp:ListItem>12</asp:ListItem>
-                                    <asp:ListItem>11</asp:ListItem>
-                                    <asp:ListItem>10</asp:ListItem>
-                                    <asp:ListItem>9</asp:ListItem>
-                                    <asp:ListItem>8</asp:ListItem>
-                                    <asp:ListItem>7</asp:ListItem>
-                                    <asp:ListItem>6</asp:ListItem>
-                                    <asp:ListItem>5</asp:ListItem>
-                                    <asp:ListItem>4</asp:ListItem>
-                                    <asp:ListItem>3</asp:ListItem>
+                                    <asp:ListItem Value="0"> </asp:ListItem>
+                                    <asp:ListItem Value="15">15</asp:ListItem>
+                                    <asp:ListItem Value="14">14</asp:ListItem>
+                                    <asp:ListItem Value="13">13</asp:ListItem>
+                                    <asp:ListItem Value="12">12</asp:ListItem>
+                                    <asp:ListItem Value="11">11</asp:ListItem>
+                                    <asp:ListItem Value="10">10</asp:ListItem>
+                                    <asp:ListItem Value="9">9</asp:ListItem>
+                                    <asp:ListItem Value="8">8</asp:ListItem>
+                                    <asp:ListItem Value="7">7</asp:ListItem>
+                                    <asp:ListItem Value="6">6</asp:ListItem>
+                                    <asp:ListItem Value="5">5</asp:ListItem>
+                                    <asp:ListItem Value="4">4</asp:ListItem>
+                                    <asp:ListItem Value="3">3</asp:ListItem>
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -182,8 +177,6 @@
             </tr>
         </table>
         
-        <br />
-
         <table width="100%">
             <tr valign="top">
                 <th colspan="4">
@@ -236,8 +229,6 @@
             </tr>
         </table>
 
-        <br />
-
         <table width="100%">
             <tr valign="top">
                 <th colspan="3">
@@ -253,10 +244,10 @@
                 <td>
                     <asp:Label ID="Label33" runat="server" Text="Level:"></asp:Label>
                     <asp:DropDownList ID="ddlLevel" runat="server">
-                        <asp:ListItem>1</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
-                        <asp:ListItem>3</asp:ListItem>
-                        <asp:ListItem>T</asp:ListItem>
+                        <asp:ListItem Value="1">1</asp:ListItem>
+                        <asp:ListItem Value="2">2</asp:ListItem>
+                        <asp:ListItem Value="3">3</asp:ListItem>
+                        <asp:ListItem Value="T">T</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>
@@ -269,8 +260,6 @@
                 </td>
             </tr>
         </table>
-
-        <br />
 
         <table width="100%">
             <tr valign="top">
@@ -336,20 +325,14 @@
                 </td>
             </tr>
         </table>
-
-        <br />
          
         <table width="100%">
             <tr>
-                <th colspan="5">
+                <th colspan="4">
                     <asp:Label ID="Label5" runat="server" Text="Medical Control"></asp:Label>
                 </th>
             </tr>
             <tr>
-                <td>
-                    <asp:Label ID="Label35" runat="server" Text="Rescue:"></asp:Label>
-                    <asp:TextBox ID="TextBox27" runat="server"></asp:TextBox>
-                </td>
                 <td>
                     <asp:Label ID="Label36" runat="server" Text="Medication:"></asp:Label>
                     <asp:DropDownList ID="ddlMedication" runat="server">
@@ -369,12 +352,11 @@
                 </td>
             </tr>
         </table>
-     </div>
-     <br />
-     <div>
+        </div>
+        <br />
+        <div>
         <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-             onclick="btnSubmit_Click" />
+                onclick="btnSubmit_Click" />
     </div>
-    </form>
-</body>
-</html>
+
+</asp:Content>

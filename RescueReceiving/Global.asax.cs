@@ -15,8 +15,8 @@ namespace RescueReceiving
         {
             // Code that runs on application startup
             //
-            //Application["RRDataManager"] = new RRDataManager("C:\\DataModeling\\cop4710-finalproject-a1\\RescueReceiving");
-            Application["RRDataManager"] = new RRDataManager("C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving");
+            Application["RRDataManager"] = new RRDataManager("C:\\DataModeling\\cop4710-finalproject-a1\\RescueReceiving");
+            //Application["RRDataManager"] = new RRDataManager("C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving");
             
         }
 
