@@ -300,7 +300,7 @@ namespace RRDataLayer
             //SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             foreach (String x in ec.Keys)
             {
-
+               
                 fields += x + ",";
                 values += "'" + ec[x] + "',";
                 //values += ec[x] + ",\n";
