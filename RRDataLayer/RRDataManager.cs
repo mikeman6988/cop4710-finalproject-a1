@@ -20,7 +20,7 @@ namespace RRDataLayer
 
         public RRDataManager()
         {
-            appPath = "C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving";
+            //appPath = "C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving";
         }
 
         public RRDataManager(string path)
@@ -35,9 +35,11 @@ namespace RRDataLayer
 
         private string getConnectionString()
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=" + appPath +
-                "\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
-                "Connect Timeout=30;User Instance=True";
+            //string connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=" + appPath +
+            //    "\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
+            //    "Connect Timeout=30;User Instance=True";
+            string connectionString = "Data Source=lyra.ccec.unf.edu;Initial " +
+                "Catalog=cop4710fall2011dma1;Persist Security Info=True;User ID=cop4710fall2011dma1;Password=***********";
             return connectionString;
         }
 
