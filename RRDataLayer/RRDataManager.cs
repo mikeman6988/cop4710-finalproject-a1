@@ -159,8 +159,7 @@ namespace RRDataLayer
 
         public void createTreatment(RRTreatmentJunction ec)
         {
-            String sqlString = "INSERT INTO txjunction ";
-            
+            String sqlString = "INSERT INTO txjunction ";    
             sqlString += createColValueString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -412,7 +411,6 @@ namespace RRDataLayer
 
         public List<RREmergencyCall> getAllEmergencyCall()
         {
-            
             SqlCommand cmd = new SqlCommand("Select * from EmergencyCall", getDataConnection(false));
             return getDataObjects<RREmergencyCall>(cmd);
         }
@@ -424,18 +422,18 @@ namespace RRDataLayer
             return getDataObjects<RREmergencyCall>(cmd);
         }
 
-        public List<RRHistoryJunction> getHistoryByPrimaryKey(RRHistoryJunction key)
+        public List<RRHistoryJunction> getHistoryByPrimaryKey(DateTime key)
         {
-            String sqlString = "Select * from hxjunction where ";
-            sqlString += createWhereString(key);
+            String sqlString = "Select * from hxjunction where date='" + key + "'";
+            //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRHistoryJunction>(cmd);
         }
 
-        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(RRTreatmentJunction key)
+        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(DateTime key)
         {
-            String sqlString = "Select * from txjunction where ";
-            sqlString += createWhereString(key);
+            String sqlString = "Select * from txjunction where date='" + key + "'";
+            //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRTreatmentJunction>(cmd);
         }

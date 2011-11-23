@@ -216,6 +216,24 @@ namespace RescueReceiving
             ddlDoctor.SelectedValue = ec.Doctor.ToString();
             tbDEA.Text = ec.DEA_No;
             cbNarc.Checked = ec.Narc;
+
+            // Set the histories
+            //
+            var histories = mgr.getHistoryByPrimaryKey(m_now);
+            foreach (var history in histories)
+            {
+                var item = cblHistory.Items.FindByValue(history.HistoryId.ToString());
+                item.Selected = true;
+            }
+
+            // Set the treatments
+            //
+            var treatments = mgr.getTreatmentByPrimaryKey(m_now);
+            foreach (var treatment in treatments)
+            {
+                var item = cblTreatment.Items.FindByValue(treatment.TreatmentId.ToString());
+                item.Selected = true;
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -305,6 +323,10 @@ namespace RescueReceiving
                     mgr.createTreatment(treatment);
                 }
             }
+
+            // Relead the form
+            //
+            Response.Redirect(Request.Path);
         }
 
         // Utility to determine if driver is restrained or not
