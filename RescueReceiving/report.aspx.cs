@@ -13,8 +13,15 @@ namespace RescueReceiving
         protected void Page_Load(object sender, EventArgs e)
         {
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
-            List<RREmergencyCall> myCalls = mgr.getAllEmergencyCall();
+            List<RRDataObject> myCalls = mgr.getRecordsForQuery();
             Response.Write("<table border>");
+            Response.Write("<tr>");
+            List<String> myfnames = mgr.getFieldNames();
+            foreach (String val in myfnames)
+            {
+                Response.Write("<th>" + val.ToString() + "</th>");
+            }
+            Response.Write("</tr>");
             foreach (var call in myCalls)
             {
                 Response.Write("<tr>");
