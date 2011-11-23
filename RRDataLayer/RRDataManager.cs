@@ -432,7 +432,7 @@ namespace RRDataLayer
 
         public List<RRTreatmentJunction> getTreatmentByPrimaryKey(DateTime key)
         {
-            String sqlString = "Select * from txjunction where date='" + key + "'";
+            String sqlString = "Select * from txjunction where date_time='" + key + "'";
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRTreatmentJunction>(cmd);
