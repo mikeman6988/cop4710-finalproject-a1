@@ -291,6 +291,7 @@ namespace RescueReceiving
             // Get the data manager from the application
             //
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
+            mgr.deleteEmergencyCall(ec.CreatedDateTime);
             mgr.createEmergencyCall(ec);
 
             // History junction

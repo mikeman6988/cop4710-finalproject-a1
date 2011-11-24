@@ -302,13 +302,13 @@
                 <td>
                     <asp:Label ID="Label27" runat="server" Text="History:"></asp:Label>
                     <br />
-                    <asp:CheckBoxList ID="cblHistory" runat="server">
+                    <asp:CheckBoxList ID="cblHistory" runat="server" RepeatColumns="4">
                     </asp:CheckBoxList>
                 </td>
                 <td>
                     <asp:Label ID="Label28" runat="server" Text="Treatment:"></asp:Label>
                     <br />
-                    <asp:CheckBoxList ID="cblTreatment" runat="server">
+                    <asp:CheckBoxList ID="cblTreatment" runat="server" RepeatColumns="3">
                     </asp:CheckBoxList>
                 </td>
                 <td>
