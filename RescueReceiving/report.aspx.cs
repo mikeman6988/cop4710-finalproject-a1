@@ -13,7 +13,10 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+        }
+        
+        protected void Page_Init(object sender, EventArgs e)
+        {
             List<RRDataObject> myCalls = null;
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             String start = Request.QueryString["start"];
@@ -29,9 +32,7 @@ namespace RescueReceiving
                 dtstop = DateTime.Parse(Server.UrlDecode(stop));
                 dtstop = dtstop.Value.AddMinutes((24 * 60) - 1);
                 dtstop = dtstop.Value.AddSeconds(59);
-
             }
-
 
             if (String.IsNullOrEmpty(start) && String.IsNullOrEmpty(stop))
             {
@@ -52,45 +53,44 @@ namespace RescueReceiving
                 {
                     myCalls = mgr.getRecordsForQueryStop(dtstop);
                 }
-
-
-
             }
 
+            var row = new TableRow();
+            row.Font.Bold = true;
 
-
-            Response.Write("<table border>");
-            Response.Write("<tr>");
             List<String> myfnames = mgr.getFieldNames();
             foreach (String val in myfnames)
             {
-                Response.Write("<th>" + val.ToString() + "</th>");
+                var cell = new TableCell();
+                cell.Text = val.ToString();
+                cell.HorizontalAlign = HorizontalAlign.Center;
+
+                row.Cells.Add(cell);
             }
-            Response.Write("</tr>");
+            tblReport.Rows.Add(row);
+
             foreach (var call in myCalls)
             {
-                Response.Write("<tr>");
+                row = new TableRow();
 
                 foreach (var key in call.Keys)
                 {
+                    var cell = new TableCell();
                     if (key.Equals("created_date_time"))
                     {
-                        Response.Write("<td><a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">");
-                        Response.Write(call[key].ToString());
-                        Response.Write("</a></td>");
+                        cell.Text = "<a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">";
+                        cell.Text += call[key].ToString();
+                        cell.Text += "</a></td>";
                     }
                     else
                     {
-                        Response.Write("<td>");
-                        Response.Write(call[key].ToString());
-                        Response.Write("</td>");
+                        cell.Text = call[key].ToString();
                     }
+                    row.Cells.Add(cell);
                 }
 
-                Response.Write("</tr>");
-
+                tblReport.Rows.Add(row);
             }
-            Response.Write("</table>");
         }
     }
 }
