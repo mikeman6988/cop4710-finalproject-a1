@@ -99,10 +99,10 @@ namespace RRDataLayer
             }
         }
 
-        public void deleteHistory(RRHistoryJunction ec)
+        public void deleteHistory(DateTime date)
         {
-            String sqlString = "DELETE FROM hxjunction WHERE ";
-            sqlString += createWhereString(ec);
+            String sqlString = "DELETE FROM hxjunction WHERE date='" + date.ToString() + "'";
+            //sqlString += createWhereString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -118,10 +118,10 @@ namespace RRDataLayer
             }
         }
 
-        public void deleteTreatment(RRTreatmentJunction ec)
+        public void deleteTreatment(DateTime date)
         {
-            String sqlString = "DELETE FROM txjunction WHERE ";
-            sqlString += createWhereString(ec);
+            String sqlString = "DELETE FROM txjunction WHERE date_time='" + date.ToString() + "'";
+            //sqlString += createWhereString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
@@ -129,6 +129,27 @@ namespace RRDataLayer
             {
                 int z = cmd.ExecuteNonQuery();
                 tran.Commit();
+            }
+            catch (SqlException ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+        }
+
+        public void deleteEmergencyCall(DateTime date)
+        {
+            String sqlString = "DELETE FROM EmergencyCall WHERE created_date_time='" + date.ToString() + "'";
+            //sqlString += createWhereString(ec);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
+            cmd.CommandType = CommandType.Text;
+            cmd.Transaction = tran;
+            try
+            {
+                int z = cmd.ExecuteNonQuery();
+                tran.Commit();
+                deleteHistory(date);
+                deleteTreatment(date);
             }
             catch (SqlException ex)
             {
