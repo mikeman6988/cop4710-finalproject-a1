@@ -11,18 +11,14 @@ namespace RescueReceiving
 {
     public class Global : System.Web.HttpApplication
     {
-
         void Application_Start(object sender, EventArgs e)
         {
-            System.Configuration.ConnectionStringSettingsCollection conn = WebConfigurationManager.ConnectionStrings;
-            string connection = conn["ApplicationServices"].ConnectionString;
             // Code that runs on application startup
             //
-            //Application["RRDataManager"] = new RRDataManager("C:\\DataModeling\\cop4710-finalproject-a1\\RescueReceiving");
-            //Application["RRDataManager"] = new RRDataManager("C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving");
-            Application["RRDataManager"] = new RRDataManager(connection);
+            System.Configuration.ConnectionStringSettingsCollection conn = WebConfigurationManager.ConnectionStrings;
+            string connection = conn["ApplicationServices"].ConnectionString;
 
-            
+            Application["RRDataManager"] = new RRDataManager(connection);
         }
 
         void Application_End(object sender, EventArgs e)

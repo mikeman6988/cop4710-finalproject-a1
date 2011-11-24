@@ -5,18 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
-using System.Web;
-
-
 
 namespace RRDataLayer
 {
-
-
     public class RRDataManager
     {
-        private string appPath;
-        private string conString;
+        private string conString = null;
         private SqlConnection conn;
         private SqlDataReader rdr;
         private SqlTransaction tran;
@@ -24,7 +18,6 @@ namespace RRDataLayer
 
         public RRDataManager()
         {
-            //appPath = "C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving";
         }
 
         public RRDataManager(string conString)
@@ -40,9 +33,6 @@ namespace RRDataLayer
         private string getConnectionString()
         {
             string connectionString = null;
-            //string connectionString = "Data Source=.\\SQLEXPRESS;AttachDbFilename=" + appPath +
-            //    "\\App_Data\\emergency_call_database.mdf;Integrated Security=True;" +
-            //    "Connect Timeout=30;User Instance=True";
             if (!String.IsNullOrEmpty(conString))
             {
                 connectionString = this.conString;

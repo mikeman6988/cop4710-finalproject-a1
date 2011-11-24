@@ -13,10 +13,6 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            System.Configuration.ConnectionStringSettingsCollection connections = WebConfigurationManager.ConnectionStrings;
-            StringBuilder buffer = new StringBuilder();
-
-
         }
     }
 }
