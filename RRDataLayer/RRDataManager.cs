@@ -146,10 +146,12 @@ namespace RRDataLayer
             cmd.Transaction = tran;
             try
             {
+                
                 int z = cmd.ExecuteNonQuery();
                 tran.Commit();
                 deleteHistory(date);
                 deleteTreatment(date);
+                
             }
             catch (SqlException ex)
             {
