@@ -27,10 +27,15 @@
     <br />
     <asp:Label ID="Label3" runat="server" Text="Password:"></asp:Label>
     <br />
-    <asp:TextBox ID="tbPassword" runat="server"></asp:TextBox>
+    <asp:TextBox ID="tbPassword" runat="server" TextMode="Password"></asp:TextBox>
     <br />
-    <asp:CheckBox ID="cbIsAdmin" runat="server" />
+    <asp:Label ID="Label4" runat="server" Text="Confirm Password:"></asp:Label>
+    <br />
+    <asp:TextBox ID="tbConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
+    <br />
+    <asp:CheckBox ID="cbIsAdmin" Text="Is administrator?" runat="server" />
     <br />
     <br />
-    <asp:Button ID="btnCreateNewUser" runat="server" Text="Create New User" />
+    <asp:Button ID="btnCreateNewUser" runat="server" Text="Create New User" 
+        onclick="btnCreateNewUser_Click" />
 </asp:Content>
