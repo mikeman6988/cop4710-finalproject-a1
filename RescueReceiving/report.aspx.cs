@@ -13,10 +13,6 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        }
-        
-        protected void Page_Init(object sender, EventArgs e)
-        {
             List<RRDataObject> myCalls = null;
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             String start = Request.QueryString["start"];
