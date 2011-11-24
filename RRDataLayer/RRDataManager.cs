@@ -450,7 +450,7 @@ namespace RRDataLayer
             return getDataObjects<RRDataObject>(cmd);
         }
 
-        public List<RRDataObject> getRecordsForQuery(DateTime startdate, DateTime stopdate)
+        public List<RRDataObject> getRecordsForQuery(Nullable<DateTime> startdate, Nullable<DateTime> stopdate)
         {
             String sqlString = "Select created_date_time, unitname, age, sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1," +
@@ -458,6 +458,32 @@ namespace RRDataLayer
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
             "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'";
+            //sqlString += createWhereString(key);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            return getDataObjects<RRDataObject>(cmd);
+        }
+
+        public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date)
+        {
+            String sqlString = "Select created_date_time, unitname, age, sex, categoryname," +
+            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1," +
+            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,eta " +
+            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
+            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
+            "where created_date_time >= '" + date.ToString() + "'";
+            //sqlString += createWhereString(key);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            return getDataObjects<RRDataObject>(cmd);
+        }
+
+        public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date)
+        {
+            String sqlString = "Select created_date_time, unitname, age, sex, categoryname," +
+            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1," +
+            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,eta " +
+            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
+            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
+            "where created_date_time <= '" + date.ToString() + "'";
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
