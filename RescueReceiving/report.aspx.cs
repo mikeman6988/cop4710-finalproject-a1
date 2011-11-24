@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Configuration;
 using RRDataLayer;
 
 namespace RescueReceiving
@@ -12,6 +13,7 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             List<RRDataObject> myCalls = null;
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             String start = Request.QueryString["start"];
@@ -73,13 +75,16 @@ namespace RescueReceiving
                 {
                     if (key.Equals("created_date_time"))
                     {
-                        Response.Write("<td><a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) +"\">");
+                        Response.Write("<td><a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">");
                         Response.Write(call[key].ToString());
                         Response.Write("</a></td>");
                     }
+                    else
+                    {
                         Response.Write("<td>");
                         Response.Write(call[key].ToString());
                         Response.Write("</td>");
+                    }
                 }
 
                 Response.Write("</tr>");

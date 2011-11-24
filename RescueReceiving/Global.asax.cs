@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using RRDataLayer;
+using System.Web.Configuration;
 
 namespace RescueReceiving
 {
@@ -13,11 +14,13 @@ namespace RescueReceiving
 
         void Application_Start(object sender, EventArgs e)
         {
+            System.Configuration.ConnectionStringSettingsCollection conn = WebConfigurationManager.ConnectionStrings;
+            string connection = conn["ApplicationServices"].ConnectionString;
             // Code that runs on application startup
             //
             //Application["RRDataManager"] = new RRDataManager("C:\\DataModeling\\cop4710-finalproject-a1\\RescueReceiving");
             //Application["RRDataManager"] = new RRDataManager("C:\\Users\\Willie\\cop4710-finalproject-a1\\RescueReceiving");
-            Application["RRDataManager"] = new RRDataManager();
+            Application["RRDataManager"] = new RRDataManager(connection);
 
             
         }
