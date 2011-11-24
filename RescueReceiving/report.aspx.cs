@@ -12,8 +12,51 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            List<RRDataObject> myCalls = null;
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
-            List<RRDataObject> myCalls = mgr.getRecordsForQuery();
+            String start = Request.QueryString["start"];
+            String stop = Request.QueryString["stop"];
+            Nullable<DateTime> dtstart = null;
+            Nullable<DateTime> dtstop = null;
+            if (!String.IsNullOrEmpty(start))
+            {
+                dtstart = DateTime.Parse(Server.UrlDecode(start));
+            }
+            if (!String.IsNullOrEmpty(stop))
+            {
+                dtstop = DateTime.Parse(Server.UrlDecode(stop));
+                dtstop = dtstop.Value.AddMinutes((24 * 60) - 1);
+                dtstop = dtstop.Value.AddSeconds(59);
+
+            }
+
+
+            if (String.IsNullOrEmpty(start) && String.IsNullOrEmpty(stop))
+            {
+                Response.Redirect("~/report.aspx");
+            }
+            else //if
+            {
+
+                if (!String.IsNullOrEmpty(start) && !String.IsNullOrEmpty(stop))
+                {
+                    myCalls = mgr.getRecordsForQuery(dtstart, dtstop);
+                }
+                else if (!String.IsNullOrEmpty(start))
+                {
+                    myCalls = mgr.getRecordsForQueryStart(dtstart);
+                }
+                else
+                {
+                    myCalls = mgr.getRecordsForQueryStop(dtstop);
+                }
+
+
+
+            }
+
+
+
             Response.Write("<table border>");
             Response.Write("<tr>");
             List<String> myfnames = mgr.getFieldNames();
