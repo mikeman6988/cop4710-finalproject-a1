@@ -71,10 +71,15 @@ namespace RescueReceiving
 
                 foreach (var key in call.Keys)
                 {
-                    Response.Write("<td>");
-
-                    Response.Write(call[key].ToString());
-                    Response.Write("</td>");
+                    if (key.Equals("created_date_time"))
+                    {
+                        Response.Write("<td><a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) +"\">");
+                        Response.Write(call[key].ToString());
+                        Response.Write("</a></td>");
+                    }
+                        Response.Write("<td>");
+                        Response.Write(call[key].ToString());
+                        Response.Write("</td>");
                 }
 
                 Response.Write("</tr>");
