@@ -18,5 +18,38 @@ namespace RescueReceiving
         {
             Response.Redirect("~/Roles/ManageUsers.aspx");
         }
+
+        protected void btnReport_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(tbStartdate.Text) && String.IsNullOrEmpty(tbStopdate.Text))
+            {
+                Response.Redirect("~/report.aspx");
+            }
+            else //if
+            {
+                String x = null;                
+                if (!String.IsNullOrEmpty(tbStartdate.Text) && !String.IsNullOrEmpty(tbStopdate.Text))
+                {
+                    x += "start=" + Server.UrlEncode(tbStartdate.Text);
+                    x += "&stop=" + Server.UrlEncode(tbStopdate.Text);
+                }
+                else if (!String.IsNullOrEmpty(tbStartdate.Text))
+                {
+                    x += "start=" + Server.UrlEncode(tbStartdate.Text);
+                }
+                else
+                {
+                    x += "stop=" + Server.UrlEncode(tbStopdate.Text);
+                }
+
+                Response.Redirect("~/report.aspx?" + x);
+
+            }
+        }
+
+        protected void btnImport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

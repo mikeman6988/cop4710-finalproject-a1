@@ -49,9 +49,6 @@ namespace RescueReceiving
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
 
-            // TODO: remove
-            Response.Write("?callid=" + Server.UrlEncode(m_now.ToString()));
-
             // Get the county list
             //
             List<RRCounty> counties = mgr.getAllCountyItems();
