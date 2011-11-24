@@ -33,7 +33,7 @@ namespace RescueReceiving
 
             if (String.IsNullOrEmpty(start) && String.IsNullOrEmpty(stop))
             {
-                Response.Redirect("~/report.aspx");
+                myCalls = mgr.getRecordsForQuery();
             }
             else //if
             {
