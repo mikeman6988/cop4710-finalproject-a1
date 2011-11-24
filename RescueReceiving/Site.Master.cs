@@ -26,6 +26,11 @@ namespace RescueReceiving
                 createMenuItem.Text = "Create";
                 createMenuItem.NavigateUrl = "~/Create.aspx";
                 NavigationMenu.Items.AddAt(1, createMenuItem);
+
+                var profileMenuItem = new MenuItem();
+                profileMenuItem.Text = "Profile";
+                profileMenuItem.NavigateUrl = "~/Profile.aspx";
+                NavigationMenu.Items.Add(profileMenuItem);
             }
         }
     }

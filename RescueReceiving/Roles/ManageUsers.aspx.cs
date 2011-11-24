@@ -96,11 +96,23 @@ namespace RescueReceiving.Administration
             CheckBox cb = (CheckBox) FindControlByID(this, "cbAdmin" + userName);
             if (cb.Checked)
             {
-                Roles.AddUserToRole(userName, "Admin");
+                try
+                {
+                    Roles.AddUserToRole(userName, "Admin");
+                }
+                catch
+                {
+                }
             }
             else
             {
-                Roles.RemoveUserFromRole(userName, "Admin");
+                try
+                {
+                    Roles.RemoveUserFromRole(userName, "Admin");
+                }
+                catch
+                {
+                }
             }
         }
 
