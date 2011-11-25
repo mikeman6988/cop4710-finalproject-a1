@@ -2,16 +2,17 @@
     CodeBehind="Create.aspx.cs" Inherits="RescueReceiving.Create" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <style type="text/css">
+        .style1
+        {
+            width: 395px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
 
     <div>
         <table width="100%">
-            <tr valign="top">
-                <th colspan="4">
-                    <asp:Label ID="Label2" runat="server" Text="Emergency Call Detail"></asp:Label>
-                </th>
-            </tr>
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label12" runat="server" Text="Date:"></asp:Label>
@@ -35,11 +36,6 @@
         </table>
         
         <table width="100%">
-            <tr valign="top">
-                <th colspan="2">
-                    <asp:Label ID="Label3" runat="server" Text="Patient Detail & Vitals"></asp:Label>
-                </th>
-            </tr>
             <tr valign="top">
                 <td width="40%">
                     <table width="100%">
@@ -161,18 +157,22 @@
         </table>
         <table width="100%">
             <tr valign="top">
-                <td>
+                <td class="style1">
                     <asp:Label ID="Label44" runat="server" Text="Category:"></asp:Label>
                     <br />
                     <asp:DropDownList ID="ddlCategory" Width="100%" runat="server">
                     </asp:DropDownList>
                     <br />
-                    <asp:Label ID="Label6" runat="server" Text="Chief complaint:"></asp:Label>
+                    <asp:Label ID="Label6" runat="server" Text="Chief Complaint:"></asp:Label>
                     <br />
                     <asp:DropDownList ID="ddlChiefComplaint" Width="100%" runat="server">
                     </asp:DropDownList>
                     <br />
-                    <asp:TextBox TextMode="MultiLine" Rows="2" Width="100%" ID="tbChiefComplaint" runat="server"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:Label ID="Label45" runat="server" Text="Additional Complaints:"></asp:Label>
+                    <asp:TextBox TextMode="MultiLine" Rows="2" Width="100%" ID="tbChiefComplaint" 
+                        runat="server" Height="50px" style="margin-top: 3px"></asp:TextBox>
                 </td>
             </tr>
         </table>
@@ -286,18 +286,19 @@
                     <asp:Label ID="Label26" runat="server" Text="Time Issued by Rescue:"></asp:Label>
                     <asp:TextBox ID="tbTimeIssued" runat="server"></asp:TextBox>
                 </td>
-            </tr>
-            <tr valign="top">
                 <td>
                     <asp:Label ID="Label25" runat="server" Text="Onset:"></asp:Label>
                     <asp:TextBox ID="tbOnset" runat="server"></asp:TextBox>
                 </td>
+            </tr>
+            <tr valign="top">
+                <td>
+                    &nbsp;</td>
                 <td>
                 </td>
                 <td>
                 </td>
             </tr>
-            <tr><td>&nbsp;</td></tr>
             <tr valign="top">
                 <td>
                     <asp:Label ID="Label27" runat="server" Text="History:"></asp:Label>
@@ -317,8 +318,7 @@
                     <br />
                     <br />
                     <asp:CheckBox ID="cbNotified" runat="server" Text="Notified" />
-                    <br />
-                    <br />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Label ID="Label31" runat="server" Text="ETA:"></asp:Label>
                     <asp:DropDownList ID="ddlETA" runat="server">
                     </asp:DropDownList>
