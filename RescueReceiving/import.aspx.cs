@@ -30,7 +30,7 @@ namespace RescueReceiving
             String x = this.FileUpload1.FileName;
             OleDbConnection oconn = new OleDbConnection
             (@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
-            Server.MapPath(this.FileUpload1.) + ";" +
+            //Server.MapPath(this.FileUpload1.) + ";" +
             "Extended Properties=Excel 8.0");//OledbConnection and 
             // connectionstring to connect to the Excel Sheet
             try

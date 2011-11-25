@@ -131,13 +131,17 @@ namespace RescueReceiving
                     }
                     else if (string.Compare("age", key, true) == 0)
                     {
-                        if ((int)call["age"] == -1)
-                        {
-                            cell.Text = string.Empty;
-                        }
-                        else
+                        if ((int)call["age"] != -1)
                         {
                             cell.Text = call["age"].ToString();
+                            if (string.Compare(call["age_interval"].ToString(), "M", true) == 0)
+                            {
+                                cell.Text += " MOS";
+                            }
+                            else if (string.Compare(call["age_interval"].ToString(), "W", true) == 0)
+                            {
+                                cell.Text += " WKS";
+                            }
                         }
                     }
                     else if (string.Compare("ccdescription", key, true) == 0)
@@ -148,6 +152,13 @@ namespace RescueReceiving
                         if (!string.IsNullOrEmpty(call["cc"].ToString()))
                         {
                             cell.Text += "<br/>" + call["cc"].ToString();
+                        }
+                    }
+                    else if (string.Compare("bp_sys1", key, true) == 0)
+                    {
+                        if ((int)call["bp_sys1"] != -1 && (int)call["bp_dia1"] != -1)
+                        {
+                            cell.Text = call["bp_sys1"].ToString() + "/" + call["bp_dia1"].ToString();
                         }
                     }
                     else
