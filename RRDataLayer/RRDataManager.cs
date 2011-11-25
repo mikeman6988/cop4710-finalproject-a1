@@ -466,8 +466,8 @@ namespace RRDataLayer
         public List<RRDataObject> getRecordsForQuery()
         {
             String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1," +
-            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta " +
+            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
+            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid";
             //sqlString += createWhereString(key);
@@ -477,9 +477,9 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQuery(Nullable<DateTime> startdate, Nullable<DateTime> stopdate)
         {
-            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname,mult_pat," +
+            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta," +
+            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat" +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
             "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'";
@@ -490,9 +490,9 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date)
         {
-            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname,mult_pat," +
+            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta " +
+            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
             "where created_date_time >= '" + date.ToString() + "'";
@@ -503,9 +503,9 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date)
         {
-            String sqlString = "Select created_date_time, unitname, age, sex, categoryname,mult_pat," +
+            String sqlString = "Select created_date_time, unitname, age, sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "init_bgl, sec_bgl,loc,gcs,t_a,s_a,stemi,deptname,level,eta " +
+            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
             "where created_date_time <= '" + date.ToString() + "'";
