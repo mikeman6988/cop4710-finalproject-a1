@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 using System.Collections;
 using System.Configuration;
@@ -15,6 +16,7 @@ using System.Web.Security;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using RRDataLayer;
 
 namespace RescueReceiving
 {
@@ -27,10 +29,11 @@ namespace RescueReceiving
 
          protected void Button1_Click(object sender, EventArgs e)
         {
-            String x = this.FileUpload1.FileName;
+            String fileName = "~\\tmp\\" + Path.GetRandomFileName();
+            FileUpload1.SaveAs(Server.MapPath(fileName));
             OleDbConnection oconn = new OleDbConnection
             (@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
-            Server.MapPath(this.FileUpload1.) + ";" +
+            Server.MapPath(fileName) + ";" +
             "Extended Properties=Excel 8.0");//OledbConnection and 
             // connectionstring to connect to the Excel Sheet
             try
@@ -41,6 +44,28 @@ namespace RescueReceiving
                 oconn.Open();  //Here [Sheet1$] is the name of the sheet 
                 //in the Excel file where the data is present
                 OleDbDataReader odr = ocmd.ExecuteReader();
+                List<RRDataObject> daObs = new List<RRDataObject>();
+
+                while (odr.Read())
+                {
+                    RRDataObject daOb = new RRDataObject();
+                    for (int i = 0; i < odr.FieldCount;i++)
+                    {
+                        String keyName = odr.GetName(i);
+                        daOb.Add(keyName,odr[i].ToString());
+
+                    }
+                    daObs.Add(daOb);
+                    
+                }
+
+                foreach (var x in daObs)
+                {
+                    foreach (var y in x.Keys)
+                    {
+                        Response.Write(y + "," + x[y].ToString() + "<br/>");
+                    }
+                }
                 /*string fname = "";
                 string lname = "";
                 string mobnum = "";
