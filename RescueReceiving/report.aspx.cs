@@ -159,6 +159,47 @@ namespace RescueReceiving
                             cell.Text = call["bp_sys1"].ToString() + "/" + call["bp_dia1"].ToString();
                         }
                     }
+                    else if (string.Compare("pulse1", key, true) == 0)
+                    {
+                        if ((int)call["pulse1"] != -1)
+                        {
+                            cell.Text = call["pulse1"].ToString();
+                        }
+                    }
+                    else if (string.Compare("resp1", key, true) == 0)
+                    {
+                        if ((int)call["resp1"] != -1)
+                        {
+                            cell.Text = call["resp1"].ToString();
+                        }
+                    }
+                    else if (string.Compare("init_bgl", key, true) == 0)
+                    {
+                        if ((int)call["init_bgl"] != -1)
+                        {
+                            cell.Text = call["init_bgl"].ToString();
+                        }
+                        if ((int)call["sec_bgl"] != -1)
+                        {
+                            cell.Text += "/";
+                            cell.Text += call["sec_bgl"].ToString();
+                        }
+                    }
+                    else if (string.Compare("gcs", key, true) == 0)
+                    {
+                        if ((int)call["gcs"] != -1)
+                        {
+                            cell.Text = call["gcs"].ToString();
+                        }
+                    }
+                    else if (string.Compare("eta", key, true) == 0)
+                    {
+                        if ((int)call["eta"] != -1)
+                        {
+                            cell.Text = call["eta"].ToString();
+                        }
+                    }
+
                     else
                     {
                         cell.Text = call[key].ToString();
