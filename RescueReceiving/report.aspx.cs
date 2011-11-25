@@ -62,18 +62,20 @@ namespace RescueReceiving
             headers.Add("categoryname", "Category");
             headers.Add("ccdescription", "CC/Description");
             headers.Add("bp_sys1", "BP");
-            headers.Add("pulse1", "P");
-            headers.Add("resp1", "R");
-            headers.Add("02_sat1", "O2 Sat");
-            headers.Add("init_bgl", "BGL#1/#2");
+            headers.Add("pulse1", "Pulse");
+            headers.Add("resp1", "Resp");
+            headers.Add("o2_sat1", "O2 Sat");
+            headers.Add("bgl1", "BGL#1/#2");
             headers.Add("loc", "LOC");
             headers.Add("gcs", "GCS");
             headers.Add("t_a", "T/A");
             headers.Add("s_a", "S/A");
             headers.Add("stemi", "Stemi");
-            headers.Add("department", "Dept");
-            headers.Add("level", "Level<br/>1,2,3,T,<br/>Resus");
+            headers.Add("deptname", "Dept");
+            headers.Add("level", "Level");
+            headers.Add("resus", "Resus");
             headers.Add("eta", "ETA");
+            headers.Add("mult_pat", "MPS");
 
             List<String> myfnames = mgr.getFieldNames();
             foreach (String val in myfnames)
@@ -115,12 +117,12 @@ namespace RescueReceiving
                     var cell = new TableCell();
                     if (string.Compare("created_date_time", key, true) == 0)
                     {
-                        DateTime created = (DateTime) call[key];
+                        DateTime created = (DateTime)call[key];
 
                         cell.Text = "<a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">";
                         cell.Text += created.ToShortDateString();
                         cell.Text += "</a></td>";
-                        
+
                         row.Cells.Add(cell);
 
                         cell = new TableCell();
@@ -158,6 +160,10 @@ namespace RescueReceiving
                         {
                             cell.Text = call["bp_sys1"].ToString() + "/" + call["bp_dia1"].ToString();
                         }
+                        if ((int)call["bp_sys2"] != -1 && (int)call["bp_dia2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["bp_sys2"].ToString() + "/" + call["bp_dia2"].ToString();
+                        }
                     }
                     else if (string.Compare("pulse1", key, true) == 0)
                     {
@@ -165,24 +171,52 @@ namespace RescueReceiving
                         {
                             cell.Text = call["pulse1"].ToString();
                         }
+                        if ((int)call["pulse2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["pulse2"].ToString();
+                        }
                     }
                     else if (string.Compare("resp1", key, true) == 0)
                     {
+                        
                         if ((int)call["resp1"] != -1)
                         {
                             cell.Text = call["resp1"].ToString();
                         }
-                    }
-                    else if (string.Compare("init_bgl", key, true) == 0)
-                    {
-                        if ((int)call["init_bgl"] != -1)
+                        if ((int)call["resp2"] != -1)
                         {
-                            cell.Text = call["init_bgl"].ToString();
+                            cell.Text += "<br/>" + call["resp2"].ToString();
                         }
-                        if ((int)call["sec_bgl"] != -1)
+                    }
+                    else if (string.Compare("o2_sat1", key, true) == 0)
+                    {
+                        if ((int)call["o2_sat1"] != -1)
+                        {
+                            cell.Text = call["o2_sat1"].ToString();
+                        }
+                        if ((int)call["o2_sat2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["o2_sat2"].ToString();
+                        }
+                    }
+                    else if (string.Compare("bgl1", key, true) == 0)
+                    {
+                        if ((int)call["bgl1"] != -1)
+                        {
+                            cell.Text = call["bgl1"].ToString();
+                        }
+                        if ((int)call["bgl2"] != -1)
                         {
                             cell.Text += "/";
-                            cell.Text += call["sec_bgl"].ToString();
+                            cell.Text += call["bgl2"].ToString();
+                        }
+
+                    }
+                    else if (string.Compare("loc", key, true) == 0)
+                    {
+                        if ((string)call["loc"] != "U")
+                        {
+                            cell.Text = call["loc"].ToString();
                         }
                     }
                     else if (string.Compare("gcs", key, true) == 0)
@@ -192,6 +226,48 @@ namespace RescueReceiving
                             cell.Text = call["gcs"].ToString();
                         }
                     }
+                    else if (string.Compare("t_a", key, true) == 0)
+                    {
+                        if ((bool)call["t_a"] != false)
+                        {
+                            cell.Text = "Y";
+                        }
+                    }
+                    else if (string.Compare("s_a", key, true) == 0)
+                    {
+                        if ((bool)call["s_a"] != false)
+                        {
+                            cell.Text = "Y";
+                        }
+                    }
+                    else if (string.Compare("stemi", key, true) == 0)
+                    {
+                        if ((bool)call["stemi"] != false)
+                        {
+                            cell.Text = "Y";
+                        }
+                    }
+                    else if (string.Compare("deptname", key, true) == 0)
+                    {
+                        if ((string)call["deptname"] != "N/A")
+                        {
+                            cell.Text = call["deptname"].ToString();
+                        }
+                    }
+                    else if (string.Compare("level", key, true) == 0)
+                    {
+                        if ((string)call["level"] != "0")
+                        {
+                            cell.Text = call["level"].ToString();
+                        }
+                    }
+                    else if (string.Compare("resus", key, true) == 0)
+                    {
+                        if ((bool)call["resus"] != false)
+                        {
+                            cell.Text = "Y";
+                        }
+                    }
                     else if (string.Compare("eta", key, true) == 0)
                     {
                         if ((int)call["eta"] != -1)
@@ -199,7 +275,13 @@ namespace RescueReceiving
                             cell.Text = call["eta"].ToString();
                         }
                     }
-
+                    else if (string.Compare("mult_pat", key, true) == 0)
+                    {
+                        if ((bool)call["mult_pat"] != false)
+                        {
+                            cell.Text = "Y";
+                        }
+                    }
                     else
                     {
                         cell.Text = call[key].ToString();

@@ -1,21 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="import.aspx.cs" Inherits="RescueReceiving.import" %>
+﻿<%@ Page Title="Import Excel Report" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeBehind="import.aspx.cs" Inherits="RescueReceiving.import" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">    
-    <div>
-    </div>
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <p>
         <asp:FileUpload ID="FileUpload1" runat="server" />
     </p>
     <p>
-    <asp:Button ID="Button1" runat="server" Text="Import" onclick="Button1_Click" />
+    <asp:Button ID="btnImport" runat="server" Text="Import" onclick="btnImport_Click" />
     </p>
-    </form>
-</body>
-</html>
+</asp:Content>
