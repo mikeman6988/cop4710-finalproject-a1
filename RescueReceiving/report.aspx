@@ -4,6 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <asp:Table ID="tblReport" runat="server" BorderStyle="Solid" Width="100%">
+    <asp:Table ID="tblReport" runat="server" BorderStyle="Solid" Width="100%" 
+        GridLines="Both">
     </asp:Table>
 </asp:Content>

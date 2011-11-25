@@ -54,11 +54,38 @@ namespace RescueReceiving
             var row = new TableRow();
             row.Font.Bold = true;
 
+            var headers = new Dictionary<string, string>();
+            headers.Add("created_date_time", "Date/Time");
+            headers.Add("unitname", "Unit");
+            headers.Add("age", "Age");
+            headers.Add("sex", "Sex");
+            headers.Add("categoryname", "Category");
+            headers.Add("ccdescription", "CC/Description");
+            headers.Add("bp_sys1", "BP");
+            headers.Add("pulse1", "P");
+            headers.Add("resp1", "R");
+            headers.Add("02_sat1", "O2 Sat");
+            headers.Add("init_bgl", "BGL#1/#2");
+            headers.Add("loc", "LOC");
+            headers.Add("gcs", "GCS");
+            headers.Add("t_a", "T/A");
+            headers.Add("s_a", "S/A");
+            headers.Add("stemi", "Stemi");
+            headers.Add("department", "Dept");
+            headers.Add("level", "Level<br/>1,2,3,T,<br/>Resus");
+            headers.Add("eta", "ETA");
+
             List<String> myfnames = mgr.getFieldNames();
             foreach (String val in myfnames)
             {
+                if (!headers.ContainsKey(val))
+                {
+                    continue;
+                }
+
                 var cell = new TableCell();
-                cell.Text = val.ToString();
+                cell.Wrap = true;
+                cell.Text = headers[val];
                 cell.HorizontalAlign = HorizontalAlign.Center;
 
                 row.Cells.Add(cell);
@@ -68,15 +95,30 @@ namespace RescueReceiving
             foreach (var call in myCalls)
             {
                 row = new TableRow();
-
                 foreach (var key in call.Keys)
                 {
+                    if (!headers.ContainsKey(key))
+                    {
+                        continue;
+                    }
+
                     var cell = new TableCell();
-                    if (key.Equals("created_date_time"))
+                    if (string.Compare("created_date_time", key, true) == 0)
                     {
                         cell.Text = "<a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">";
                         cell.Text += call[key].ToString();
                         cell.Text += "</a></td>";
+                    }
+                    else if (string.Compare("age", key, true) == 0)
+                    {
+                        if ((int)call["age"] == -1)
+                        {
+                            cell.Text = string.Empty;
+                        }
+                        else
+                        {
+                            cell.Text = call["age"].ToString();
+                        }
                     }
                     else
                     {

@@ -63,6 +63,7 @@
                             <td>
                                 <asp:Label ID="Label8" runat="server" Text="A&O X"></asp:Label>
                                 <asp:DropDownList ID="ddlAlertOriented" runat="server">
+                                    <asp:ListItem Value="-1">N/A</asp:ListItem>
                                     <asp:ListItem Value="4">4</asp:ListItem>
                                     <asp:ListItem Value="3">3</asp:ListItem>
                                     <asp:ListItem Value="2">2</asp:ListItem>
@@ -130,7 +131,7 @@
                             <td>
                                 <asp:Label ID="Label15" runat="server" Text="GCS:"></asp:Label>
                                 <asp:DropDownList ID="ddlGCS" runat="server">
-                                    <asp:ListItem Value="0"> </asp:ListItem>
+                                    <asp:ListItem Value="-1">N/A</asp:ListItem>
                                     <asp:ListItem Value="15">15</asp:ListItem>
                                     <asp:ListItem Value="14">14</asp:ListItem>
                                     <asp:ListItem Value="13">13</asp:ListItem>
@@ -191,6 +192,7 @@
                 <td>
                     <asp:Label ID="Label21" runat="server" Text="Driver:"></asp:Label>
                     <asp:DropDownList ID="ddlDriver" runat="server">
+                        <asp:ListItem Value="-1">N/A</asp:ListItem>
                         <asp:ListItem Value="0">Unrestrained</asp:ListItem>
                         <asp:ListItem Value="1">Restrained</asp:ListItem>
                     </asp:DropDownList>
@@ -198,6 +200,7 @@
                 <td>
                     <asp:Label ID="Label22" runat="server" Text="Passenger:"></asp:Label>
                     <asp:DropDownList ID="ddlPassenger" runat="server">
+                        <asp:ListItem Value="-1">N/A</asp:ListItem>
                         <asp:ListItem Value="0">Front Unrestrained</asp:ListItem>
                         <asp:ListItem Value="1">Front Restrained</asp:ListItem>
                         <asp:ListItem Value="2">Rear Unrestrained</asp:ListItem>
@@ -244,6 +247,7 @@
                 <td>
                     <asp:Label ID="Label33" runat="server" Text="Level:"></asp:Label>
                     <asp:DropDownList ID="ddlLevel" runat="server">
+                        <asp:ListItem Value="0">N/A</asp:ListItem>
                         <asp:ListItem Value="1">1</asp:ListItem>
                         <asp:ListItem Value="2">2</asp:ListItem>
                         <asp:ListItem Value="3">3</asp:ListItem>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using RRDataLayer;
+using System.Web.Security;
 
 namespace RescueReceiving
 {
@@ -48,6 +49,10 @@ namespace RescueReceiving
             m_now = DateTime.Now;
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
+
+            tbDispatcher.Text = User.Identity.Name;
+
+            var notApplicableItem = new ListItem("N/A", "-1");
 
             // Get the county list
             //
@@ -141,6 +146,7 @@ namespace RescueReceiving
 
             // Set the ETA drop down
             //
+            ddlETA.Items.Add(notApplicableItem);
             for (int i = 0; i <= 60; ++i)
             {
                 var item = new ListItem(i.ToString(), i.ToString());
@@ -166,29 +172,29 @@ namespace RescueReceiving
 
             ddlCounty.SelectedValue = ec.CountyId.ToString();
             ddlUnit.SelectedValue = ec.UnitId.ToString();
-            tbAge.Text = ec.Age.ToString();
+            tbAge.Text = TextBoxToString(ec.Age);
             SetAgeType(ec.AgeType);
             SetSex(ec.Sex);
             ddlAlertOriented.SelectedValue = ec.AlertAndOriented.ToString();
             cbMultiplePatient.Checked = ec.MultiplePatient;
-            tbBPS1.Text = ec.Systolic1.ToString();
-            tbBPD1.Text = ec.Diastolic1.ToString();
-            tbBPS2.Text = ec.Systolic2.ToString();
-            tbBPD2.Text = ec.Diastolic2.ToString();
-            tbPulse1.Text = ec.Pulse1.ToString();
-            tbPulse2.Text = ec.Pulse2.ToString();
-            tbResp1.Text = ec.Respiration1.ToString();
-            tbResp2.Text = ec.Respiration2.ToString();
-            tbO2SAT1.Text = ec.OxygenSaturation1.ToString();
-            tbO2SAT2.Text = ec.OxygenSaturation2.ToString();
+            tbBPS1.Text = TextBoxToString(ec.Systolic1);
+            tbBPD1.Text = TextBoxToString(ec.Diastolic1);
+            tbBPS2.Text = TextBoxToString(ec.Systolic2);
+            tbBPD2.Text = TextBoxToString(ec.Diastolic2);
+            tbPulse1.Text = TextBoxToString(ec.Pulse1);
+            tbPulse2.Text = TextBoxToString(ec.Pulse2);
+            tbResp1.Text = TextBoxToString(ec.Respiration1);
+            tbResp2.Text = TextBoxToString(ec.Respiration2);
+            tbO2SAT1.Text = TextBoxToString(ec.OxygenSaturation1);
+            tbO2SAT2.Text = TextBoxToString(ec.OxygenSaturation2);
             ddlLOC.SelectedValue = ec.LossOfConsciousness.ToString();
             ddlGCS.SelectedValue = ec.GlasgowComaScale.ToString();
-            tbBGL1.Text = ec.BloodGlucoseLevel1.ToString();
-            tbBGL2.Text = ec.BloodGlucoseLevel2.ToString();
+            tbBGL1.Text = TextBoxToString(ec.BloodGlucoseLevel1);
+            tbBGL2.Text = TextBoxToString(ec.BloodGlucoseLevel2);
             ddlCategory.SelectedValue = ec.CategoryId.ToString();
             ddlChiefComplaint.SelectedValue = ec.ChiefComplaintId.ToString();
             tbChiefComplaint.Text = ec.ChiefComplaint;
-            tbSpeed.Text = ec.Speed.ToString();
+            tbSpeed.Text = TextBoxToString(ec.Speed);
             SetDriverRestrained(ec.DriverRestrained);
             ddlPassenger.SelectedValue = ec.PassengerRestrain.ToString();
             cbEjected.Checked = ec.Ejected;
@@ -213,6 +219,9 @@ namespace RescueReceiving
             ddlDoctor.SelectedValue = ec.Doctor.ToString();
             tbDEA.Text = ec.DEA_No;
             cbNarc.Checked = ec.Narc;
+            
+            // TODO
+            //tbDispatcher.Text = 
 
             // Set the histories
             //
@@ -240,7 +249,7 @@ namespace RescueReceiving
             ec.CreatedDateTime = m_now;
             ec.CountyId = SafeToInt(ddlCounty.SelectedValue);
             ec.UnitId = SafeToInt(ddlUnit.SelectedValue);
-            ec.Age = SafeToInt(tbAge.Text);
+            ec.Age = SafeToInt(tbAge.Text); 
             ec.AgeType = GetAgeType();
             ec.Sex = GetSex();
             ec.AlertAndOriented = SafeToInt(ddlAlertOriented.SelectedValue);
@@ -287,6 +296,9 @@ namespace RescueReceiving
             ec.Doctor = SafeToInt(ddlDoctor.SelectedValue);
             ec.DEA_No = tbDEA.Text;
             ec.Narc = cbNarc.Checked;
+
+            // TODO:
+            // ec.Dispatcher
 
             // Get the data manager from the application
             //
@@ -466,6 +478,19 @@ namespace RescueReceiving
             {
             }
             return span;
+        }
+
+        // Utility to convert an integer to string for text box
+        // -1 means text box should be empty
+        //
+        private string TextBoxToString(int val)
+        {
+            string ret = string.Empty;
+            if (val != -1)
+            {
+                ret = val.ToString();
+            }
+            return ret;
         }
     }
 }
