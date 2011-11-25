@@ -225,9 +225,18 @@ namespace RescueReceiving
                                 int val = -1;
                                 int.TryParse(bgl, out val);
 
-                                daOb["bp_sys1"] = sys1;
+                                daOb["bgl" + j] = val;
                                 ++j;
+
+                                if (j > 2)
+                                {
+                                    break;
+                                }
                             }
+                        }
+                        else if (string.Compare(field, "loc", true) == 0)
+                        {
+                            string strLoc = odr[i].ToString();
                         }
 
 
