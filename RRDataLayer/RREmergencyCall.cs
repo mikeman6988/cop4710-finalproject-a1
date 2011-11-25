@@ -319,11 +319,11 @@ namespace RRDataLayer
             }
         }
 
-        public bool DriverRestrained
+        public int DriverRestrained
         {
             get
             {
-                return (bool)this["driver_res"];
+                return (int)this["driver_res"];
             }
             set
             {
@@ -604,6 +604,18 @@ namespace RRDataLayer
             set
             {
                 this["narc"] = value;
+            }
+        }
+
+        public string Dispatcher
+        {
+            get
+            {
+                return (string)this["dispatcher"];
+            }
+            set
+            {
+                this["dispatcher"] = value;
             }
         }
     }
