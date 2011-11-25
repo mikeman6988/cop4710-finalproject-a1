@@ -251,11 +251,11 @@ namespace RRDataLayer
         {
             get
             {
-                return (int) this["init_bgl"];
+                return (int) this["bgl1"];
             }
             set
             {
-                this["init_bgl"] = value;
+                this["bgl1"] = value;
             }
         }
 
@@ -263,11 +263,11 @@ namespace RRDataLayer
         {
             get
             {
-                return (int)this["sec_bgl"];
+                return (int)this["bgl2"];
             }
             set
             {
-                this["sec_bgl"] = value;
+                this["bgl2"] = value;
             }
         }
 
