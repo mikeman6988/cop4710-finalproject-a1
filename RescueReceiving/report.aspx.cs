@@ -55,7 +55,7 @@ namespace RescueReceiving
             row.Font.Bold = true;
 
             var headers = new Dictionary<string, string>();
-            headers.Add("created_date_time", "Date/Time");
+            headers.Add("created_date_time", "Date");
             headers.Add("unitname", "Unit");
             headers.Add("age", "Age");
             headers.Add("sex", "Sex");
@@ -89,6 +89,16 @@ namespace RescueReceiving
                 cell.HorizontalAlign = HorizontalAlign.Center;
 
                 row.Cells.Add(cell);
+
+                if (string.Compare("created_date_time", val, true) == 0)
+                {
+                    cell = new TableCell();
+                    cell.Wrap = true;
+                    cell.Text = "Time";
+                    cell.HorizontalAlign = HorizontalAlign.Center;
+
+                    row.Cells.Add(cell);
+                }
             }
             tblReport.Rows.Add(row);
 
@@ -105,9 +115,19 @@ namespace RescueReceiving
                     var cell = new TableCell();
                     if (string.Compare("created_date_time", key, true) == 0)
                     {
+                        DateTime created = (DateTime) call[key];
+
                         cell.Text = "<a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">";
-                        cell.Text += call[key].ToString();
+                        cell.Text += created.ToShortDateString();
                         cell.Text += "</a></td>";
+                        
+                        row.Cells.Add(cell);
+
+                        cell = new TableCell();
+                        TimeSpan time = created.TimeOfDay;
+                        cell.Text = time.ToString("hhmm");
+                        //cell.Text = created.ToShortTimeString();
+
                     }
                     else if (string.Compare("age", key, true) == 0)
                     {
@@ -118,6 +138,16 @@ namespace RescueReceiving
                         else
                         {
                             cell.Text = call["age"].ToString();
+                        }
+                    }
+                    else if (string.Compare("ccdescription", key, true) == 0)
+                    {
+                        cell.Width = Unit.Pixel(200);
+                        cell.Wrap = true;
+                        cell.Text = call["ccdescription"].ToString();
+                        if (!string.IsNullOrEmpty(call["cc"].ToString()))
+                        {
+                            cell.Text += "<br/>" + call["cc"].ToString();
                         }
                     }
                     else

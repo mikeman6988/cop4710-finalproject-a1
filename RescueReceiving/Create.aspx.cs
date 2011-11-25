@@ -195,7 +195,7 @@ namespace RescueReceiving
             ddlChiefComplaint.SelectedValue = ec.ChiefComplaintId.ToString();
             tbChiefComplaint.Text = ec.ChiefComplaint;
             tbSpeed.Text = TextBoxToString(ec.Speed);
-            SetDriverRestrained(ec.DriverRestrained);
+            ddlDriver.SelectedValue = ec.DriverRestrained.ToString();
             ddlPassenger.SelectedValue = ec.PassengerRestrain.ToString();
             cbEjected.Checked = ec.Ejected;
             cbEntrapped.Checked = ec.Entrapped;
@@ -219,9 +219,7 @@ namespace RescueReceiving
             ddlDoctor.SelectedValue = ec.Doctor.ToString();
             tbDEA.Text = ec.DEA_No;
             cbNarc.Checked = ec.Narc;
-            
-            // TODO
-            //tbDispatcher.Text = 
+            tbDispatcher.Text = ec.Dispatcher;
 
             // Set the histories
             //
@@ -272,7 +270,7 @@ namespace RescueReceiving
             ec.ChiefComplaintId = SafeToInt(ddlChiefComplaint.SelectedValue);
             ec.ChiefComplaint = tbChiefComplaint.Text;
             ec.Speed = SafeToInt(tbSpeed.Text);
-            ec.DriverRestrained = GetDriverRestrained();
+            ec.DriverRestrained = SafeToInt(ddlDriver.SelectedValue);
             ec.PassengerRestrain = SafeToInt(ddlPassenger.SelectedValue);
             ec.Ejected = cbEjected.Checked;
             ec.Entrapped = cbEntrapped.Checked;
@@ -296,9 +294,7 @@ namespace RescueReceiving
             ec.Doctor = SafeToInt(ddlDoctor.SelectedValue);
             ec.DEA_No = tbDEA.Text;
             ec.Narc = cbNarc.Checked;
-
-            // TODO:
-            // ec.Dispatcher
+            ec.Dispatcher = tbDispatcher.Text;
 
             // Get the data manager from the application
             //
@@ -336,34 +332,7 @@ namespace RescueReceiving
 
             // Relead the form
             //
-            Response.Redirect(Request.Path);
-        }
-
-        // Utility to determine if driver is restrained or not
-        //
-        private bool GetDriverRestrained()
-        {
-            bool bRestrained = false;
-            string val = ddlDriver.SelectedValue;
-            if (string.Compare(val, "1") == 0)
-            {
-                bRestrained = true;
-            }
-            return bRestrained;
-        }
-
-        // Utility to set driver restrained
-        //
-        private void SetDriverRestrained(bool bRestrained)
-        {
-            if (bRestrained)
-            {
-                ddlDriver.SelectedValue = "1";
-            }
-            else
-            {
-                ddlDriver.SelectedValue = "0";
-            }
+            Response.Redirect("~/Default.aspx");
         }
 
         // Utility to determine the active age type
