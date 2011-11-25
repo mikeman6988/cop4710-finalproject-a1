@@ -62,10 +62,10 @@ namespace RescueReceiving
             headers.Add("categoryname", "Category");
             headers.Add("ccdescription", "CC/Description");
             headers.Add("bp_sys1", "BP");
-            headers.Add("pulse1", "P");
-            headers.Add("resp1", "R");
+            headers.Add("pulse1", "Pulse");
+            headers.Add("resp1", "Resp");
             headers.Add("o2_sat1", "O2 Sat");
-            headers.Add("init_bgl", "BGL#1/#2");
+            headers.Add("bgl1", "BGL#1/#2");
             headers.Add("loc", "LOC");
             headers.Add("gcs", "GCS");
             headers.Add("t_a", "T/A");
@@ -162,6 +162,10 @@ namespace RescueReceiving
                         {
                             cell.Text = call["bp_sys1"].ToString() + "/" + call["bp_dia1"].ToString();
                         }
+                        if ((int)call["bp_sys2"] != -1 && (int)call["bp_dia2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["bp_sys2"].ToString() + "/" + call["bp_dia2"].ToString();
+                        }
                     }
                     else if (string.Compare("pulse1", key, true) == 0)
                     {
@@ -169,13 +173,21 @@ namespace RescueReceiving
                         {
                             cell.Text = call["pulse1"].ToString();
                         }
+                        if ((int)call["pulse2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["pulse2"].ToString();
+                        }
                     }
                     else if (string.Compare("resp1", key, true) == 0)
                     {
-                        cell.Width = Unit.Pixel(25);
+                        
                         if ((int)call["resp1"] != -1)
                         {
                             cell.Text = call["resp1"].ToString();
+                        }
+                        if ((int)call["resp2"] != -1)
+                        {
+                            cell.Text += "<br/>" + call["resp2"].ToString();
                         }
                     }
                     else if (string.Compare("o2_sat1", key, true) == 0)
@@ -184,18 +196,23 @@ namespace RescueReceiving
                         {
                             cell.Text = call["o2_sat1"].ToString();
                         }
-                    }
-                    else if (string.Compare("init_bgl", key, true) == 0)
-                    {
-                        if ((int)call["init_bgl"] != -1)
+                        if ((int)call["o2_sat2"] != -1)
                         {
-                            cell.Text = call["init_bgl"].ToString();
+                            cell.Text += "<br/>" + call["o2_sat2"].ToString();
                         }
-                        if ((int)call["sec_bgl"] != -1)
+                    }
+                    else if (string.Compare("bgl1", key, true) == 0)
+                    {
+                        if ((int)call["bgl1"] != -1)
+                        {
+                            cell.Text = call["bgl1"].ToString();
+                        }
+                        if ((int)call["bgl2"] != -1)
                         {
                             cell.Text += "/";
-                            cell.Text += call["sec_bgl"].ToString();
+                            cell.Text += call["bgl2"].ToString();
                         }
+
                     }
                     else if (string.Compare("loc", key, true) == 0)
                     {
@@ -215,21 +232,21 @@ namespace RescueReceiving
                     {
                         if ((bool)call["t_a"] != false)
                         {
-                            cell.Text = call["t_a"].ToString();
+                            cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("s_a", key, true) == 0)
                     {
                         if ((bool)call["s_a"] != false)
                         {
-                            cell.Text = call["s_a"].ToString();
+                            cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("stemi", key, true) == 0)
                     {
                         if ((bool)call["stemi"] != false)
                         {
-                            cell.Text = call["stemi"].ToString();
+                            cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("deptname", key, true) == 0)
@@ -250,7 +267,7 @@ namespace RescueReceiving
                     {
                         if ((bool)call["resus"] != false)
                         {
-                            cell.Text = call["resus"].ToString();
+                            cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("eta", key, true) == 0)
@@ -264,7 +281,7 @@ namespace RescueReceiving
                     {
                         if ((bool)call["mult_pat"] != false)
                         {
-                            cell.Text = "Yes";
+                            cell.Text = "Y";
                         }
                     }
                     else
