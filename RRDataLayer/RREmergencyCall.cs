@@ -7,6 +7,29 @@ namespace RRDataLayer
 {
     public class RREmergencyCall : RRDataObject
     {
+        private string SafeGetString(object obj)
+        {
+            string str = string.Empty;
+            if (obj is string)
+            {
+                str = (string)obj;
+            }
+            return str;
+        }
+
+        private TimeSpan SafeGetTimeSpan(object obj)
+        {
+            TimeSpan time = TimeSpan.Zero;
+            try
+            {
+                time = (TimeSpan)obj;
+            }
+            catch
+            {
+            }
+            return time;
+        }
+
         public int Id
         {
             get
@@ -16,6 +39,18 @@ namespace RRDataLayer
             set
             {
                 this["id"] = value;
+            }
+        }
+
+        public string CreatedBy
+        {
+            get
+            {
+                return SafeGetString(this["created_by"]);
+            }
+            set
+            {
+                this["created_by"] = value;
             }
         }
 
@@ -83,7 +118,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (string)this["sex"];
+                return SafeGetString(this["sex"]);
             }
             set
             {
@@ -311,7 +346,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (string)this["cc"];
+                return SafeGetString(this["cc"]);
             }
             set
             {
@@ -431,7 +466,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (string)this["medical_detail"];
+                return SafeGetString(this["medical_detail"]);
             }
             set
             {
@@ -527,7 +562,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (TimeSpan)this["onset"];
+                return SafeGetTimeSpan(this["onset"]);
             }
             set
             {
@@ -539,7 +574,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (TimeSpan)this["rescue_time"];
+                return SafeGetTimeSpan(this["rescue_time"]); ;
             }
             set
             {
@@ -599,7 +634,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (string)this["dea_num"];
+                return SafeGetString(this["dea_num"]);
             }
             set
             {
@@ -623,7 +658,7 @@ namespace RRDataLayer
         {
             get
             {
-                return (string)this["dispatcher"];
+                return SafeGetString(this["dispatcher"]);
             }
             set
             {
