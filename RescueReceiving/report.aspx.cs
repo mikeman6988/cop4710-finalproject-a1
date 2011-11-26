@@ -148,8 +148,6 @@ namespace RescueReceiving
                     }
                     else if (string.Compare("ccdescription", key, true) == 0)
                     {
-                        cell.Width = Unit.Pixel(200);
-                        cell.Wrap = true;
                         cell.Text = call["ccdescription"].ToString();
                         if (!string.IsNullOrEmpty(call["cc"].ToString()))
                         {

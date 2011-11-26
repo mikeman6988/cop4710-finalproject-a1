@@ -71,6 +71,20 @@ namespace RescueReceiving
             return id;
         }
 
+        private int FindDeptId(string deptName, List<RRDepartment> depts)
+        {
+            int id = -1;
+            foreach (var dept in depts)
+            {
+                if (string.Compare(dept.Name, deptName, true) == 0)
+                {
+                    id = dept.Id;
+                    break;
+                }
+            }
+            return id;
+        }
+
         protected void btnImport_Click(object sender, EventArgs e)
         {
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
@@ -78,6 +92,7 @@ namespace RescueReceiving
             List<RRUnit> units = mgr.getAllUnitItems();
             List<RRCategory> categories = mgr.getAllCategoryItems();
             List<RRChiefComplaint> complaints = mgr.getCCListItems();
+            List<RRDepartment> depts = mgr.getAllDepartmentItems();
 
              //dictionary
             var headers = new Dictionary<string, string>();
@@ -97,7 +112,7 @@ namespace RescueReceiving
             headers.Add("T/A", "t_a");
             headers.Add("S/A", "s_a");
             headers.Add("Stemi", "stemi");
-            headers.Add("TC/ER/Peds", "deptname");
+            headers.Add("TC/ER/Peds", "receiving_dept");
             headers.Add("Level 1,2,3,T, Resus", "level");
             headers.Add("ETA", "eta");
 
@@ -116,7 +131,6 @@ namespace RescueReceiving
                 oconn.Open();  //Here [Sheet1$] is the name of the sheet 
                 //in the Excel file where the data is present
                 OleDbDataReader odr = ocmd.ExecuteReader();
-                List<RRDataObject> daObs = new List<RRDataObject>();
 
                 while (odr.Read())
                 {
@@ -124,7 +138,7 @@ namespace RescueReceiving
                     for (int i = 0; i < odr.FieldCount;i++)
                     {
                         String keyName = odr.GetName(i);
-                        if (headers.ContainsKey(keyName))
+                        if (!headers.ContainsKey(keyName))
                         {
                             continue;   // skip to next column
                         }
@@ -134,10 +148,28 @@ namespace RescueReceiving
                         {
                             CultureInfo enUS = new CultureInfo("en-US");
                             string strDate = odr[i].ToString();
+                            if (string.IsNullOrEmpty(strDate))
+                            {
+                                try
+                                {
+                                    DateTime date = odr.GetDateTime(i);
+                                    strDate = date.ToShortDateString();
+                                }
+                                catch
+                                {
+                                }
+                            }
                             string strTime = odr[i + 1].ToString();
-                            
-                            var time = DateTime.ParseExact(strDate + " " + strTime, "MM/dd/yy hhmm", enUS, DateTimeStyles.None);
-                            daOb[field] = time;
+
+                            try
+                            {
+                                var time = DateTime.ParseExact(strDate + " " + strTime, "MM/dd/yy hhmm", enUS, DateTimeStyles.None);
+                                daOb[field] = time;
+                            }
+                            catch
+                            {
+                                daOb[field] = DateTime.Now;
+                            }
                         }
                         else if (string.Compare(field, "unit", true) == 0)
                         {
@@ -160,7 +192,10 @@ namespace RescueReceiving
                             }
 
                             int nAge = -1;
-                            int.TryParse(strAge, out nAge);
+                            if (!int.TryParse(strAge, out nAge))
+                            {
+                                nAge = -1;
+                            }
 
                             daOb[field] = nAge;
                         }
@@ -170,7 +205,7 @@ namespace RescueReceiving
                         }
                         else if (string.Compare(field, "category", true) == 0)
                         {
-                            int id = FindCategoryId(odr[i].ToString(), categories);
+                            daOb[field] = FindCategoryId(odr[i].ToString(), categories);
                         }
                         else if (string.Compare(field, "ccid", true) == 0)
                         {
@@ -188,10 +223,16 @@ namespace RescueReceiving
                             if (bps.Length == 2)
                             {
                                 int sys1 = -1;
-                                int.TryParse(bps[0], out sys1);
+                                if (!int.TryParse(bps[0], out sys1))
+                                {
+                                    sys1 = -1;
+                                }
 
                                 int dia1 = -1;
-                                int.TryParse(bps[1], out dia1);
+                                if (!int.TryParse(bps[1], out dia1))
+                                {
+                                    dia1 = -1;
+                                }
 
                                 daOb["bp_sys1"] = sys1;
                                 daOb["bp_dia1"] = sys1;
@@ -200,19 +241,28 @@ namespace RescueReceiving
                         else if (string.Compare(field, "pulse1", true) == 0)
                         {
                             int pulse = -1;
-                            int.TryParse(odr[i].ToString(), out pulse);
+                            if (!int.TryParse(odr[i].ToString(), out pulse))
+                            {
+                                pulse = -1;
+                            }
                             daOb[field] = pulse;
                         }
                         else if (string.Compare(field, "resp1", true) == 0)
                         {
                             int resp = -1;
-                            int.TryParse(odr[i].ToString(), out resp);
+                            if (!int.TryParse(odr[i].ToString(), out resp))
+                            {
+                                resp = -1;
+                            }
                             daOb[field] = resp;
                         }
                         else if (string.Compare(field, "o2_sat1", true) == 0)
                         {
                             int o2sat = -1;
-                            int.TryParse(odr[i].ToString(), out o2sat);
+                            if (!int.TryParse(odr[i].ToString(), out o2sat))
+                            {
+                                o2sat = -1;
+                            }
                             daOb[field] = o2sat;
                         }
                         else if (string.Compare(field, "bgl1", true) == 0)
@@ -223,17 +273,92 @@ namespace RescueReceiving
                             foreach (var bgl in bgls)
                             {
                                 int val = -1;
-                                int.TryParse(bgl, out val);
+                                if (!int.TryParse(bgl, out val))
+                                {
+                                    val = -1;
+                                }
 
-                                //daOb["bp_sys1"] = sys1;
+                                daOb["bgl" + j] = val;
                                 ++j;
+
+                                if (j > 2)
+                                {
+                                    break;
+                                }
                             }
                         }
-
-
+                        else if (string.Compare(field, "loc", true) == 0)
+                        {
+                            string strLoc = odr[i].ToString();
+                            if (string.IsNullOrEmpty(strLoc))
+                            {
+                                strLoc = "U";
+                            }
+                            daOb[field] = strLoc;
+                        }
+                        else if (string.Compare(field, "gcs", true) == 0)
+                        {
+                            string strGcs = odr[i].ToString();
+                            int gcs = -1;
+                            if (string.IsNullOrEmpty(strGcs))
+                            {
+                                gcs = -1;
+                            }
+                            daOb[field] = gcs;
+                        }
+                        else if (string.Compare(field, "t_a", true) == 0)
+                        {
+                            string strTA = odr[i].ToString();
+                            if (string.Compare(strTA, "Y", true) == 0)
+                            {
+                                daOb[field] = true;
+                            }
+                        }
+                        else if (string.Compare(field, "s_a", true) == 0)
+                        {
+                            string strSA = odr[i].ToString();
+                            if (string.Compare(strSA, "Y", true) == 0)
+                            {
+                                daOb[field] = true;
+                            }
+                        }
+                        else if (string.Compare(field, "stemi", true) == 0)
+                        {
+                            string strStemi = odr[i].ToString();
+                            if (string.Compare(strStemi, "Y", true) == 0)
+                            {
+                                daOb[field] = true;
+                            }
+                        }
+                        else if (string.Compare(field, "receiving_dept", true) == 0)
+                        {
+                            daOb[field] = FindDeptId(odr[i].ToString(), depts);
+                        }
+                        else if (string.Compare(field, "level", true) == 0)
+                        {
+                            string strLevel = odr[i].ToString();
+                            if (string.Compare("strLevel", "RESUS", true) == 0)
+                            {
+                                strLevel = "0";
+                                daOb["resus"] = true;
+                            }
+                            if (string.IsNullOrEmpty(strLevel))
+                            {
+                                strLevel = "0";
+                            }
+                            daOb[field] = strLevel;
+                        }
+                        else if (string.Compare(field, "eta", true) == 0)
+                        {
+                            int eta = -1;
+                            if (!int.TryParse(odr[i].ToString(), out eta))
+                            {
+                                eta = -1;
+                            }
+                            daOb[field] = eta;
+                        }
                     }
-                    daObs.Add(daOb);
-                    
+                    mgr.createTableRow("EmergencyCall", daOb);
                 }
                 
                 oconn.Close();

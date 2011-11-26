@@ -82,6 +82,25 @@ namespace RRDataLayer
             }
         }
 
+        public void createTableRow(string strTable, RRDataObject da)
+        {
+            String sqlString = "INSERT INTO " + strTable + " ";
+            sqlString += createColValueString(da);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
+            cmd.CommandType = CommandType.Text;
+            cmd.Transaction = tran;
+            try
+            {
+                int z = cmd.ExecuteNonQuery();
+                tran.Commit();
+            }
+            catch (SqlException ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+        }
+
         public void createHistory(RRHistoryJunction ec)
         {
             String sqlString = "INSERT INTO hxjunction ";
