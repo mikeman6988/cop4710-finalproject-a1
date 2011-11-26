@@ -240,7 +240,7 @@ namespace RescueReceiving
                                 }
 
                                 daOb["bp_sys1"] = sys1;
-                                daOb["bp_dia1"] = sys1;
+                                daOb["bp_dia1"] = dia1;
                             }
                         }
                         else if (string.Compare(field, "pulse1", true) == 0)
