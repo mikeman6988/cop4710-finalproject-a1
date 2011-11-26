@@ -159,14 +159,16 @@ namespace RescueReceiving
             // Get the data manager from the application
             //
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
-            
-            m_now = DateTime.Parse(callid);
 
-            var calls = mgr.getEmergencyCallByPrimaryKey(m_now);
+            int id = -1;
+            int.TryParse(callid, out id);
+
+            var calls = mgr.getEmergencyCallByPrimaryKey(id);
             var ec = calls[0];    // TODO: ok check
 
             // Set form fields
             //
+            m_now = ec.CreatedDateTime;
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
 
@@ -223,7 +225,7 @@ namespace RescueReceiving
 
             // Set the histories
             //
-            var histories = mgr.getHistoryByPrimaryKey(m_now);
+            var histories = mgr.getHistoryByPrimaryKey(id);
             foreach (var history in histories)
             {
                 var item = cblHistory.Items.FindByValue(history.HistoryId.ToString());
@@ -232,7 +234,7 @@ namespace RescueReceiving
 
             // Set the treatments
             //
-            var treatments = mgr.getTreatmentByPrimaryKey(m_now);
+            var treatments = mgr.getTreatmentByPrimaryKey(id);
             foreach (var treatment in treatments)
             {
                 var item = cblTreatment.Items.FindByValue(treatment.TreatmentId.ToString());
@@ -299,7 +301,7 @@ namespace RescueReceiving
             // Get the data manager from the application
             //
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
-            mgr.deleteEmergencyCall(ec.CreatedDateTime);
+            mgr.deleteEmergencyCall(ec.Id);
             mgr.createEmergencyCall(ec);
 
             // History junction
@@ -309,7 +311,7 @@ namespace RescueReceiving
                 if (item.Selected)
                 {
                     var history = new RRHistoryJunction();
-                    history.EmergencyCallId = ec.CreatedDateTime;
+                    history.EmergencyCallId = ec.Id;
                     history.HistoryId = SafeToInt(item.Value);
 
                     mgr.createHistory(history);
@@ -323,7 +325,7 @@ namespace RescueReceiving
                 if (item.Selected)
                 {
                     var treatment = new RRTreatmentJunction();
-                    treatment.EmergencyCallId = ec.CreatedDateTime;
+                    treatment.EmergencyCallId = ec.Id;
                     treatment.TreatmentId = SafeToInt(item.Value);
 
                     mgr.createTreatment(treatment);
