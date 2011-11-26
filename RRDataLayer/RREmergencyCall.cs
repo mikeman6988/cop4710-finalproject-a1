@@ -7,6 +7,18 @@ namespace RRDataLayer
 {
     public class RREmergencyCall : RRDataObject
     {
+        public int Id
+        {
+            get
+            {
+                return (int) this["id"];
+            }
+            set
+            {
+                this["id"] = value;
+            }
+        }
+
         public DateTime CreatedDateTime
         {
             get
