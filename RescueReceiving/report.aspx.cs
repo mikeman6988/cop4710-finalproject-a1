@@ -133,7 +133,7 @@ namespace RescueReceiving
                     }
                     else if (string.Compare("age", key, true) == 0)
                     {
-                        if ((int)call["age"] != -1)
+                        if (SafeToInt(call["age"]) != -1)
                         {
                             cell.Text = call["age"].ToString();
                             if (string.Compare(call["age_interval"].ToString(), "M", true) == 0)
@@ -156,22 +156,22 @@ namespace RescueReceiving
                     }
                     else if (string.Compare("bp_sys1", key, true) == 0)
                     {
-                        if ((int)call["bp_sys1"] != -1 && (int)call["bp_dia1"] != -1)
+                        if (SafeToInt(call["bp_sys1"]) != -1 && SafeToInt(call["bp_dia1"]) != -1)
                         {
                             cell.Text = call["bp_sys1"].ToString() + "/" + call["bp_dia1"].ToString();
                         }
-                        if ((int)call["bp_sys2"] != -1 && (int)call["bp_dia2"] != -1)
+                        if (SafeToInt(call["bp_sys2"]) != -1 && SafeToInt(call["bp_dia2"]) != -1)
                         {
                             cell.Text += "<br/>" + call["bp_sys2"].ToString() + "/" + call["bp_dia2"].ToString();
                         }
                     }
                     else if (string.Compare("pulse1", key, true) == 0)
                     {
-                        if ((int)call["pulse1"] != -1)
+                        if (SafeToInt(call["pulse1"]) != -1)
                         {
                             cell.Text = call["pulse1"].ToString();
                         }
-                        if ((int)call["pulse2"] != -1)
+                        if (SafeToInt(call["pulse2"]) != -1)
                         {
                             cell.Text += "<br/>" + call["pulse2"].ToString();
                         }
@@ -179,33 +179,33 @@ namespace RescueReceiving
                     else if (string.Compare("resp1", key, true) == 0)
                     {
                         
-                        if ((int)call["resp1"] != -1)
+                        if (SafeToInt(call["resp1"]) != -1)
                         {
                             cell.Text = call["resp1"].ToString();
                         }
-                        if ((int)call["resp2"] != -1)
+                        if (SafeToInt(call["resp2"]) != -1)
                         {
                             cell.Text += "<br/>" + call["resp2"].ToString();
                         }
                     }
                     else if (string.Compare("o2_sat1", key, true) == 0)
                     {
-                        if ((int)call["o2_sat1"] != -1)
+                        if (SafeToInt(call["o2_sat1"]) != -1)
                         {
                             cell.Text = call["o2_sat1"].ToString();
                         }
-                        if ((int)call["o2_sat2"] != -1)
+                        if (SafeToInt(call["o2_sat2"]) != -1)
                         {
                             cell.Text += "<br/>" + call["o2_sat2"].ToString();
                         }
                     }
                     else if (string.Compare("bgl1", key, true) == 0)
                     {
-                        if ((int)call["bgl1"] != -1)
+                        if (SafeToInt(call["bgl1"]) != -1)
                         {
                             cell.Text = call["bgl1"].ToString();
                         }
-                        if ((int)call["bgl2"] != -1)
+                        if (SafeToInt(call["bgl2"]) != -1)
                         {
                             cell.Text += "/";
                             cell.Text += call["bgl2"].ToString();
@@ -214,70 +214,70 @@ namespace RescueReceiving
                     }
                     else if (string.Compare("loc", key, true) == 0)
                     {
-                        if ((string)call["loc"] != "U")
+                        if (SafeToString(call["loc"]) != "U")
                         {
                             cell.Text = call["loc"].ToString();
                         }
                     }
                     else if (string.Compare("gcs", key, true) == 0)
                     {
-                        if ((int)call["gcs"] != -1)
+                        if (SafeToInt(call["gcs"]) != -1)
                         {
                             cell.Text = call["gcs"].ToString();
                         }
                     }
                     else if (string.Compare("t_a", key, true) == 0)
                     {
-                        if ((bool)call["t_a"] != false)
+                        if (SafeToBool(call["t_a"]) != false)
                         {
                             cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("s_a", key, true) == 0)
                     {
-                        if ((bool)call["s_a"] != false)
+                        if (SafeToBool(call["s_a"]) != false)
                         {
                             cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("stemi", key, true) == 0)
                     {
-                        if ((bool)call["stemi"] != false)
+                        if (SafeToBool(call["stemi"]) != false)
                         {
                             cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("deptname", key, true) == 0)
                     {
-                        if ((string)call["deptname"] != "N/A")
+                        if (SafeToString(call["deptname"]) != "N/A")
                         {
                             cell.Text = call["deptname"].ToString();
                         }
                     }
                     else if (string.Compare("level", key, true) == 0)
                     {
-                        if ((string)call["level"] != "0")
+                        if (SafeToString(call["level"]) != "0")
                         {
                             cell.Text = call["level"].ToString();
                         }
                     }
                     else if (string.Compare("resus", key, true) == 0)
                     {
-                        if ((bool)call["resus"] != false)
+                        if (SafeToBool(call["resus"]) != false)
                         {
                             cell.Text = "Y";
                         }
                     }
                     else if (string.Compare("eta", key, true) == 0)
                     {
-                        if ((int)call["eta"] != -1)
+                        if (SafeToInt(call["eta"]) != -1)
                         {
                             cell.Text = call["eta"].ToString();
                         }
                     }
                     else if (string.Compare("mult_pat", key, true) == 0)
                     {
-                        if ((bool)call["mult_pat"] != false)
+                        if (SafeToBool(call["mult_pat"]) != false)
                         {
                             cell.Text = "Y";
                         }
@@ -291,6 +291,76 @@ namespace RescueReceiving
 
                 tblReport.Rows.Add(row);
             }
+        }
+
+        // Utility for converting a string to Int32
+        //
+        private int SafeToInt(string value)
+        {
+            int n = -1;     // failure
+            try
+            {
+                n = Convert.ToInt32(value);
+            }
+            catch
+            {
+            }
+            return n;
+        }
+            //Overload Method for SafeToInt
+        private int SafeToInt(object value)
+        {
+            
+            return SafeToInt(value.ToString());
+        }
+
+        // Utility for converting a string to string
+        private string SafeToString(string value)
+        {
+            string n = "-1";
+            try
+            {
+                n = value;
+                if (value == null)
+                {
+                    n = "-1";
+                }
+            }
+            catch
+            {
+            }
+            return n;
+        }
+            //Overload Method for SafeToString
+        private string SafeToString(object value)
+        {
+            return SafeToString(value.ToString());
+        }
+
+        private bool SafeToBool(bool value)
+        {
+            bool n = false;
+            try
+            {
+                n = value;
+            }
+            catch
+            {
+            }
+            return n;
+        }
+
+        private bool SafeToBool(object value)
+        {
+            try
+            {
+                return SafeToBool((bool)value);
+            }
+            catch
+            {
+            }
+
+            return false;
         }
     }
 }
