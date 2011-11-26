@@ -225,7 +225,7 @@ namespace RescueReceiving
                                 int val = -1;
                                 int.TryParse(bgl, out val);
 
-                                daOb["bp_sys1"] = sys1;
+                                //daOb["bp_sys1"] = sys1;
                                 ++j;
                             }
                         }

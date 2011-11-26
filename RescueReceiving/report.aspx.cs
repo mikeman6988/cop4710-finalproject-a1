@@ -119,7 +119,7 @@ namespace RescueReceiving
                     {
                         DateTime created = (DateTime)call[key];
 
-                        cell.Text = "<a href=\"create.aspx?callid=" + Server.UrlEncode(call[key].ToString()) + "\">";
+                        cell.Text = "<a href=\"create.aspx?callid=" + call["id"].ToString() + "\">";
                         cell.Text += created.ToShortDateString();
                         cell.Text += "</a></td>";
 
