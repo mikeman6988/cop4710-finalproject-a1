@@ -201,7 +201,12 @@ namespace RescueReceiving
                         }
                         else if (string.Compare(field, "sex", true) == 0)
                         {
-                            daOb[field] = odr[i].ToString();
+                            string strSex = odr[i].ToString();
+                            if (strSex.Length > 1)
+                            {
+                                strSex = strSex.Substring(0, 1);
+                            }
+                            daOb[field] = strSex;
                         }
                         else if (string.Compare(field, "category", true) == 0)
                         {
@@ -290,10 +295,19 @@ namespace RescueReceiving
                         else if (string.Compare(field, "loc", true) == 0)
                         {
                             string strLoc = odr[i].ToString();
+
                             if (string.IsNullOrEmpty(strLoc))
                             {
                                 strLoc = "U";
                             }
+
+                            if (!(string.Compare(strLoc, "Y", true) == 0 ||
+                                  string.Compare(strLoc, "N", true) == 0 ||
+                                  string.Compare(strLoc, "U", true) == 0))
+                            {
+                                strLoc = "U";
+                            }
+
                             daOb[field] = strLoc;
                         }
                         else if (string.Compare(field, "gcs", true) == 0)
@@ -337,7 +351,7 @@ namespace RescueReceiving
                         else if (string.Compare(field, "level", true) == 0)
                         {
                             string strLevel = odr[i].ToString();
-                            if (string.Compare("strLevel", "RESUS", true) == 0)
+                            if (string.Compare(strLevel, "RESUS", true) == 0)
                             {
                                 strLevel = "0";
                                 daOb["resus"] = true;
@@ -372,6 +386,7 @@ namespace RescueReceiving
                 
             }
 
+            Response.Write("<p>Finished importing!</p>");
         } 
     }
 }

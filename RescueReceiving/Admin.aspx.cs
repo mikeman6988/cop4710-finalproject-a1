@@ -49,7 +49,7 @@ namespace RescueReceiving
 
         protected void btnImport_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/import.aspx");
         }
     }
 }
