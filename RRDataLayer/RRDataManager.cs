@@ -120,9 +120,9 @@ namespace RRDataLayer
             }
         }
 
-        public void deleteHistory(DateTime date)
+        public void deleteHistory(int key)
         {
-            String sqlString = "DELETE FROM hxjunction WHERE date='" + date.ToString() + "'";
+            String sqlString = "DELETE FROM hxjunction WHERE id=" + key;
             //sqlString += createWhereString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -139,9 +139,9 @@ namespace RRDataLayer
             }
         }
 
-        public void deleteTreatment(DateTime date)
+        public void deleteTreatment(int key)
         {
-            String sqlString = "DELETE FROM txjunction WHERE date_time='" + date.ToString() + "'";
+            String sqlString = "DELETE FROM txjunction WHERE id=" + key;
             //sqlString += createWhereString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -158,9 +158,9 @@ namespace RRDataLayer
             }
         }
 
-        public void deleteEmergencyCall(DateTime date)
+        public void deleteEmergencyCall(int key)
         {
-            String sqlString = "DELETE FROM EmergencyCall WHERE created_date_time='" + date.ToString() + "'";
+            String sqlString = "DELETE FROM EmergencyCall WHERE id=" + key;
             //sqlString += createWhereString(ec);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
@@ -170,8 +170,8 @@ namespace RRDataLayer
                 
                 int z = cmd.ExecuteNonQuery();
                 tran.Commit();
-                deleteHistory(date);
-                deleteTreatment(date);
+                deleteHistory(key);
+                deleteTreatment(key);
                 
             }
             catch (SqlException ex)
@@ -459,24 +459,24 @@ namespace RRDataLayer
             return getDataObjects<RREmergencyCall>(cmd);
         }
 
-        public List<RREmergencyCall> getEmergencyCallByPrimaryKey(DateTime key)
+        public List<RREmergencyCall> getEmergencyCallByPrimaryKey(int key)
         {
-            String sqlString = "Select * from EmergencyCall where created_date_time='" + key + "'";
+            String sqlString = "Select * from EmergencyCall where id=" + key;
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RREmergencyCall>(cmd);
         }
 
-        public List<RRHistoryJunction> getHistoryByPrimaryKey(DateTime key)
+        public List<RRHistoryJunction> getHistoryByPrimaryKey(int key)
         {
-            String sqlString = "Select * from hxjunction where date='" + key + "'";
+            String sqlString = "Select * from hxjunction where id=" + key;
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRHistoryJunction>(cmd);
         }
 
-        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(DateTime key)
+        public List<RRTreatmentJunction> getTreatmentByPrimaryKey(int key)
         {
-            String sqlString = "Select * from txjunction where date_time='" + key + "'";
+            String sqlString = "Select * from txjunction where id=" + key;
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRTreatmentJunction>(cmd);
@@ -484,7 +484,7 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQuery()
         {
-            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
+            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
@@ -496,7 +496,7 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQuery(Nullable<DateTime> startdate, Nullable<DateTime> stopdate)
         {
-            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
+            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat" +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
@@ -509,7 +509,7 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date)
         {
-            String sqlString = "Select created_date_time, unitname, age,age_interval,sex, categoryname," +
+            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
@@ -522,7 +522,7 @@ namespace RRDataLayer
 
         public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date)
         {
-            String sqlString = "Select created_date_time, unitname, age, sex, categoryname," +
+            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
