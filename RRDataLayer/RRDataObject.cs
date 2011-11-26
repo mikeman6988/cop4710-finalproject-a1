@@ -25,7 +25,19 @@ namespace RRDataLayer
         {
             get
             {
-                return m_props[key];
+                object obj = m_props[key];
+                if (obj is string)
+                {
+                    try
+                    {
+                        obj = (string)obj;
+                    }
+                    catch
+                    {
+                        obj = string.Empty;
+                    }
+                }
+                return obj;
             }
             set
             {
