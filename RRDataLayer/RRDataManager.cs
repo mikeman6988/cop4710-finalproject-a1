@@ -298,6 +298,52 @@ namespace RRDataLayer
             }
         }
 
+        public void updateEmergencyCall(RREmergencyCall ec)
+        {
+            String sqlString = "UPDATE EmergencyCall " +
+                    updateString(ec);
+            SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
+            cmd.CommandType = CommandType.Text;
+            cmd.Transaction = tran;
+            try
+            {
+                int z = cmd.ExecuteNonQuery();
+                tran.Commit();
+            }
+            catch (SqlException ex)
+            {
+                tran.Rollback();
+                throw ex;
+            }
+        }
+
+        private string updateString(RRDataObject daOb)
+        {
+            String str = "SET ";
+            String fields = "";
+            String values = "";
+            
+            //SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
+            foreach (String x in daOb.Keys)
+            {
+                object o = daOb[x];
+                if (o is string)
+                {
+                    o = ((string)o).Replace("'", "''");
+                }
+                fields = x + "=";
+                values = "'" + o + "',";
+                str += fields + values;
+                //values += ec[x] + ",\n";
+            }
+            char[] trimchar = { ',', '\n' };
+            str = str.TrimEnd(trimchar);
+            //values = values.TrimEnd(trimchar) + ")";
+            // += fields + values;
+            return str;
+        }
+
+
         public void createUnitItem(RRUnit ru)
         {
             String sqlString = "INSERT INTO unit ";
