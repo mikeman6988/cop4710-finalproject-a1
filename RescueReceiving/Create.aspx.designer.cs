@@ -94,6 +94,24 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.DropDownList ddlUnit;
         
         /// <summary>
+        /// Label46 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label46;
+        
+        /// <summary>
+        /// lblDispatcher control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDispatcher;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>

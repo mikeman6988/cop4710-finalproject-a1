@@ -50,7 +50,10 @@ namespace RescueReceiving
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
 
+            string dispatcher = User.Identity.Name;
+
             tbDispatcher.Text = User.Identity.Name;
+            lblDispatcher.Text = dispatcher;
 
             var notApplicableItem = new ListItem("N/A", "-1");
 
@@ -175,6 +178,7 @@ namespace RescueReceiving
 
             ddlCounty.SelectedValue = ec.CountyId.ToString();
             ddlUnit.SelectedValue = ec.UnitId.ToString();
+            lblDispatcher.Text = ec.CreatedBy;
             tbAge.Text = TextBoxToString(ec.Age);
             SetAgeType(ec.AgeType);
             SetSex(ec.Sex);
@@ -214,8 +218,14 @@ namespace RescueReceiving
             cbStemi.Checked = ec.STEMI;
             cbTraumaAlert.Checked = ec.TraumaAlert;
             cbResusitation.Checked = ec.Resusitation;
-            tbOnset.Text = ec.Onset.ToString();
-            tbTimeIssued.Text = ec.RescueTime.ToString();
+            if (ec.Onset != TimeSpan.Zero)
+            {
+                tbOnset.Text = ec.Onset.ToString();
+            }
+            if (ec.RescueTime != TimeSpan.Zero)
+            {
+                tbTimeIssued.Text = ec.RescueTime.ToString();
+            }
             cbNotified.Checked = ec.Notified;
             ddlETA.SelectedValue = ec.ETA.ToString();
             ddlMedication.SelectedValue = ec.Medication.ToString();
@@ -257,6 +267,7 @@ namespace RescueReceiving
             ec.CreatedDateTime = m_now;
             ec.CountyId = SafeToInt(ddlCounty.SelectedValue);
             ec.UnitId = SafeToInt(ddlUnit.SelectedValue);
+            ec.CreatedBy = lblDispatcher.Text;
             ec.Age = SafeToInt(tbAge.Text); 
             ec.AgeType = GetAgeType();
             ec.Sex = GetSex();
