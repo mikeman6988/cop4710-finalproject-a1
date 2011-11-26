@@ -12,6 +12,7 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
 
     <div>
+        <asp:Label ID="lblEcId" runat="server" Text="" Visible="False"></asp:Label>
         <table width="100%">
             <tr valign="top">
                 <td>

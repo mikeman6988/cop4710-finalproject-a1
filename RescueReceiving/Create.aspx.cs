@@ -169,6 +169,7 @@ namespace RescueReceiving
             // Set form fields
             //
             m_now = ec.CreatedDateTime;
+            lblEcId.Text = id.ToString();
             tbDate.Text = m_now.ToShortDateString();
             tbTime.Text = m_now.ToLongTimeString();
 
@@ -246,6 +247,13 @@ namespace RescueReceiving
         {
             var ec = new RREmergencyCall();
 
+            bool bIsEditing = false;
+            int id = -1;
+            if (!string.IsNullOrEmpty(lblEcId.Text))
+            {
+                id = int.Parse(lblEcId.Text);
+                bIsEditing = true;
+            }
             ec.CreatedDateTime = m_now;
             ec.CountyId = SafeToInt(ddlCounty.SelectedValue);
             ec.UnitId = SafeToInt(ddlUnit.SelectedValue);
@@ -301,7 +309,10 @@ namespace RescueReceiving
             // Get the data manager from the application
             //
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
-            mgr.deleteEmergencyCall(ec.Id);
+            if (bIsEditing)
+            {
+                mgr.deleteEmergencyCall(id);
+            }
             mgr.createEmergencyCall(ec);
 
             // History junction
@@ -311,7 +322,7 @@ namespace RescueReceiving
                 if (item.Selected)
                 {
                     var history = new RRHistoryJunction();
-                    history.EmergencyCallId = ec.Id;
+                    history.EmergencyCallId = id;
                     history.HistoryId = SafeToInt(item.Value);
 
                     mgr.createHistory(history);
@@ -325,7 +336,7 @@ namespace RescueReceiving
                 if (item.Selected)
                 {
                     var treatment = new RRTreatmentJunction();
-                    treatment.EmergencyCallId = ec.Id;
+                    treatment.EmergencyCallId = id;
                     treatment.TreatmentId = SafeToInt(item.Value);
 
                     mgr.createTreatment(treatment);
