@@ -11,15 +11,15 @@ namespace RRDataLayer
         {
         }
 
-        public DateTime EmergencyCallId
+        public int EmergencyCallId
         {
             get
             {
-                return (DateTime) this["date"];
+                return (int) this["id"];
             }
             set
             {
-                this["date"] = value;
+                this["id"] = value;
             }
         }
 
