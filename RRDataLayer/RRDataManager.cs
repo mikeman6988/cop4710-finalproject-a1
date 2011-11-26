@@ -403,9 +403,13 @@ namespace RRDataLayer
             //SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             foreach (String x in ec.Keys)
             {
-               
+                object o = ec[x];
+                if (o is string)
+                {
+                    o = ((string)o).Replace("'", "''");
+                }
                 fields += x + ",";
-                values += "'" + ec[x] + "',";
+                values += "'" + o + "',";
                 //values += ec[x] + ",\n";
             }
             char[] trimchar = { ',', '\n' };
