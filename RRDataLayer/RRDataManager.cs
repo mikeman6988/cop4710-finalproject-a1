@@ -298,10 +298,10 @@ namespace RRDataLayer
             }
         }
 
-        public void updateEmergencyCall(RREmergencyCall ec)
+        public void updateEmergencyCall(int id, RREmergencyCall ec)
         {
             String sqlString = "UPDATE EmergencyCall " +
-                    updateString(ec);
+                    updateString(ec) + " where id=" + id.ToString();
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
