@@ -488,7 +488,8 @@ namespace RRDataLayer
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
-            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid";
+            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid" +
+            "ORDER BY created_date_time";
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
@@ -501,7 +502,8 @@ namespace RRDataLayer
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat" +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'";
+            "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'" +
+            "ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
@@ -514,7 +516,8 @@ namespace RRDataLayer
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time >= '" + date.ToString() + "'";
+            "where created_date_time >= '" + date.ToString() + "'" +
+            "ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
@@ -527,7 +530,8 @@ namespace RRDataLayer
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time <= '" + date.ToString() + "'";
+            "where created_date_time <= '" + date.ToString() + "'" +
+            "ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
