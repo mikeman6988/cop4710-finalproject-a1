@@ -88,6 +88,7 @@ namespace RescueReceiving
         protected void btnImport_Click(object sender, EventArgs e)
         {
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
+            DataTable dt = (DataTable)Application["dt"];
 
             List<RRUnit> units = mgr.getAllUnitItems();
             List<RRCategory> categories = mgr.getAllCategoryItems();
@@ -116,24 +117,33 @@ namespace RescueReceiving
             headers.Add("Level 1,2,3,T, Resus", "level");
             headers.Add("ETA", "eta");
 
-            String fileName = "~\\tmp\\" + Path.GetRandomFileName();
-            FileUpload1.SaveAs(Server.MapPath(fileName));
-            OleDbConnection oconn = new OleDbConnection
-            (@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
-            Server.MapPath(fileName) + ";" +
-            "Extended Properties=Excel 8.0");//OledbConnection and 
+            //String fileName = "~\\tmp\\" + Path.GetRandomFileName();
+            //FileUpload1.SaveAs(Server.MapPath(fileName));
+            //OleDbConnection oconn = new OleDbConnection
+            //(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+           // Server.MapPath(fileName) + ";" +
+           // "Extended Properties=Excel 8.0");//OledbConnection and 
             // connectionstring to connect to the Excel Sheet
             try
             {
+                //oconn.Open(); 
+                //OleDbDataAdapter da = new OleDbDataAdapter("select * from [Sheet1$]", oconn);
+                //DataTable dt = new DataTable();
+                
+                //da.Fill(dt);
                 //After connecting to the Excel sheet here we are selecting the data 
                 //using select statement from the Excel sheet
-                OleDbCommand ocmd = new OleDbCommand("select * from [Sheet1$]", oconn);
-                oconn.Open();  //Here [Sheet1$] is the name of the sheet 
+                //OleDbCommand ocmd = new OleDbCommand("select * from [Sheet1$]", oconn);
+                //oconn.Open();  //Here [Sheet1$] is the name of the sheet 
                 //in the Excel file where the data is present
-                OleDbDataReader odr = ocmd.ExecuteReader();
-
+                //OleDbDataReader odr = ocmd.ExecuteReader();
+                //DataTable dt = GridView1.DataSource as DataTable;
+                //DataTable tdt = this.gridTable;
+                DataTableReader odr = dt.CreateDataReader();
+                //while(dt.CreateDataReader
                 while (odr.Read())
                 {
+
                     RRDataObject daOb = new RRDataObject();
                     for (int i = 0; i < odr.FieldCount;i++)
                     {
@@ -375,7 +385,7 @@ namespace RescueReceiving
                     mgr.createTableRow("EmergencyCall", daOb);
                 }
                 
-                oconn.Close();
+                //oconn.Close();
             }
             catch (DataException ee)
             {
@@ -385,8 +395,73 @@ namespace RescueReceiving
             {
                 
             }
+            btnImport.Visible = false;
+            btnView.Visible = true;
 
             Response.Write("<p>Finished importing!</p>");
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+             String fileName = "~\\tmp\\" + Path.GetRandomFileName();
+            FileUpload1.SaveAs(Server.MapPath(fileName));
+            OleDbConnection oconn = new OleDbConnection
+            (@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
+            Server.MapPath(fileName) + ";" +
+            "Extended Properties=Excel 8.0");//OledbConnection and 
+            // connectionstring to connect to the Excel Sheet
+            try
+            {
+                oconn.Open();
+                OleDbDataAdapter da = new OleDbDataAdapter("select * from [Sheet1$]", oconn);
+                //DataTable dt = new DataTable();
+                Application["dt"] = new DataTable();
+                DataTable dt = (DataTable)Application["dt"];
+
+                //dt.Columns.Add("Date", typeof(DateTime));
+                //dt.Columns.Add("Time", typeof(TimeSpan));
+                //dt.Columns.Add("Unit", typeof(string));
+                //dt.Columns.Add("Age", typeof(string));
+                //dt.Columns.Add("Sex", typeof(string));
+                //dt.Columns.Add("Category", typeof(string));
+                //dt.Columns.Add("CC/Description", typeof(string));
+                //dt.Columns.Add("BP", typeof(string));
+                //dt.Columns.Add("P", typeof(int));
+                //dt.Columns.Add("R", typeof(int));
+               // dt.Columns.Add("O2 Sat", typeof(int));
+                //dt.Columns.Add("BGL#1/#2", typeof(int));
+                //dt.Columns.Add("LOC", typeof(string));
+                //dt.Columns.Add("GCS", typeof(string));
+               // dt.Columns.Add("T/A", typeof(string));
+               // dt.Columns.Add("S/A", typeof(string));
+                //dt.Columns.Add("Stemi", typeof(string));
+                dt.Columns.Add("Level 1,2,3,T, Resus", typeof(String));
+                //dt.Columns.Add("ACS", typeof(string));
+                dt.Columns.Add("ETA", typeof(String));
+                
+               
+                da.Fill(dt);
+                GridView1.DataSource = dt;
+                GridView1.DataBind();
+                
+                oconn.Close();
+                this.btnImport.Visible = true;
+                this.btnView.Visible = false;
+                //this.tbFilename.Text = fileName;
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            this.GridView1.DataSource = null;
+            GridView1.DataBind();
+            btnView.Visible = true;
+            btnImport.Visible = false;
         } 
     }
 }

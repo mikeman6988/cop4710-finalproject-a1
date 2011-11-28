@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.SessionState;
 using RRDataLayer;
 using System.Web.Configuration;
+using System.Data;
 
 namespace RescueReceiving
 {
@@ -19,6 +20,7 @@ namespace RescueReceiving
             string connection = conn["ApplicationServices"].ConnectionString;
 
             Application["RRDataManager"] = new RRDataManager(connection);
+            Application["dt"] = new DataTable();
         }
 
         void Application_End(object sender, EventArgs e)
