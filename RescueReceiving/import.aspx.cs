@@ -154,7 +154,11 @@ namespace RescueReceiving
 
                             try
                             {
-                                var time = DateTime.ParseExact(strDate + " " + strTime, "MM/dd/yy hhmm", enUS, DateTimeStyles.None);
+                                String[] tmpsplit = strDate.Split(' ');
+                                strDate = tmpsplit[0];
+                                strTime = strTime.Substring(0, 2) + ":" + strTime.Substring(2);
+                                //var time = DateTime.Parse(strDate + strTime, "MM/dd/yy hhmm", enUS, DateTimeStyles.None);
+                                var time = DateTime.Parse(strDate + " " + strTime);
                                 daOb[field] = time;
                             }
                             catch
