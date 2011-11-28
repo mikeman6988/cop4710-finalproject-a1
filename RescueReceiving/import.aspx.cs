@@ -117,30 +117,11 @@ namespace RescueReceiving
             headers.Add("Level 1,2,3,T, Resus", "level");
             headers.Add("ETA", "eta");
 
-            //String fileName = "~\\tmp\\" + Path.GetRandomFileName();
-            //FileUpload1.SaveAs(Server.MapPath(fileName));
-            //OleDbConnection oconn = new OleDbConnection
-            //(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" +
-           // Server.MapPath(fileName) + ";" +
-           // "Extended Properties=Excel 8.0");//OledbConnection and 
-            // connectionstring to connect to the Excel Sheet
+            
             try
             {
-                //oconn.Open(); 
-                //OleDbDataAdapter da = new OleDbDataAdapter("select * from [Sheet1$]", oconn);
-                //DataTable dt = new DataTable();
                 
-                //da.Fill(dt);
-                //After connecting to the Excel sheet here we are selecting the data 
-                //using select statement from the Excel sheet
-                //OleDbCommand ocmd = new OleDbCommand("select * from [Sheet1$]", oconn);
-                //oconn.Open();  //Here [Sheet1$] is the name of the sheet 
-                //in the Excel file where the data is present
-                //OleDbDataReader odr = ocmd.ExecuteReader();
-                //DataTable dt = GridView1.DataSource as DataTable;
-                //DataTable tdt = this.gridTable;
                 DataTableReader odr = dt.CreateDataReader();
-                //while(dt.CreateDataReader
                 while (odr.Read())
                 {
 
@@ -447,7 +428,6 @@ namespace RescueReceiving
                 oconn.Close();
                 this.btnImport.Visible = true;
                 this.btnView.Visible = false;
-                //this.tbFilename.Text = fileName;
                 
             }
             catch(Exception ex)
