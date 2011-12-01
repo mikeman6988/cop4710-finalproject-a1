@@ -322,11 +322,16 @@ namespace RescueReceiving
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             if (bIsEditing)
             {
-               // mgr.deleteEmergencyCall(id);
+                // mgr.deleteEmergencyCall(id);
                 mgr.deleteHistory(id);
                 mgr.deleteTreatment(id);
+                mgr.updateEmergencyCall(id, ec);
             }
-            mgr.updateEmergencyCall(id, ec);
+            else
+            {
+                id = mgr.createEmergencyCall(ec);
+            }
+            
 
             // History junction
             //

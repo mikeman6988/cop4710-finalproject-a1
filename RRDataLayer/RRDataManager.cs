@@ -63,23 +63,28 @@ namespace RRDataLayer
             return conn;
         }
 
-        public void createEmergencyCall(RREmergencyCall ec)
+        public int createEmergencyCall(RREmergencyCall ec)
         {
+            int z = 0;
             String sqlString = "INSERT INTO EmergencyCall ";
-            sqlString += createColValueString(ec);
+            sqlString += createColValueString(ec)+ ";";
+            sqlString += "Select Scope_Identity();";
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(true));
             cmd.CommandType = CommandType.Text;
             cmd.Transaction = tran;
             try
             {
-                int z = cmd.ExecuteNonQuery();
+                z = int.Parse(cmd.ExecuteScalar().ToString());
+                //z = (int) x;
                 tran.Commit();
             }
             catch (SqlException ex)
             {
                 tran.Rollback();
                 throw ex;
+                
             }
+            return z;
         }
 
         public void createTableRow(string strTable, RRDataObject da)
@@ -566,7 +571,8 @@ namespace RRDataLayer
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time >= '" + date.ToString() + "'" +
+            "where created_date_time >= '" + date.Value.ToString() + "'" +
+            //"where created_date_time >= '" + "2011-11-30" + "'" +
             " ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
