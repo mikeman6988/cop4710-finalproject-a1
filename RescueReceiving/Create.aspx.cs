@@ -307,8 +307,20 @@ namespace RescueReceiving
             ec.STEMI = cbStemi.Checked;
             ec.TraumaAlert = cbTraumaAlert.Checked;
             ec.Resusitation = cbResusitation.Checked;
-            ec.Onset = SafeToTimeSpan(tbOnset.Text);
-            ec.RescueTime = SafeToTimeSpan(tbTimeIssued.Text);
+            try
+            {
+                ec.Onset = TimeSpan.Parse(tbOnset.Text);
+            }
+            catch
+            {
+            }
+            try
+            {
+                ec.RescueTime = TimeSpan.Parse(tbTimeIssued.Text);
+            }
+            catch
+            {
+            }
             ec.Notified = cbNotified.Checked;
             ec.ETA = SafeToInt(ddlETA.SelectedValue);
             ec.Medication = SafeToInt(ddlMedication.SelectedValue);
@@ -463,21 +475,6 @@ namespace RescueReceiving
             {
             }
             return n;
-        }
-
-        // Utility for converting a string to TimeSpan
-        //
-        private TimeSpan SafeToTimeSpan(string value)
-        {
-            TimeSpan span = DateTime.Now.TimeOfDay;
-            try
-            {
-                span = TimeSpan.Parse(value);
-            }
-            catch
-            {
-            }
-            return span;
         }
 
         // Utility to convert an integer to string for text box
