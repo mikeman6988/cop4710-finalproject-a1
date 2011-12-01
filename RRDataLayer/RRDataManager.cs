@@ -554,7 +554,7 @@ namespace RRDataLayer
         {
             String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat" +
+            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
             "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'" +
@@ -567,7 +567,7 @@ namespace RRDataLayer
         public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date)
         {
             String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
+            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
@@ -582,7 +582,7 @@ namespace RRDataLayer
         public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date)
         {
             String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, 02_sat1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
+            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,eta,mult_pat " +
             "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
             "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
