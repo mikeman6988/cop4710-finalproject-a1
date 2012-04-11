@@ -48,7 +48,7 @@ namespace RescueReceiving
             //
             m_now = DateTime.Now;
             tbDate.Text = m_now.ToShortDateString();
-            tbTime.Text = m_now.ToLongTimeString();
+            tbTime.Text = m_now.ToString("HH:mm:ss");//m_now.ToLongTimeString();
 
             string dispatcher = User.Identity.Name;
 
@@ -105,6 +105,10 @@ namespace RescueReceiving
                 var item = new ListItem(department.Name,
                                         department.Id.ToString());
                 ddlDestination.Items.Add(item);
+                if (string.Compare(department.Name, "air", true) == 0)
+                {
+                    item.Selected = true;
+                }
             }
 
             // Get the history list
@@ -129,6 +133,7 @@ namespace RescueReceiving
 
             // Get the medication list
             //
+            /*
             List<RRMedication> medications = mgr.getAllMedicationItems();
             foreach (var medication in medications)
             {
@@ -136,9 +141,11 @@ namespace RescueReceiving
                                         medication.Id.ToString());
                 ddlMedication.Items.Add(item);
             }
+            */
 
             // Get the doctor list
             //
+            /*
             List<RRDoctor> doctors = mgr.getAllDoctorItems();
             foreach (var doctor in doctors)
             {
@@ -146,6 +153,7 @@ namespace RescueReceiving
                                         doctor.Id.ToString());
                 ddlDoctor.Items.Add(item);
             }
+            */
 
             // Set the ETA drop down
             //
@@ -174,7 +182,7 @@ namespace RescueReceiving
             m_now = ec.CreatedDateTime;
             lblEcId.Text = id.ToString();
             tbDate.Text = m_now.ToShortDateString();
-            tbTime.Text = m_now.ToLongTimeString();
+            tbTime.Text = m_now.ToString("HH:mm:ss");//m_now.ToLongTimeString();
 
             ddlCounty.SelectedValue = ec.CountyId.ToString();
             ddlUnit.SelectedValue = ec.UnitId.ToString();
@@ -220,18 +228,18 @@ namespace RescueReceiving
             cbResusitation.Checked = ec.Resusitation;
             if (ec.Onset != TimeSpan.Zero)
             {
-                tbOnset.Text = ec.Onset.ToString();
+                tbOnset.Text = ec.Onset.ToString("hh':'mm");
             }
             if (ec.RescueTime != TimeSpan.Zero)
             {
-                tbTimeIssued.Text = ec.RescueTime.ToString();
+                tbTimeIssued.Text = ec.RescueTime.ToString("hh':'mm");
             }
             cbNotified.Checked = ec.Notified;
             ddlETA.SelectedValue = ec.ETA.ToString();
-            ddlMedication.SelectedValue = ec.Medication.ToString();
-            ddlDoctor.SelectedValue = ec.Doctor.ToString();
-            tbDEA.Text = ec.DEA_No;
-            cbNarc.Checked = ec.Narc;
+            //ddlMedication.SelectedValue = ec.Medication.ToString();
+            //ddlDoctor.SelectedValue = ec.Doctor.ToString();
+            //tbDEA.Text = ec.DEA_No;
+            //cbNarc.Checked = ec.Narc;
             tbDispatcher.Text = ec.Dispatcher;
 
             // Set the histories
@@ -323,10 +331,10 @@ namespace RescueReceiving
             }
             ec.Notified = cbNotified.Checked;
             ec.ETA = SafeToInt(ddlETA.SelectedValue);
-            ec.Medication = SafeToInt(ddlMedication.SelectedValue);
-            ec.Doctor = SafeToInt(ddlDoctor.SelectedValue);
-            ec.DEA_No = tbDEA.Text;
-            ec.Narc = cbNarc.Checked;
+            //ec.Medication = SafeToInt(ddlMedication.SelectedValue);
+            //ec.Doctor = SafeToInt(ddlDoctor.SelectedValue);
+            //ec.DEA_No = tbDEA.Text;
+            //ec.Narc = cbNarc.Checked;
             ec.Dispatcher = tbDispatcher.Text;
 
             // Get the data manager from the application
@@ -488,6 +496,34 @@ namespace RescueReceiving
                 ret = val.ToString();
             }
             return ret;
+        }
+
+        protected void OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            string strCounty = ddlCounty.SelectedValue;
+
+            // Get the data manager from the application
+            //
+            RRDataManager mgr = (RRDataManager)Application["RRDataManager"]; 
+            
+            List<RRUnit> units = null;
+            if (strCounty == "-1")
+            {
+                units = mgr.getAllUnitItems();
+            }
+            else
+            {
+                units = mgr.getUnitItemsByCounty(strCounty);
+            }
+
+            ddlUnit.Items.Clear();
+
+            foreach (var unit in units)
+            {
+                var item = new ListItem(unit.Name,
+                                        unit.Id.ToString());
+                ddlUnit.Items.Add(item);
+            }
         }
     }
 }

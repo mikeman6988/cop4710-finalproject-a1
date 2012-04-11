@@ -25,7 +25,8 @@
                 </td>
                 <td>
                     <asp:Label ID="Label19" runat="server" Text="County:"></asp:Label>
-                    <asp:DropDownList ID="ddlCounty" runat="server">
+                    <asp:DropDownList ID="ddlCounty" runat="server" AutoPostBack="True" 
+                        onselectedindexchanged="OnSelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
                 <td>
@@ -76,7 +77,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <asp:CheckBox ID="cbMultiplePatient" runat="server" Text="Multiple Patient Screening" />
+                                <asp:CheckBox ID="cbMultiplePatient" runat="server" Text="MCI" />
                             </td>
                         </tr>
                     </table>
@@ -261,7 +262,7 @@
                     </asp:DropDownList>
                 </td>
                 <td>
-                    <asp:Label ID="Label34" runat="server" Text="TC-ER-PEDS:"></asp:Label>
+                    <asp:Label ID="Label34" runat="server" Text="Destination:"></asp:Label>
                     <asp:DropDownList ID="ddlDestination" runat="server">
                     </asp:DropDownList>
                 </td>
@@ -335,33 +336,7 @@
                 </td>
             </tr>
         </table>
-         
-        <table width="100%">
-            <tr>
-                <th colspan="4">
-                    <asp:Label ID="Label5" runat="server" Text="Medical Control"></asp:Label>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label36" runat="server" Text="Medication:"></asp:Label>
-                    <asp:DropDownList ID="ddlMedication" runat="server">
-                    </asp:DropDownList>
-                </td>
-                <td>
-                    <asp:Label ID="Label37" runat="server" Text="Dr. Sign:"></asp:Label>
-                    <asp:DropDownList ID="ddlDoctor" runat="server">
-                    </asp:DropDownList>
-                </td>
-                <td>
-                    <asp:Label ID="Label38" runat="server" Text="DEA#:"></asp:Label>
-                    <asp:TextBox ID="tbDEA" runat="server"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:CheckBox ID="cbNarc" runat="server" Text="NARC" />
-                </td>
-            </tr>
-        </table>
+      
         </div>
         <br />
         <div>

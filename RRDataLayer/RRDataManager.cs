@@ -625,6 +625,13 @@ namespace RRDataLayer
             return getDataObjects<RRUnit>(cmd);
         }
 
+        public List<RRUnit> getUnitItemsByCounty(string strCounty)
+        {
+
+            SqlCommand cmd = new SqlCommand("Select * from unit where countyid=" + strCounty, getDataConnection(false));
+            return getDataObjects<RRUnit>(cmd);
+        }
+
         public List<RRCategory> getAllCategoryItems()
         {
             SqlCommand cmd = new SqlCommand("Select * from category", getDataConnection(false));
