@@ -70,6 +70,7 @@
     <Compile Include="RRHistory.cs" />
     <Compile Include="RRHistoryJunction.cs" />
     <Compile Include="RRMedication.cs" />
+    <Compile Include="RRPediatricColor.cs" />
     <Compile Include="RRTreatment.cs" />
     <Compile Include="RRTreatmentJunction.cs" />
     <Compile Include="RRUnit.cs" />

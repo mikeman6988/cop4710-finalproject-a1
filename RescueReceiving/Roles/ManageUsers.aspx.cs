@@ -51,9 +51,18 @@ namespace RescueReceiving.Administration
 
                 var checkbox = new CheckBox();
                 checkbox.ID = "cbAdmin" + member.UserName;
+                checkbox.Text = "Admin";
                 checkbox.Checked = Roles.IsUserInRole(member.UserName, "Admin");
 
                 cell.Controls.Add(checkbox);
+
+                checkbox = new CheckBox();
+                checkbox.ID = "cbReport" + member.UserName;
+                checkbox.Text = "Report";
+                checkbox.Checked = Roles.IsUserInRole(member.UserName, "Report");
+
+                cell.Controls.Add(checkbox);
+                
                 row.Cells.Add(cell);
 
                 // Commands
@@ -114,6 +123,29 @@ namespace RescueReceiving.Administration
                 {
                 }
             }
+
+            cb = (CheckBox)FindControlByID(this, "cbReport" + userName);
+            if (cb.Checked)
+            {
+                try
+                {
+                    Roles.AddUserToRole(userName, "Report");
+                }
+                catch
+                {
+                }
+            }
+            else
+            {
+                try
+                {
+                    Roles.RemoveUserFromRole(userName, "Report");
+                }
+                catch
+                {
+                }
+            }
+       
         }
 
         protected void btnCreateNewUser_Click(object sender, EventArgs e)
@@ -124,6 +156,10 @@ namespace RescueReceiving.Administration
                 if (cbIsAdmin.Checked)
                 {
                     Roles.AddUserToRole(newUser.UserName, "Admin");
+                }
+                if (cbIsReport.Checked)
+                {
+                    Roles.AddUserToRole(newUser.UserName, "Report");
                 }
             }
             Response.Redirect(Request.Path);

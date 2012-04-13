@@ -63,6 +63,7 @@
     <Content Include="import.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="report.aspx" />
+    <Content Include="Reporting.aspx" />
     <Content Include="Roles\ManageUsers.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
@@ -154,6 +155,13 @@
     </Compile>
     <Compile Include="report.aspx.designer.cs">
       <DependentUpon>report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting.aspx.cs">
+      <DependentUpon>Reporting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting.aspx.designer.cs">
+      <DependentUpon>Reporting.aspx</DependentUpon>
     </Compile>
     <Compile Include="Roles\ManageUsers.aspx.cs">
       <DependentUpon>ManageUsers.aspx</DependentUpon>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
+using System.Web.Security;
 using RRDataLayer;
 
 namespace RescueReceiving
@@ -30,24 +31,31 @@ namespace RescueReceiving
                 dtstop = dtstop.Value.AddSeconds(59);
             }
 
+            string strUser = string.Empty;
+            if (!(Roles.IsUserInRole("Admin") ||
+                Roles.IsUserInRole("Report")))
+            {
+                strUser = User.Identity.Name;
+            }
+
             if (String.IsNullOrEmpty(start) && String.IsNullOrEmpty(stop))
             {
-                myCalls = mgr.getRecordsForQuery();
+                myCalls = mgr.getRecordsForQuery(strUser);
             }
             else //if
             {
 
                 if (!String.IsNullOrEmpty(start) && !String.IsNullOrEmpty(stop))
                 {
-                    myCalls = mgr.getRecordsForQuery(dtstart, dtstop);
+                    myCalls = mgr.getRecordsForQuery(dtstart, dtstop, strUser);
                 }
                 else if (!String.IsNullOrEmpty(start))
                 {
-                    myCalls = mgr.getRecordsForQueryStart(dtstart);
+                    myCalls = mgr.getRecordsForQueryStart(dtstart, strUser);
                 }
                 else
                 {
-                    myCalls = mgr.getRecordsForQueryStop(dtstop);
+                    myCalls = mgr.getRecordsForQueryStop(dtstop, strUser);
                 }
             }
 

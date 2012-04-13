@@ -665,5 +665,25 @@ namespace RRDataLayer
                 this["dispatcher"] = value;
             }
         }
+
+        public int PedColorId
+        {
+            get
+            {
+                int id = -1;
+                try
+                {
+                    id = (int)this["pc_id"];
+                }
+                catch
+                {
+                }
+                return id;
+            }
+            set
+            {
+                this["pc_id"] = value;
+            }
+        }
     }
 }
