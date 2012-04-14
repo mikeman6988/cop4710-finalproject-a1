@@ -645,7 +645,8 @@ namespace RRDataLayer
         public List<RRUnit> getUnitItemsByCounty(string strCounty)
         {
 
-            SqlCommand cmd = new SqlCommand("Select * from unit where countyid=" + strCounty, getDataConnection(false));
+            SqlCommand cmd = new SqlCommand("Select * from unit where countyid=" + strCounty
+                + " order by sequence", getDataConnection(false));
             return getDataObjects<RRUnit>(cmd);
         }
 
