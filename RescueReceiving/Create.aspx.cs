@@ -77,6 +77,16 @@ namespace RescueReceiving
                 ddlUnit.Items.Add(item);
             }
 
+            // Get peds colors
+            //
+            List<RRPediatricColor> pedColors = mgr.getAllPediatricColorItems();
+            foreach (var pedColor in pedColors)
+            {
+                var item = new ListItem(pedColor.Color,
+                                        pedColor.Id.ToString());
+                ddlPedsColor.Items.Add(item);
+            }
+
             // Get the category list
             //
             List<RRCategory> categories = mgr.getAllCategoryItems();
@@ -186,6 +196,7 @@ namespace RescueReceiving
 
             ddlCounty.SelectedValue = ec.CountyId.ToString();
             ddlUnit.SelectedValue = ec.UnitId.ToString();
+            ddlPedsColor.SelectedValue = ec.PedColorId.ToString();
             lblDispatcher.Text = ec.CreatedBy;
             tbAge.Text = TextBoxToString(ec.Age);
             SetAgeType(ec.AgeType);
@@ -275,6 +286,7 @@ namespace RescueReceiving
             ec.CreatedDateTime = m_now;
             ec.CountyId = SafeToInt(ddlCounty.SelectedValue);
             ec.UnitId = SafeToInt(ddlUnit.SelectedValue);
+            ec.PedColorId = SafeToInt(ddlPedsColor.SelectedValue);
             ec.CreatedBy = lblDispatcher.Text;
             ec.Age = SafeToInt(tbAge.Text); 
             ec.AgeType = GetAgeType();

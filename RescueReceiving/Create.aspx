@@ -54,6 +54,10 @@
                                 <asp:RadioButton ID="rbYears" GroupName="age" runat="server" Checked="true" Text="Years" />
                                 <asp:RadioButton ID="rbMonths" GroupName="age" runat="server" Text="Months" />
                                 <asp:RadioButton ID="rbWeeks" GroupName="age" runat="server" Text="Weeks" />
+                                &nbsp;&nbsp;&nbsp;
+                                <asp:Label ID="Label2" runat="server" Text="Peds Color:"></asp:Label>
+                                <asp:DropDownList ID="ddlPedsColor" runat="server">
+                                </asp:DropDownList>
                             </td>
                         </tr>
                         <tr valign="top">

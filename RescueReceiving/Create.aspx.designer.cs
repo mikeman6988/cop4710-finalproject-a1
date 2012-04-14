@@ -157,6 +157,24 @@ namespace RescueReceiving {
         protected global::System.Web.UI.WebControls.RadioButton rbWeeks;
         
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// ddlPedsColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPedsColor;
+        
+        /// <summary>
         /// Label7 control.
         /// </summary>
         /// <remarks>

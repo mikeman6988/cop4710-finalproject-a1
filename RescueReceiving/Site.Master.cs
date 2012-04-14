@@ -22,6 +22,11 @@ namespace RescueReceiving
                     NavigationMenu.Items.AddAt(1, adminMenuItem);
                 }
 
+                var reportMenuItem = new MenuItem();
+                reportMenuItem.Text = "Reports";
+                reportMenuItem.NavigateUrl = "~/Reporting.aspx";
+                NavigationMenu.Items.AddAt(1, reportMenuItem);
+
                 var createMenuItem = new MenuItem();
                 createMenuItem.Text = "Create";
                 createMenuItem.NavigateUrl = "~/Create.aspx";

@@ -12,7 +12,7 @@
             <asp:TableCell runat="server">Name</asp:TableCell>
             <asp:TableCell runat="server">Created</asp:TableCell>
             <asp:TableCell runat="server">Last On</asp:TableCell>
-            <asp:TableCell runat="server">Administrator</asp:TableCell>
+            <asp:TableCell runat="server">Roles</asp:TableCell>
             <asp:TableCell runat="server">Commands</asp:TableCell>
         </asp:TableRow>
     </asp:Table>
@@ -34,6 +34,8 @@
     <asp:TextBox ID="tbConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
     <br />
     <asp:CheckBox ID="cbIsAdmin" Text="Is administrator?" runat="server" />
+    <br />
+    <asp:CheckBox ID="cbIsReport" Text="Can run reports?" runat="server" />
     <br />
     <br />
     <asp:Button ID="btnCreateNewUser" runat="server" Text="Create New User" 

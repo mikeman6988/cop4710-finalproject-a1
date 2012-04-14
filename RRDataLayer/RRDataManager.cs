@@ -537,57 +537,67 @@ namespace RRDataLayer
             return getDataObjects<RRTreatmentJunction>(cmd);
         }
 
-        public List<RRDataObject> getRecordsForQuery()
+        private string getReportSelectFrom()
         {
-            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
+            string sqlString = "SELECT id, created_date_time, unitname, age,age_interval,sex, categoryname," +
             "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
             "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta,mult_pat " +
-            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
-            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid" +
-            " ORDER BY created_date_time";
+            "FROM EmergencyCall LEFT JOIN unit ON unit=unitid LEFT JOIN category ON category=catid LEFT JOIN " +
+            "cclist ON EmergencyCall.ccid = cclist.ccid LEFT JOIN department ON EmergencyCall.receiving_dept=deptid";
+            return sqlString;
+        }
+
+        public List<RRDataObject> getRecordsForQuery(string strUser)
+        {
+            String sqlString = getReportSelectFrom();
+            if (!string.IsNullOrEmpty(strUser))
+            {
+                sqlString += " WHERE created_by='" + strUser + "'";
+            }
+            sqlString += " ORDER BY created_date_time";
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
         }
 
-        public List<RRDataObject> getRecordsForQuery(Nullable<DateTime> startdate, Nullable<DateTime> stopdate)
+        public List<RRDataObject> getRecordsForQuery(Nullable<DateTime> startdate, Nullable<DateTime> stopdate, string strUser)
         {
-            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
-            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
-            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time between '" + startdate.ToString() + "' and '" + stopdate.ToString() + "'" +
-            " ORDER BY created_date_time"; 
+            String sqlString = getReportSelectFrom();
+            sqlString += " WHERE created_date_time BETWEEN '" + startdate.ToString() + "' AND '" + stopdate.ToString() + "'";
+            if (!string.IsNullOrEmpty(strUser))
+            {
+                sqlString += " AND created_by='" + strUser + "'";
+            }
+            sqlString += " ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
         }
 
-        public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date)
+        public List<RRDataObject> getRecordsForQueryStart(Nullable<DateTime> date, string strUser)
         {
-            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus,eta,mult_pat " +
-            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
-            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time >= '" + date.Value.ToString() + "'" +
+            String sqlString = getReportSelectFrom();
+            sqlString += " WHERE created_date_time >= '" + date.Value.ToString() + "'";
+            if (!string.IsNullOrEmpty(strUser))
+            {
+                sqlString += " AND created_by='" + strUser + "'";
+            }
             //"where created_date_time >= '" + "2011-11-30" + "'" +
-            " ORDER BY created_date_time"; 
+            sqlString += " ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
         }
 
-        public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date)
+        public List<RRDataObject> getRecordsForQueryStop(Nullable<DateTime> date, string strUser)
         {
-            String sqlString = "Select id, created_date_time, unitname, age,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1,o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,eta,mult_pat " +
-            "from EmergencyCall left join unit on unit=unitid left join category on category=catid left join " +
-            "cclist on EmergencyCall.ccid = cclist.ccid left join department on EmergencyCall.receiving_dept=deptid " +
-            "where created_date_time <= '" + date.ToString() + "'" +
-            " ORDER BY created_date_time"; 
+            String sqlString = getReportSelectFrom();
+            sqlString += " WHERE created_date_time <= '" + date.ToString() + "'";
+            if (!string.IsNullOrEmpty(strUser))
+            {
+                sqlString += " AND created_by='" + strUser + "'";
+            }
+            sqlString += " ORDER BY created_date_time"; 
             //sqlString += createWhereString(key);
             SqlCommand cmd = new SqlCommand(sqlString, getDataConnection(false));
             return getDataObjects<RRDataObject>(cmd);
@@ -623,6 +633,13 @@ namespace RRDataLayer
 
             SqlCommand cmd = new SqlCommand("Select * from unit", getDataConnection(false));
             return getDataObjects<RRUnit>(cmd);
+        }
+
+        public List<RRPediatricColor> getAllPediatricColorItems()
+        {
+
+            SqlCommand cmd = new SqlCommand("Select * from pedcolor", getDataConnection(false));
+            return getDataObjects<RRPediatricColor>(cmd);
         }
 
         public List<RRUnit> getUnitItemsByCounty(string strCounty)

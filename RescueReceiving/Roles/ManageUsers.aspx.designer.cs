@@ -103,6 +103,15 @@ namespace RescueReceiving.Administration {
         protected global::System.Web.UI.WebControls.CheckBox cbIsAdmin;
         
         /// <summary>
+        /// cbIsReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIsReport;
+        
+        /// <summary>
         /// btnCreateNewUser control.
         /// </summary>
         /// <remarks>
