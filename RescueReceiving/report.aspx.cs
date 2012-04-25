@@ -14,6 +14,11 @@ namespace RescueReceiving
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            bool bIsAdmin = Roles.IsUserInRole("Admin");
+
+            btnDelete1.Visible = bIsAdmin;
+            btnDelete2.Visible = bIsAdmin;
+
             List<RRDataObject> myCalls = null;
             RRDataManager mgr = (RRDataManager)Application["RRDataManager"];
             String start = Request.QueryString["start"];
@@ -32,7 +37,7 @@ namespace RescueReceiving
             }
 
             string strUser = string.Empty;
-            if (!(Roles.IsUserInRole("Admin") ||
+            if (!(bIsAdmin ||
                 Roles.IsUserInRole("Report")))
             {
                 strUser = User.Identity.Name;
@@ -66,6 +71,7 @@ namespace RescueReceiving
             headers.Add("created_date_time", "Date");
             headers.Add("unitname", "Unit");
             headers.Add("age", "Age");
+            headers.Add("pc_id", "Ped Color");
             headers.Add("sex", "Sex");
             headers.Add("categoryname", "Category");
             headers.Add("ccdescription", "CC/Description");
@@ -84,6 +90,15 @@ namespace RescueReceiving
             headers.Add("resus", "Resus");
             headers.Add("eta", "ETA");
             headers.Add("mult_pat", "MPS");
+
+            // Admins get selection column for delete
+            //
+            if (bIsAdmin)
+            {
+                var cell = new TableCell();
+                cell.Text = "&nbsp;";
+                row.Cells.Add(cell);
+            }
 
             List<String> myfnames = mgr.getFieldNames();
             foreach (String val in myfnames)
@@ -115,6 +130,21 @@ namespace RescueReceiving
             foreach (var call in myCalls)
             {
                 row = new TableRow();
+
+                // Add check box for delete
+                //
+                if (bIsAdmin)
+                {
+                    var cell = new TableCell();
+                    cell.HorizontalAlign = HorizontalAlign.Center;
+
+                    var checkbox = new CheckBox();
+                    checkbox.ID = "cbDelete" + call["id"].ToString();
+
+                    cell.Controls.Add(checkbox);
+                    row.Cells.Add(cell);
+                }
+
                 foreach (var key in call.Keys)
                 {
                     if (!headers.ContainsKey(key))
@@ -370,5 +400,41 @@ namespace RescueReceiving
 
             return false;
         }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            deleteSelectedCalls(this);
+
+            Response.Redirect(Request.RawUrl);
+        }
+
+        private void deleteSelectedCalls(Control parent)
+        {
+            var mgr = Application["RRDataManager"] as RRDataManager;
+
+            if (parent == null)
+            {
+                return;
+            }
+            foreach (Control control in parent.Controls)
+            {
+                if (control is CheckBox)
+                {
+                    var checkBox = control as CheckBox;
+                    var strName = checkBox.ID;
+                    if (checkBox.Checked && strName.StartsWith("cbDelete"))
+                    {
+                        var strId = strName.Substring(8);
+                        int nId = -1;
+                        if (int.TryParse(strId, out nId))
+                        {
+                            mgr.deleteEmergencyCall(nId);
+                        }
+                    }
+                }
+                deleteSelectedCalls(control);
+            }
+        }
     }
 }
+

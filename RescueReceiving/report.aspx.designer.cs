@@ -13,6 +13,15 @@ namespace RescueReceiving {
     public partial class report {
         
         /// <summary>
+        /// btnDelete1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete1;
+        
+        /// <summary>
         /// tblReport control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace RescueReceiving {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tblReport;
+        
+        /// <summary>
+        /// btnDelete2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete2;
     }
 }
