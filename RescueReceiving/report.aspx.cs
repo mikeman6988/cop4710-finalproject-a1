@@ -71,7 +71,7 @@ namespace RescueReceiving
             headers.Add("created_date_time", "Date");
             headers.Add("unitname", "Unit");
             headers.Add("age", "Age");
-            headers.Add("pc_id", "Ped Color");
+            headers.Add("pc_color", "Ped Color");
             headers.Add("sex", "Sex");
             headers.Add("categoryname", "Category");
             headers.Add("ccdescription", "CC/Description");
