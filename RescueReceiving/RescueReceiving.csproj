@@ -60,6 +60,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Admin.aspx" />
     <Content Include="Create.aspx" />
+    <Content Include="Export.aspx" />
     <Content Include="import.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="report.aspx" />
@@ -130,6 +131,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Export.aspx.cs">
+      <DependentUpon>Export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Export.aspx.designer.cs">
+      <DependentUpon>Export.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

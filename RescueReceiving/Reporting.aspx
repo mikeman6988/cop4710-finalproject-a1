@@ -9,5 +9,8 @@
     <asp:TextBox ID="tbStopdate" runat="server"></asp:TextBox>
     <br /><br />
     <asp:Button ID="btnReport" runat="server" Text="Run Report" 
-                    onclick="btnReport_Click" />
+                    onclick="btnReport_Click" /> 
+    &nbsp;
+    <asp:Button ID="btnReport0" runat="server" Text="Run Export" 
+                    onclick="btnExport_Click" />
 </asp:Content>
