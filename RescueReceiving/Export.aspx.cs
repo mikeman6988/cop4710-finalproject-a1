@@ -73,6 +73,7 @@ namespace RescueReceiving
 
             var headers = new Dictionary<string, string>();
             headers.Add("created_date_time", "Date");
+            headers.Add("countyName", "County");
             headers.Add("unitname", "Unit");
             headers.Add("age", "Age");
             headers.Add("pc_color", "Ped Color");

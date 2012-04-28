@@ -539,12 +539,16 @@ namespace RRDataLayer
 
         private string getReportSelectFrom()
         {
-            string sqlString = "SELECT id, created_date_time, unitname, age, pc_color,age_interval,sex, categoryname," +
-            "ccdescription, cc, bp_sys1,bp_dia1, pulse1, resp1, o2_sat1,bp_sys2,bp_dia2, pulse2, resp2, o2_sat2," +
-            "bgl1, bgl2,loc,gcs,t_a,s_a,stemi,deptname,level,resus, eta,mult_pat " +
-            "FROM EmergencyCall LEFT JOIN unit ON unit=unitid LEFT JOIN PedColor on EmergencyCall.pc_id = PedColor.pc_id " +
-            "LEFT JOIN category ON category=catid LEFT JOIN " +
-            "cclist ON EmergencyCall.ccid = cclist.ccid LEFT JOIN department ON EmergencyCall.receiving_dept=deptid";
+            string sqlString = "SELECT id, created_date_time, countyName, unitname, age, pc_color, age_interval,sex, " +
+            "categoryname, ccdescription, cc, bp_sys1, bp_dia1, pulse1, resp1, o2_sat1, bp_sys2, bp_dia2, pulse2, " +
+            "resp2, o2_sat2, bgl1, bgl2, loc, gcs, t_a, s_a, stemi, deptname, level, resus, eta, mult_pat " +
+            "FROM EmergencyCall " +
+            "LEFT JOIN county ON county=countyid " +
+            "LEFT JOIN unit ON unit=unitid " + 
+            "LEFT JOIN PedColor ON EmergencyCall.pc_id = PedColor.pc_id " +
+            "LEFT JOIN category ON category=catid " + 
+            "LEFT JOIN cclist ON EmergencyCall.ccid = cclist.ccid " + 
+            "LEFT JOIN department ON EmergencyCall.receiving_dept=deptid";
             return sqlString;
         }
 
