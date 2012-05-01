@@ -7,15 +7,38 @@
     <h2>
         Welcome to Rescue Receiving!
     </h2>
-    <p>
-    COP 4710/5716 - Data Modeling <br />
-    Dr. Behrooz Seyed-Abbassi
-    </p>
-    <p>Team A1 Sauce</p>
-    <asp:BulletedList ID="BulletedList1" runat="server">
-        <asp:ListItem>Jorge Lopez</asp:ListItem>
-        <asp:ListItem>Robert Polk</asp:ListItem>
-        <asp:ListItem>Thomas Furman</asp:ListItem>
-        <asp:ListItem>Willie Batista</asp:ListItem>
-    </asp:BulletedList>
+    <table width="100%">
+        <tr align="center" valign="top">
+            <td>
+                <asp:Image ID="Image1" runat="server" 
+                    ImageUrl="~/Images/UNF_LOGO_VERT_PMS_BlueSilv.jpg" Height="250px" />
+                <p>
+                Dr. Behrooz Seyed-Abbassi
+                </p>
+                <p>
+                Jorge Lopez<br />
+                Lyn On<br />
+                Robert Polk<br />
+                Thomas Furman<br />
+                Willie Batista
+                </p>
+            </td>
+            <td>
+                <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/SHANDS_LOGO.jpg" 
+                    Height="250px" />
+                <p>
+                    Dr. Joseph Sabato, M.D.<br />
+                    UF College of Medicine Jacksonville<br />
+                    Department of Emergency Medicine<br />
+                    Director of Field Operations and Disaster Management<br />
+                </p>
+                <p>
+                    Mr. Ernest K. Parker<br />
+                    Shands Hospital<br />
+                    Communications Supervisor<br />
+                    Trauma One Flight Program
+                </p>
+            </td>
+        </tr>
+    </table>
 </asp:Content>

@@ -61,6 +61,8 @@
     <Content Include="Admin.aspx" />
     <Content Include="Create.aspx" />
     <Content Include="Export.aspx" />
+    <Content Include="Images\SHANDS_LOGO.jpg" />
+    <Content Include="Images\UNF_LOGO_VERT_PMS_BlueSilv.jpg" />
     <Content Include="import.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="report.aspx" />
