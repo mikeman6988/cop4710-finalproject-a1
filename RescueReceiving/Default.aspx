@@ -13,6 +13,10 @@
                 <asp:Image ID="Image1" runat="server" 
                     ImageUrl="~/Images/UNF_LOGO_VERT_PMS_BlueSilv.jpg" Height="250px" />
                 <p>
+                College of Computing, Engineering and Construction<br />
+                School of Computing
+                </p>
+                <p>
                 Dr. Behrooz Seyed-Abbassi
                 </p>
                 <p>
